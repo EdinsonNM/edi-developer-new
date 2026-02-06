@@ -1,0 +1,31 @@
+# Despliegue opcional: build y verificación. Para Vercel, conectar el repo desde el dashboard.
+# Para GitHub Pages: usar output: 'export' en next.config y desplegar la carpeta .next/ o out/.
+name: Build
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 9
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: "pnpm"
+          cache-dependency-path: edi-developer-new/pnpm-lock.yaml
+      - name: Install
+        run: pnpm install
+        working-directory: edi-developer-new
+      - name: Build
+        run: pnpm run build
+        working-directory: edi-developer-new
+        env:
+          NEXT_PUBLIC_OPENAI_API_KEY: ${{ secrets.NEXT_PUBLIC_OPENAI_API_KEY }}
+          NEXT_PUBLIC_GOOGLE_API_KEY: ${{ secrets.NEXT_PUBLIC_GOOGLE_API_KEY }}

@@ -1,36 +1,48 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# edi-developer-new
 
-## Getting Started
+Sitio personal y portafolio en **Next.js** (App Router), migrado desde la versión React + Vite. Incluye secciones de inicio, presentaciones, diseño con Tailwind, componentes 3D (Three.js/React Three Fiber) y soporte i18n.
 
-First, run the development server:
+## Tecnologías
+
+- **Next.js 16** (App Router), **React 19**, **TypeScript**
+- **Tailwind CSS** (v4)
+- **React Query**, **Framer Motion** / **Motion**, **Lucide React**
+- **Three.js**, **@react-three/fiber**, **@react-three/drei**, **postprocessing**
+- **OpenAI** y **Gemini** (hooks en `presentation/utils/hooks`)
+
+## Scripts
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+pnpm install
+pnpm dev      # http://localhost:3000
+pnpm build
+pnpm start
+pnpm lint
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Variables de entorno
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+Copia `.env.example` a `.env.local` y rellena las claves que uses:
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+- `NEXT_PUBLIC_OPENAI_API_KEY` – para el asistente/chat (OpenAI).
+- `NEXT_PUBLIC_GOOGLE_API_KEY` – para funcionalidades con Gemini.
 
-## Learn More
+Solo las variables con prefijo `NEXT_PUBLIC_` están disponibles en el cliente. Para no exponer claves, usa API Routes o Server Actions y lee env sin prefijo en el servidor.
 
-To learn more about Next.js, take a look at the following resources:
+## Estructura relevante
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+- `app/` – layout, página principal, `/presentaciones`, `not-found`
+- `components/` – providers, UI y componentes (Hyperspeed, etc.)
+- `presentation/` – layout, páginas (index, presentaciones), componentes de sección, utils (i18n, hooks)
+- `design/` – átomos, moléculas, plantillas
+- `core/`, `hooks/`, `lib/` – utilidades y hooks compartidos
+- `public/` – estáticos (imágenes, modelos, PDFs, etc.)
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## Despliegue
 
-## Deploy on Vercel
+- **Vercel**: conectar el repo y la carpeta `edi-developer-new`; configurar env en el dashboard.
+- **GitHub Pages**: en `next.config.ts` usar `output: "export"` y, si aplica, `basePath`; desplegar la carpeta `out`.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## Licencia
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+MIT.

@@ -19,6 +19,11 @@
       }
     ],
     "paths": {
+      "@core/*": ["./core/*"],
+      "@design/*": ["./design/*"],
+      "@domain/*": ["./domain/*"],
+      "@infra/*": ["./infra/*"],
+      "@presentation/*": ["./presentation/*"],
       "@/*": ["./*"]
     }
   },
@@ -28,7 +33,8 @@
     "**/*.tsx",
     ".next/types/**/*.ts",
     ".next/dev/types/**/*.ts",
-    "**/*.mts"
+    "**/*.mts",
+    "types/**/*.d.ts"
   ],
   "exclude": ["node_modules"]
 }
