@@ -38,6 +38,7 @@ export function Navbar({ onNavClick }: NavbarProps) {
       { label: t.proyectos, href: "#proyectos" },
       { label: t.porQueTrabajarConmigo, href: "#por-que-trabajar-conmigo" },
       { label: t.charlas, href: "#charlas" },
+      { label: t.blog, href: "/blog" },
       { label: t.ediAcademy, href: "#edi-academy" },
       { label: t.contacto, href: "#contacto" },
     ],
@@ -96,6 +97,14 @@ export function Navbar({ onNavClick }: NavbarProps) {
               >
                 {item.label}
               </a>
+            ) : item.href.startsWith("/") ? (
+              <Link
+                href={item.href}
+                onClick={() => closeAllMenus()}
+                className="hover:text-blue-600 transition-colors px-2 py-1 rounded-md hover:bg-slate-50 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
+              >
+                {item.label}
+              </Link>
             ) : (
               <a
                 href={item.href}
@@ -209,6 +218,16 @@ export function Navbar({ onNavClick }: NavbarProps) {
                 >
                   {item.label}
                 </a>
+              ) : item.href.startsWith("/") ? (
+                <Link
+                  key={item.href}
+                  href={item.href}
+                  role="menuitem"
+                  onClick={() => closeAllMenus()}
+                  className="text-slate-600 hover:text-blue-600 transition-colors px-4 py-2 rounded-md hover:bg-slate-50 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
+                >
+                  {item.label}
+                </Link>
               ) : (
                 <a
                   key={item.href}

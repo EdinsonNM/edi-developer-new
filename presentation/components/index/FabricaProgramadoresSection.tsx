@@ -7,7 +7,7 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from "@/components/ui/carousel";
-import { BookOpen, Download, ExternalLink, Sparkles } from "lucide-react";
+import { BookOpen, Download, ExternalLink } from "lucide-react";
 import { Book3D } from "./Book3D";
 import { useI18n } from "@/presentation/utils/use-i18n";
 
@@ -151,50 +151,6 @@ export function FabricaProgramadoresSection() {
                       coverImageWebp="/cover.png"
                       className="w-full h-full scale-80"
                     />
-                  </div>
-                </div>
-              </div>
-            </CarouselItem>
-
-            <CarouselItem>
-              <div className="grid md:grid-cols-[1fr_1fr] gap-12 items-center">
-                <div className="flex flex-col justify-center">
-                  <h2 className="text-3xl font-bold tracking-tight text-slate-900 sm:text-4xl mb-6">
-                    {language === "es"
-                      ? "Interfaces que se generan solas"
-                      : "Interfaces that generate themselves"}
-                  </h2>
-
-                  <div className="mb-8">
-                    <p className="text-lg text-slate-700 leading-relaxed mb-4">
-                      {language === "es"
-                        ? "Generative UI: cómo los LLMs están cambiando la UX. Investigación sobre widgets dinámicos, Widget Registry y oportunidades en Perú y Latinoamérica."
-                        : "Generative UI: how LLMs are changing UX. Research on dynamic widgets, Widget Registry, and opportunities in Peru and Latin America."}
-                    </p>
-                    <p className="text-lg text-slate-700 leading-relaxed">
-                      {language === "es"
-                        ? "Tesis en curso con n=30 participantes. Claude API, MCP, Spotify, OpenWeatherMap y Google Maps."
-                        : "Thesis in progress with n=30 participants. Claude API, MCP, Spotify, OpenWeatherMap and Google Maps."}
-                    </p>
-                  </div>
-
-                  <div className="flex flex-col sm:flex-row gap-4">
-                    <Button
-                      asChild
-                      size="lg"
-                      className="rounded-full bg-purple-600 hover:bg-purple-700 text-white px-8 py-6 text-base"
-                    >
-                      <Link href="/blog/interfaces-generativas-llm">
-                        {language === "es" ? "Leer artículo" : "Read article"}
-                        <BookOpen className="h-4 w-4 ml-2" />
-                      </Link>
-                    </Button>
-                  </div>
-                </div>
-
-                <div className="flex items-center justify-center">
-                  <div className="w-full max-w-md flex items-center justify-center rounded-2xl bg-linear-to-br from-purple-100 to-slate-100 border border-purple-100 p-12">
-                    <Sparkles className="h-32 w-32 text-purple-500/80" strokeWidth={1.25} />
                   </div>
                 </div>
               </div>

@@ -78,6 +78,7 @@ interface Translations {
   historias: string;
 
   // Index page - Navigation
+  blog: string;
   queHago: string;
   proyectos: string;
   porQueTrabajarConmigo: string;
@@ -167,6 +168,11 @@ interface Translations {
   presentationsSubtitle: string;
   presentationsSubtitleBold: string;
   viewAllPresentations: string;
+
+  // Index page - Blog Section
+  blogSectionTitle: string;
+  blogSectionSubtitle: string;
+  viewAllPosts: string;
 
   // Index page - Edi Academy Section
   ediAcademyTitle: string;
@@ -282,6 +288,7 @@ const translations: Record<Language, Translations> = {
     historias: "Historias",
 
     // Index page - Navigation
+    blog: "Blog",
     queHago: "Qué hago",
     proyectos: "Proyectos",
     porQueTrabajarConmigo: "Por qué trabajar conmigo",
@@ -397,6 +404,12 @@ const translations: Record<Language, Translations> = {
       "Comparto materiales de charlas y presentaciones sobre {bold} y otros temas técnicos que he dictado en diferentes eventos y conferencias.",
     presentationsSubtitleBold: "IA, desarrollo de software, arquitectura",
     viewAllPresentations: "Ver todas las presentaciones",
+
+    // Index page - Blog Section
+    blogSectionTitle: "Blog",
+    blogSectionSubtitle:
+      "Artículos y reflexiones sobre IA, desarrollo de software, UX e innovación.",
+    viewAllPosts: "Ver todos los artículos",
 
     // Index page - Edi Academy Section
     ediAcademyTitle: "Formación especializada en",
@@ -517,6 +530,7 @@ const translations: Record<Language, Translations> = {
     historias: "Stories",
 
     // Index page - Navigation
+    blog: "Blog",
     queHago: "What I Do",
     proyectos: "Projects",
     porQueTrabajarConmigo: "Why Work With Me",
@@ -630,6 +644,12 @@ const translations: Record<Language, Translations> = {
       "I share materials from talks and presentations about {bold} and other technical topics I've delivered at various events and conferences.",
     presentationsSubtitleBold: "AI, software development, architecture",
     viewAllPresentations: "View all presentations",
+
+    // Index page - Blog Section
+    blogSectionTitle: "Blog",
+    blogSectionSubtitle:
+      "Articles and thoughts on AI, software development, UX, and innovation.",
+    viewAllPosts: "View all posts",
 
     // Index page - Edi Academy Section
     ediAcademyTitle: "Specialized training in",

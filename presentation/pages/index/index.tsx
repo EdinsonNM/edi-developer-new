@@ -4,7 +4,7 @@ import { WhatIDoSection } from "@/presentation/components/index/WhatIDoSection";
 import { WhyWorkWithMeSection } from "@/presentation/components/index/WhyWorkWithMeSection";
 import { TalksSection } from "@/presentation/components/index/TalksSection";
 import { FabricaProgramadoresSection } from "@/presentation/components/index/FabricaProgramadoresSection";
-import { PresentationsCarouselSection } from "@/presentation/components/index/PresentationsCarouselSection";
+import { BlogSection } from "@/presentation/components/index/BlogSection";
 import { EdiAcademySection } from "@/presentation/components/index/EdiAcademySection";
 import { ContactSection } from "@/presentation/components/index/ContactSection";
 import { FooterSection } from "@/presentation/components/index/FooterSection";
@@ -115,7 +115,7 @@ export default function LandingPage() {
       </LazySection>
 
       <LazySection rootMargin="200px">
-        <PresentationsCarouselSection />
+        <BlogSection />
       </LazySection>
 
       <LazySection rootMargin="200px">
