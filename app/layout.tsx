@@ -92,6 +92,10 @@ export const metadata: Metadata = {
       "Ingeniero de software con más de 14 años de experiencia. Especialista en Frontend, IA aplicada, gráficos 3D y arquitectura web moderna.",
     images: ["https://edi-developer.dev/edi-dev-portada.png?v=2025-optimized"],
   },
+  icons: {
+    icon: "/icons/web/favicon.ico",
+    shortcut: "/icons/web/favicon.ico",
+  },
   alternates: {
     canonical: "https://edi-developer.dev/",
     languages: {
@@ -115,7 +119,7 @@ export default function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="es">
+    <html lang="es" suppressHydrationWarning>
       <head>
         <script
           type="application/ld+json"
@@ -124,6 +128,7 @@ export default function RootLayout({
       </head>
       <body
         className={`${ptSans.variable} ${ubuntuMono.variable} font-sans antialiased min-h-screen`}
+        suppressHydrationWarning
       >
         <Providers>{children}</Providers>
       </body>

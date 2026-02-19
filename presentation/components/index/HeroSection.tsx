@@ -19,7 +19,6 @@ export function HeroSection() {
   const { t, language } = useI18n();
   const [shouldLoadHyperspeed, setShouldLoadHyperspeed] = useState(false);
 
-  // No cargar Hyperspeed si el usuario prefiere movimiento reducido (mejor rendimiento y accesibilidad)
   useEffect(() => {
     if (prefersReducedMotion()) return;
 
@@ -44,7 +43,6 @@ export function HeroSection() {
       id="inicio"
       className="relative flex flex-col items-center justify-center h-screen px-4 text-center z-10 pt-20"
     >
-      {/* Background Effects - Hyperspeed lazy loaded */}
       <div className="fixed inset-0 w-full h-full z-0 pointer-events-none">
         {shouldLoadHyperspeed ? (
           <Suspense fallback={<HyperspeedPlaceholder />}>

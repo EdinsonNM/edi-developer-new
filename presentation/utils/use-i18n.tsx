@@ -287,7 +287,7 @@ const translations: Record<Language, Translations> = {
     porQueTrabajarConmigo: "Por qué trabajar conmigo",
     charlas: "Charlas",
     contacto: "Contacto",
-    downloadCV: "Descargar CV",
+    downloadCV: "Ver CV interactivo",
 
     // Index page - Hero Section
     heroTitle: "Edi Developer",
@@ -522,7 +522,7 @@ const translations: Record<Language, Translations> = {
     porQueTrabajarConmigo: "Why Work With Me",
     charlas: "Talks",
     contacto: "Contact",
-    downloadCV: "Download CV",
+    downloadCV: "View interactive CV",
 
     // Index page - Hero Section
     heroTitle: "Edi Developer",

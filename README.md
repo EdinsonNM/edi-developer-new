@@ -1,13 +1,12 @@
 # edi-developer-new
 
-Sitio personal y portafolio en **Next.js** (App Router), migrado desde la versión React + Vite. Incluye secciones de inicio, presentaciones, diseño con Tailwind, componentes 3D (Three.js/React Three Fiber) y soporte i18n.
+Sitio personal y portafolio en **Next.js** (App Router), migrado desde la versión React + Vite. Incluye secciones de inicio, presentaciones, diseño con Tailwind y soporte i18n.
 
 ## Tecnologías
 
 - **Next.js 16** (App Router), **React 19**, **TypeScript**
 - **Tailwind CSS** (v4)
 - **React Query**, **Framer Motion** / **Motion**, **Lucide React**
-- **Three.js**, **@react-three/fiber**, **@react-three/drei**, **postprocessing**
 - **OpenAI** y **Gemini** (hooks en `presentation/utils/hooks`)
 
 ## Scripts

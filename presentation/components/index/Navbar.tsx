@@ -1,5 +1,6 @@
 import logo from "@/assets/images/logo.png";
-import { Menu, Download, Globe, X } from "lucide-react";
+import { Menu, Globe, X } from "lucide-react";
+import Link from "next/link";
 import { useMemo } from "react";
 import { useI18n } from "@/presentation/utils/use-i18n";
 import { useNavbarVisibility } from "./hooks/useNavbarVisibility";
@@ -155,15 +156,6 @@ export function Navbar({ onNavClick }: NavbarProps) {
             </div>
           )}
         </div>
-        <a
-          href="/Resume English.pdf"
-          download="Resume English.pdf"
-          className="hidden md:flex items-center gap-2 rounded-full bg-slate-900 px-4 py-2 text-sm font-medium text-white hover:bg-slate-800 transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
-          aria-label={t.downloadCV}
-        >
-          <Download className="h-4 w-4" aria-hidden="true" />
-          <span>{t.downloadCV}</span>
-        </a>
         <button
           onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
           className="lg:hidden text-slate-600 hover:text-blue-600 transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 rounded-md p-1"
@@ -229,16 +221,6 @@ export function Navbar({ onNavClick }: NavbarProps) {
                 </a>
               )
             )}
-            <a
-              href="/Resume English.pdf"
-              download="Resume English.pdf"
-              role="menuitem"
-              className="flex items-center justify-center gap-2 rounded-full bg-slate-900 px-4 py-2 text-sm font-medium text-white hover:bg-slate-800 transition-colors mt-2 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
-              aria-label={t.downloadCV}
-            >
-              <Download className="h-4 w-4" aria-hidden="true" />
-              <span>{t.downloadCV}</span>
-            </a>
           </nav>
         </div>
       )}
