@@ -135,6 +135,33 @@ body,
   will-change: transform, opacity;
 }
 
+/* Marquee (hero carousel de iconos) */
+@keyframes marquee {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-100%);
+  }
+}
+
+@keyframes marquee-vertical {
+  from {
+    transform: translateY(0);
+  }
+  to {
+    transform: translateY(-100%);
+  }
+}
+
+.animate-marquee {
+  animation: marquee var(--duration, 40s) linear infinite;
+}
+
+.animate-marquee-vertical {
+  animation: marquee-vertical var(--duration, 40s) linear infinite;
+}
+
 .glow-primary { box-shadow: 0 0 30px hsl(var(--primary) / 0.35); }
 .glow-accent { box-shadow: 0 0 30px hsl(var(--accent) / 0.35); }
 .glow-secondary { box-shadow: 0 0 30px hsl(var(--secondary) / 0.35); }
@@ -146,7 +173,9 @@ body,
     transition-duration: 0.01ms !important;
   }
   .animate-fade-in-up,
-  .animate-slide-up {
+  .animate-slide-up,
+  .animate-marquee,
+  .animate-marquee-vertical {
     animation: none;
     opacity: 1;
     transform: none;

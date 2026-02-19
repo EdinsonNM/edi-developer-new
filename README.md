@@ -25,6 +25,7 @@ Copia `.env.example` a `.env.local` y rellena las claves que uses:
 
 - `NEXT_PUBLIC_OPENAI_API_KEY` – para el asistente/chat (OpenAI).
 - `NEXT_PUBLIC_GOOGLE_API_KEY` – para funcionalidades con Gemini.
+- `NEXT_PUBLIC_GA_MEASUREMENT_ID` – Google Analytics 4 (ej. `G-XXXXXXXXXX`). Si no está definida, el tracking no se carga.
 
 Solo las variables con prefijo `NEXT_PUBLIC_` están disponibles en el cliente. Para no exponer claves, usa API Routes o Server Actions y lee env sin prefijo en el servidor.
 
