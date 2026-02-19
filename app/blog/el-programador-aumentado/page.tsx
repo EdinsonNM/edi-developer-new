@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
+import { ExternalLink } from "lucide-react";
 
 export const metadata: Metadata = {
   title: "El Programador Aumentado",
@@ -286,15 +287,16 @@ export default function ElProgramadorAumentadoBlogPage() {
             />
           </div>
 
-          <Button asChild size="lg" className="h-12 w-full bg-foreground text-background hover:bg-foreground/90 text-base font-semibold shadow-lg">
-            <a
-              href="https://medinson.gumroad.com/l/sgdywj"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Comprar El Programador Aumentado
-            </a>
-          </Button>
+          <a
+            href="https://medinson.gumroad.com/l/sgdywj"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex w-full items-center justify-center gap-2 rounded-full bg-gradient-to-r from-blue-600 to-blue-700 px-8 py-4 text-base font-medium text-white shadow-lg shadow-blue-500/25 transition-all hover:scale-105 hover:from-blue-700 hover:to-blue-800 hover:shadow-xl hover:shadow-blue-500/30 active:scale-95 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
+            aria-label="Comprar El Programador Aumentado en Gumroad"
+          >
+            <span>Comprar El Programador Aumentado</span>
+            <ExternalLink className="h-5 w-5 shrink-0" aria-hidden />
+          </a>
         </aside>
       </div>
     </main>
