@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { PT_Sans, Ubuntu_Sans_Mono } from "next/font/google";
 import Script from "next/script";
+import { Suspense } from "react";
 import { Providers } from "@/components/providers";
 import { GoogleAnalytics } from "@/components/GoogleAnalytics";
 import "./globals.css";
@@ -148,7 +149,9 @@ export default function RootLayout({
                 gtag('config', '${GA_MEASUREMENT_ID}', { send_page_view: false });
               `}
             </Script>
-            <GoogleAnalytics />
+            <Suspense fallback={null}>
+              <GoogleAnalytics />
+            </Suspense>
           </>
         )}
         <Providers>{children}</Providers>
