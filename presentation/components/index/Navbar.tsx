@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useMemo } from "react";
 import { useI18n } from "@/presentation/utils/use-i18n";
 import { useNavbarVisibility } from "./hooks/useNavbarVisibility";
+import { useNavbarSolidWhenScrolled } from "./hooks/useNavbarSolidWhenScrolled";
 import { useMenuControls } from "./hooks/useMenuControls";
 
 interface NavigationItem {
@@ -19,6 +20,7 @@ interface NavbarProps {
 export function Navbar({ onNavClick }: NavbarProps) {
   const { t, language, setLanguage } = useI18n();
   const isNavbarVisible = useNavbarVisibility();
+  const isScrolled = useNavbarSolidWhenScrolled(32);
   const {
     isMobileMenuOpen,
     isLanguageMenuOpen,
@@ -29,17 +31,18 @@ export function Navbar({ onNavClick }: NavbarProps) {
     languageMenuRef,
   } = useMenuControls();
 
-  // Memoizar opciones del menú de navegación para evitar recrearlas en cada render
+  // Navegación simplificada: Inicio, Apps, Contenido, Sobre mí, Contacto
   const navigationItems = useMemo<NavigationItem[]>(
     () => [
       { label: t.inicio, href: "#inicio" },
+      { label: t.apps, href: "#apps" },
+      { label: t.contenido, href: "#contenido" },
+      {
+        label: t.ediAcademy,
+        href: "https://edi-academy.lovable.app/",
+        external: true,
+      },
       { label: t.sobreMi, href: "#sobre-mi" },
-      { label: t.queHago, href: "#que-hago" },
-      { label: t.proyectos, href: "#proyectos" },
-      { label: t.porQueTrabajarConmigo, href: "#por-que-trabajar-conmigo" },
-      { label: t.charlas, href: "#charlas" },
-      { label: t.blog, href: "/blog" },
-      { label: t.ediAcademy, href: "#edi-academy" },
       { label: t.contacto, href: "#contacto" },
     ],
     [t]
@@ -64,9 +67,11 @@ export function Navbar({ onNavClick }: NavbarProps) {
       aria-label={
         language === "es" ? "Navegación principal" : "Main navigation"
       }
-      className={`fixed top-0 left-0 right-0 z-50 flex items-center justify-between px-6 py-4 backdrop-blur-sm bg-white/50 border-b border-slate-100 transition-transform duration-300 ${
-        isNavbarVisible ? "translate-y-0" : "-translate-y-full"
-      }`}
+      className={`fixed top-0 left-0 right-0 z-50 flex items-center justify-between px-6 py-4 transition-all duration-300 ${
+        isScrolled
+          ? "backdrop-blur-sm bg-white/50 border-b border-slate-100"
+          : "bg-transparent border-b border-transparent"
+      } ${isNavbarVisible ? "translate-y-0" : "-translate-y-full"}`}
     >
       <div className="flex items-center gap-2">
         <a

@@ -53,7 +53,8 @@ export function EdiAcademySection() {
   return (
     <section
       id="edi-academy"
-      className="relative z-10 py-24 px-4 md:px-6 bg-gradient-to-b from-white to-slate-50/30 border-t border-slate-100"
+      tabIndex={-1}
+      className="relative z-10 py-24 px-4 md:px-6 bg-gradient-to-b from-white to-slate-50/30 border-t border-slate-100 outline-none"
     >
       <div className="container mx-auto px-4 relative z-10 max-w-6xl">
         {/* Header */}

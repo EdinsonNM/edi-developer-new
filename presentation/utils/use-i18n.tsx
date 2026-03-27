@@ -87,10 +87,19 @@ interface Translations {
   downloadCV: string;
 
   // Index page - Hero Section
-  heroTitle: string;
+  heroTitleLead: string;
+  heroTitleAccent: string;
   heroSubtitle: string;
+  /** Segunda variante del párrafo (rotación): compra / libro; usa *título* para resaltar */
+  heroDescriptionDeveloper: string;
+  /** Tercera variante (rotación): Edi Academy; usa *Edi Academy* para resaltar */
+  heroDescriptionAcademy: string;
   heroDescription: string;
   contactMe: string;
+  heroCtaPrimary: string;
+  heroCtaSecondary: string;
+  contenido: string;
+  apps: string;
 
   // Index page - About Section
   aboutTitle: string;
@@ -98,6 +107,9 @@ interface Translations {
   aboutDescription2: string;
   aboutName: string;
   aboutYears: string;
+  aboutStat1: string;
+  aboutStat2: string;
+  aboutStat3: string;
 
   // Index page - What I Do Section
   whatIDoTitle: string;
@@ -112,6 +124,27 @@ interface Translations {
   educationWorkshopsDesc: string;
   productInnovation: string;
   productInnovationDesc: string;
+
+  // Index page - Apps Section
+  appsSectionTitle: string;
+  appsSectionSubtitle: string;
+  slaimTitle: string;
+  slaimTagline: string;
+  slaimDescription: string;
+  slaimBullets: string[];
+  slaimCta: string;
+  slaimHref: string;
+  emotionalAiTitle: string;
+  emotionalAiDescription: string;
+  emotionalAiCta: string;
+  emotionalAiHref: string;
+  badgeLive: string;
+  badgeFree: string;
+  badgeComingSoon: string;
+  badgeExperimental: string;
+  moreToolsComing: string;
+  placeholderAppTitle: string;
+  placeholderAppDesc: string;
 
   // Index page - Featured Projects Section
   featuredProjectsTitle: string;
@@ -128,6 +161,15 @@ interface Translations {
   yaquTitle: string;
   yaquSubtitle: string;
   yaquDesc: string;
+  badgeLiveApp: string;
+  badgeFreeTool: string;
+  badgeExperiment: string;
+  badgeContent: string;
+  badgeDemo: string;
+  neokidsCta: string;
+  costproCta: string;
+  zypherCta: string;
+  yaquCta: string;
 
   // Index page - Why Work With Me Section
   whyWorkWithMeTitle: string;
@@ -155,13 +197,21 @@ interface Translations {
   technologyWithPurpose: string;
   inviteMeToTalk: string;
 
-  // Index page - Fabrica Programadores Section
-  fabricaTitle: string;
-  fabricaDescription1: string;
-  fabricaDescription2: string;
-  fabricaBookName: string;
-  readStory: string;
-  viewIllustrations: string;
+  // Index page — Recursos y productos (cuento + libro)
+  productsSectionTitle: string;
+  productsSectionSubtitle: string;
+  fabricaProductName: string;
+  fabricaProductTagline: string;
+  fabricaProductDescription: string;
+  augmentedProductName: string;
+  augmentedProductTagline: string;
+  augmentedProductDescription: string;
+  badgeProductFree: string;
+  badgeProductPaid: string;
+  ctaReadStory: string;
+  ctaDownloadFree: string;
+  ctaViewBook: string;
+  ctaBuyNow: string;
 
   // Index page - Presentations Section
   presentationsTitle: string;
@@ -215,6 +265,9 @@ interface Translations {
 
   // Index page - Footer Section
   footerTagline: string;
+  footerNavTitle: string;
+  footerAppsTitle: string;
+  footerContactTitle: string;
 }
 
 const translations: Record<Language, Translations> = {
@@ -297,25 +350,37 @@ const translations: Record<Language, Translations> = {
     downloadCV: "Ver CV interactivo",
 
     // Index page - Hero Section
-    heroTitle: "Edi Developer",
-    heroSubtitle: "Innovación que abre oportunidades",
+    heroTitleLead: "Construyo productos y soluciones con",
+    heroTitleAccent: "inteligencia artificial",
+    heroSubtitle: "",
+    heroDescriptionDeveloper:
+      "Llévate *El Programador Aumentado*: la guía práctica para integrar IA en tu trabajo como dev. Compra con un clic en Fábrica de Programadores.",
+    heroDescriptionAcademy:
+      "En *Edi Academy* encontrarás formación práctica en IA para docentes, desarrolladores y equipos: más de 51h de contenido listo para aplicar.",
     heroDescription:
-      "La tecnología es magia cuando abre oportunidades. Y yo construyo esa magia para quienes más la necesitan.",
+      "Conoce mis productos: apps y herramientas con IA listas para usar y resolver problemas de verdad.",
     contactMe: "Contáctame",
+    heroCtaPrimary: "Ver apps",
+    heroCtaSecondary: "Fábrica de Programadores",
+    contenido: "Contenido",
+    apps: "Apps",
 
     // Index page - About Section
     aboutTitle: "Sobre mí",
     aboutDescription1:
-      "Soy {name}, ingeniero de software con más de {years} construyendo soluciones que combinan IA, arquitectura moderna, experiencias 3D y educación.",
+      "Soy {name}. No solo desarrollo: construyo productos, herramientas y contenido. Combino frontend, IA aplicada y visión de producto para crear cosas que la gente usa.",
     aboutDescription2:
-      "Mi enfoque es simple: crear tecnología que transforme realidades.",
+      "Mi diferencia: código que escala, ideas que enseñan y un ecosistema en crecimiento — apps, contenido y comunidad alrededor de la IA.",
     aboutName: "Edinson Nuñez More",
     aboutYears: "14 años",
+    aboutStat1: "+14 años construyendo productos",
+    aboutStat2: "Experiencia en frontend, UX y arquitectura",
+    aboutStat3: "Foco en IA aplicada y herramientas reales",
 
     // Index page - What I Do Section
     whatIDoTitle: "Qué hago",
     whatIDoSubtitle:
-      "Servicios especializados para clientes y empresas que buscan innovación tecnológica.",
+      "Combino desarrollo, IA aplicada y producto para construir herramientas y experiencias reales.",
     aiSolutions: "Soluciones con IA",
     aiSolutionsDesc:
       "Aplicaciones inteligentes, asistentes conversacionales, agentes, análisis de datos y automatización.",
@@ -332,10 +397,38 @@ const translations: Record<Language, Translations> = {
     productInnovationDesc:
       "Diseño de experiencias, prototipos funcionales, estrategia tecnológica y visión técnica.",
 
+    // Index page - Apps Section
+    appsSectionTitle: "Productos que estoy construyendo con IA",
+    appsSectionSubtitle:
+      "Apps y experimentos donde transformo ideas en herramientas reales como Slaim y asistentes inteligentes como Emotional AI.",
+    slaimTitle: "Slaim",
+    slaimTagline: "De idea a presentación lista en minutos.",
+    slaimDescription:
+      "Genera contenido, estructura y notas para tus presentaciones automáticamente usando IA.",
+    slaimBullets: [
+      "Genera slides a partir de una idea",
+      "Crea notas de presentación automáticamente",
+      "Ahorra horas de trabajo manual",
+    ],
+    slaimCta: "Abrir Slaim",
+    slaimHref: "https://slaim.vercel.app",
+    emotionalAiTitle: "Emotional AI",
+    emotionalAiDescription:
+      "Consultas, dudas y cuestionarios con un asistente que se siente cercano, no como un chat anónimo. Tu negocio con rostro y voz; conecta MCP y responde con lo que ya tienes en sistemas internos.",
+    emotionalAiCta: "Conocer Emotional AI",
+    emotionalAiHref: "https://emotional-ai.app",
+    badgeLive: "En vivo",
+    badgeFree: "Gratis",
+    badgeComingSoon: "Próximamente",
+    badgeExperimental: "Experimental",
+    moreToolsComing: "Más herramientas en camino",
+    placeholderAppTitle: "Próximamente",
+    placeholderAppDesc: "Nuevas herramientas y experimentos en desarrollo.",
+
     // Index page - Featured Projects Section
     featuredProjectsTitle: "Proyectos Destacados",
     featuredProjectsSubtitle:
-      "Soluciones innovadoras que transforman realidades.",
+      "Apps, demos y proyectos donde aplico frontend, IA y producto.",
     neokidsTitle: "NeoKids",
     neokidsSubtitle:
       "Asistente inteligente para apoyar a niños y jóvenes en la educación",
@@ -353,6 +446,15 @@ const translations: Record<Language, Translations> = {
     yaquSubtitle: "Gestión moderna de agua",
     yaquDesc:
       "Transforma la gestión del agua con mapas interactivos, pagos digitales e inteligencia artificial.",
+    badgeLiveApp: "App en vivo",
+    badgeFreeTool: "Herramienta gratis",
+    badgeExperiment: "Experimento",
+    badgeContent: "Contenido",
+    badgeDemo: "Demo",
+    neokidsCta: "Explorar proyecto",
+    costproCta: "Ver demo",
+    zypherCta: "Explorar proyecto",
+    yaquCta: "Ver proyecto",
 
     // Index page - Why Work With Me Section
     whyWorkWithMeTitle: "Por qué trabajar conmigo",
@@ -387,16 +489,27 @@ const translations: Record<Language, Translations> = {
     technologyWithPurpose: "Cómo crear tecnología con propósito",
     inviteMeToTalk: "Invítame a dar una charla",
 
-    // Index page - Fabrica Programadores Section
-    fabricaTitle:
-      "Fábrica de Programadores — Un cuento para inspirar a los niños",
-    fabricaDescription1:
-      "Desde mi experiencia enseñando tecnología, creé {bookName}, un cuento ilustrado que introduce a los niños al mundo de la programación de manera divertida, tierna y cercana.",
-    fabricaDescription2:
-      "Mi objetivo es despertar curiosidad, creatividad y la idea de que cualquiera, sin importar su origen, puede construir tecnología.",
-    fabricaBookName: "Fábrica de Programadores",
-    readStory: "Leer el cuento",
-    viewIllustrations: "Ver ilustraciones",
+    // Index page — Recursos y productos
+    productsSectionTitle:
+      "Recursos y productos para aprender y construir con IA",
+    productsSectionSubtitle:
+      "Un cuento gratuito para familias y un libro para desarrolladores que quieren velocidad con criterio.",
+    fabricaProductName: "Fábrica de Programadores",
+    fabricaProductTagline:
+      "Un cuento para despertar la curiosidad por la tecnología",
+    fabricaProductDescription:
+      "Cuento ilustrado que acerca la programación a los niños con humor y ternura. Léelo en la web o descarga el PDF sin coste.",
+    augmentedProductName: "El Programador Aumentado",
+    augmentedProductTagline:
+      "Cómo desarrollar software con IA sin perder el control",
+    augmentedProductDescription:
+      "Aprende a usar IA para desarrollar más rápido sin sacrificar calidad: delegación con criterio, revisión de resultados y control de arquitectura.",
+    badgeProductFree: "Gratis",
+    badgeProductPaid: "Producto",
+    ctaReadStory: "Leer cuento",
+    ctaDownloadFree: "Descargar gratis",
+    ctaViewBook: "Ver libro",
+    ctaBuyNow: "Comprar ahora",
 
     // Index page - Presentations Section
     presentationsTitle: "Presentaciones y Materiales",
@@ -459,6 +572,9 @@ const translations: Record<Language, Translations> = {
 
     // Index page - Footer Section
     footerTagline: "Construyendo futuro con tecnología y propósito.",
+    footerNavTitle: "Navegación",
+    footerAppsTitle: "Apps",
+    footerContactTitle: "Contacto",
   },
   en: {
     // Navbar
@@ -539,25 +655,37 @@ const translations: Record<Language, Translations> = {
     downloadCV: "View interactive CV",
 
     // Index page - Hero Section
-    heroTitle: "Edi Developer",
-    heroSubtitle: "Innovation that opens opportunities",
+    heroTitleLead: "I build products and solutions with",
+    heroTitleAccent: "artificial intelligence",
+    heroSubtitle: "",
+    heroDescriptionDeveloper:
+      "Get *The Augmented Programmer*: a practical playbook for weaving AI into your daily dev work. Purchase in one step from Programmers Factory.",
+    heroDescriptionAcademy:
+      "*Edi Academy* offers hands-on AI training for educators, developers, and teams — 51+ hours of content you can apply right away.",
     heroDescription:
-      "Technology is magic when it opens opportunities. And I build that magic for those who need it most.",
+      "Explore my products — AI-powered apps and tools you can try today, built for real use cases.",
     contactMe: "Contact Me",
+    heroCtaPrimary: "View apps",
+    heroCtaSecondary: "Programmers Factory",
+    contenido: "Content",
+    apps: "Apps",
 
     // Index page - About Section
     aboutTitle: "About Me",
     aboutDescription1:
-      "I'm {name}, a software engineer with over {years} building solutions that combine AI, modern architecture, 3D experiences, and education.",
+      "I'm {name}. I don't just code: I build products, tools, and content. I combine frontend, applied AI, and product vision to create things people actually use.",
     aboutDescription2:
-      "My approach is simple: create technology that transforms realities.",
+      "What sets me apart: code that scales, ideas that teach, and a growing ecosystem — apps, content, and community around AI.",
     aboutName: "Edinson Nuñez More",
     aboutYears: "14 years",
+    aboutStat1: "+14 years building products",
+    aboutStat2: "Experience in frontend, UX, and architecture",
+    aboutStat3: "Focus on applied AI and real tools",
 
     // Index page - What I Do Section
     whatIDoTitle: "What I Do",
     whatIDoSubtitle:
-      "Specialized services for clients and companies seeking technological innovation.",
+      "I combine development, applied AI, and product to build real tools and experiences.",
     aiSolutions: "AI Solutions",
     aiSolutionsDesc:
       "Intelligent applications, conversational assistants, agents, data analysis, and automation.",
@@ -574,9 +702,38 @@ const translations: Record<Language, Translations> = {
     productInnovationDesc:
       "Experience design, functional prototypes, technology strategy, and technical vision.",
 
+    // Index page - Apps Section
+    appsSectionTitle: "Products I'm building with AI",
+    appsSectionSubtitle:
+      "Apps and experiments where I turn ideas into real tools like Slaim and intelligent assistants like Emotional AI.",
+    slaimTitle: "Slaim",
+    slaimTagline: "From idea to ready presentation in minutes.",
+    slaimDescription:
+      "Generate content, structure, and notes for your presentations automatically using AI.",
+    slaimBullets: [
+      "Generate slides from an idea",
+      "Create presentation notes automatically",
+      "Save hours of manual work",
+    ],
+    slaimCta: "Open Slaim",
+    slaimHref: "https://slaim.vercel.app",
+    emotionalAiTitle: "Emotional AI",
+    emotionalAiDescription:
+      "Questions, doubts, and surveys with an assistant that feels human—not like an anonymous chat. Your business with face and voice; connect MCP and answer with what you already have in internal systems.",
+    emotionalAiCta: "Explore Emotional AI",
+    emotionalAiHref: "https://emotional-ai.app",
+    badgeLive: "Live",
+    badgeFree: "Free",
+    badgeComingSoon: "Coming Soon",
+    badgeExperimental: "Experimental",
+    moreToolsComing: "More tools on the way",
+    placeholderAppTitle: "Coming Soon",
+    placeholderAppDesc: "New tools and experiments in development.",
+
     // Index page - Featured Projects Section
     featuredProjectsTitle: "Featured Projects",
-    featuredProjectsSubtitle: "Innovative solutions that transform realities.",
+    featuredProjectsSubtitle:
+      "Apps, demos, and projects where I apply frontend, AI, and product.",
     neokidsTitle: "NeoKids",
     neokidsSubtitle:
       "Intelligent assistant to support children and youth in education",
@@ -594,6 +751,15 @@ const translations: Record<Language, Translations> = {
     yaquSubtitle: "Modern water management",
     yaquDesc:
       "Transforms water management with interactive maps, digital payments, and artificial intelligence.",
+    badgeLiveApp: "Live App",
+    badgeFreeTool: "Free Tool",
+    badgeExperiment: "Experiment",
+    badgeContent: "Content",
+    badgeDemo: "Demo",
+    neokidsCta: "Explore project",
+    costproCta: "View demo",
+    zypherCta: "Explore project",
+    yaquCta: "View project",
 
     // Index page - Why Work With Me Section
     whyWorkWithMeTitle: "Why Work With Me",
@@ -628,15 +794,24 @@ const translations: Record<Language, Translations> = {
     technologyWithPurpose: "How to create technology with purpose",
     inviteMeToTalk: "Invite me to give a talk",
 
-    // Index page - Fabrica Programadores Section
-    fabricaTitle: "Programmers Factory — A story to inspire children",
-    fabricaDescription1:
-      "From my experience teaching technology, I created {bookName}, an illustrated story that introduces children to the world of programming in a fun, tender, and approachable way.",
-    fabricaDescription2:
-      "My goal is to awaken curiosity, creativity, and the idea that anyone, regardless of their origin, can build technology.",
-    fabricaBookName: "Programmers Factory",
-    readStory: "Read the story",
-    viewIllustrations: "View illustrations",
+    // Index page — Resources & products
+    productsSectionTitle: "Resources and products to learn and build with AI",
+    productsSectionSubtitle:
+      "A free story for families and a book for developers who want speed with judgment.",
+    fabricaProductName: "Programmers Factory",
+    fabricaProductTagline: "A story to spark curiosity about technology",
+    fabricaProductDescription:
+      "An illustrated story that introduces kids to code with warmth and playfulness. Read it on the web or download the PDF free.",
+    augmentedProductName: "The Augmented Programmer",
+    augmentedProductTagline: "How to build software with AI without losing control",
+    augmentedProductDescription:
+      "Learn to use AI to ship faster without sacrificing quality: delegate with judgment, validate output, and keep architectural control.",
+    badgeProductFree: "Free",
+    badgeProductPaid: "Product",
+    ctaReadStory: "Read the story",
+    ctaDownloadFree: "Download free",
+    ctaViewBook: "View the book",
+    ctaBuyNow: "Buy now",
 
     // Index page - Presentations Section
     presentationsTitle: "Presentations & Materials",
@@ -697,6 +872,9 @@ const translations: Record<Language, Translations> = {
 
     // Index page - Footer Section
     footerTagline: "Building the future with technology and purpose.",
+    footerNavTitle: "Navigation",
+    footerAppsTitle: "Apps",
+    footerContactTitle: "Contact",
   },
 };
 

@@ -1,21 +1,29 @@
 import { useState } from "react";
+import { cn } from "@/lib/utils";
 
 interface Book3DProps {
   coverImage: string;
   coverImageWebp: string;
   className?: string;
+  /** Texto accesible de la portada (por producto) */
+  alt?: string;
 }
 
 export function Book3D({
   coverImage,
   coverImageWebp,
   className = "",
+  alt = "Portada del libro",
 }: Book3DProps) {
   const [isHovered, setIsHovered] = useState(false);
 
   return (
     <div
-      className={`relative ${className}`}
+      className={cn(
+        // Altura explícita: los hijos 3D son absolute y no aportan al flujo; sin esto el bloque colapsa a 0px
+        "relative aspect-2/3 w-full max-h-[280px]",
+        className
+      )}
       style={{
         perspective: "1000px",
         transformStyle: "preserve-3d",
@@ -24,7 +32,7 @@ export function Book3D({
       onMouseLeave={() => setIsHovered(false)}
     >
       <div
-        className="relative w-full h-full transition-transform duration-500 ease-out"
+        className="relative h-full w-full transition-transform duration-500 ease-out"
         style={{
           transform: isHovered
             ? "scale(1.05) rotateY(-10deg)"
@@ -34,7 +42,7 @@ export function Book3D({
       >
         {/* Contenedor del libro con perspectiva 3D */}
         <div
-          className="relative w-full h-full"
+          className="relative h-full w-full"
           style={{
             transformStyle: "preserve-3d",
           }}
@@ -48,21 +56,26 @@ export function Book3D({
             }}
           >
             <picture>
-              <source srcSet={coverImageWebp} type="image/webp" />
+              {coverImageWebp.toLowerCase().endsWith(".webp") ? (
+                <source
+                  srcSet={encodeURI(coverImageWebp)}
+                  type="image/webp"
+                />
+              ) : null}
               <img
-                src={coverImage}
-                alt="Portada del libro: Zorrito en la fábrica de programadores"
-                className="w-full h-full object-cover"
+                src={encodeURI(coverImage)}
+                alt={alt}
+                className="h-full w-full object-cover"
                 loading="lazy"
               />
             </picture>
             {/* Efecto de brillo en la portada */}
-            <div className="absolute inset-0 bg-gradient-to-br from-white/15 via-transparent to-transparent pointer-events-none" />
+            <div className="pointer-events-none absolute inset-0 bg-linear-to-br from-white/15 via-transparent to-transparent" />
           </div>
 
           {/* Lomo del libro */}
           <div
-            className="absolute inset-y-0 left-0 w-6 bg-gradient-to-r from-amber-900 via-amber-800 to-amber-900 rounded-l-lg shadow-lg"
+            className="absolute inset-y-0 left-0 w-6 rounded-l-lg bg-linear-to-r from-amber-900 via-amber-800 to-amber-900 shadow-lg"
             style={{
               transform: "rotateY(-90deg) translateX(-12px)",
               transformOrigin: "left center",
@@ -71,7 +84,7 @@ export function Book3D({
 
           {/* Páginas del libro (lado derecho) */}
           <div
-            className="absolute inset-0 bg-gradient-to-r from-slate-50 via-white to-slate-50 rounded-lg shadow-xl border border-slate-200"
+            className="absolute inset-0 rounded-lg border border-slate-200 bg-linear-to-r from-slate-50 via-white to-slate-50 shadow-xl"
             style={{
               transform: "translateZ(-15px)",
             }}

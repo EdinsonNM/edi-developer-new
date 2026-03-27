@@ -13,7 +13,7 @@ export function BlogSection() {
 
   return (
     <section
-      id="blog"
+      id="contenido"
       className="relative z-10 py-24 px-4 md:px-6 bg-white border-t border-slate-100"
     >
       <div className="max-w-7xl mx-auto">

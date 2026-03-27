@@ -1,10 +1,13 @@
 import type { Metadata } from "next";
-import { PT_Sans, Ubuntu_Sans_Mono } from "next/font/google";
+import { PT_Sans, Ubuntu_Sans_Mono, Geist } from "next/font/google";
 import Script from "next/script";
 import { Suspense } from "react";
 import { Providers } from "@/components/providers";
 import { GoogleAnalytics } from "@/components/GoogleAnalytics";
 import "./globals.css";
+import { cn } from "@/lib/utils";
+
+const geist = Geist({subsets:['latin'],variable:'--font-sans'});
 
 const GA_MEASUREMENT_ID = process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID;
 
@@ -124,7 +127,7 @@ export default function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="es" suppressHydrationWarning>
+    <html lang="es" suppressHydrationWarning className={cn("font-sans", geist.variable)}>
       <head>
         <script
           type="application/ld+json"

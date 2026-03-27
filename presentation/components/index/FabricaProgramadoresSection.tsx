@@ -1,165 +1,237 @@
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
-import {
-  Carousel,
-  CarouselContent,
-  CarouselItem,
-  CarouselNext,
-  CarouselPrevious,
-} from "@/components/ui/carousel";
 import { BookOpen, Download, ExternalLink } from "lucide-react";
 import { Book3D } from "./Book3D";
 import { useI18n } from "@/presentation/utils/use-i18n";
+import { Card } from "@/components/ui/card";
+import { cn } from "@/lib/utils";
+
+type ProductTier = "free" | "paid";
+
+type ProductItem = {
+  tier: ProductTier;
+  name: string;
+  tagline: string;
+  description: string;
+  coverImage: string;
+  coverImageWebp: string;
+  primaryHref: string;
+  primaryLabel: string;
+  primaryExternal?: boolean;
+  primaryIcon: "download" | "external";
+  secondaryHref: string;
+  secondaryLabel: string;
+  secondaryExternal?: boolean;
+  secondaryIcon: "book" | "external";
+};
 
 export function FabricaProgramadoresSection() {
-  const { t, language } = useI18n();
+  const { t } = useI18n();
+
+  const products: ProductItem[] = [
+    {
+      tier: "free",
+      name: t.fabricaProductName,
+      tagline: t.fabricaProductTagline,
+      description: t.fabricaProductDescription,
+      coverImage: "/cuentos/Zorrito en la fábrica de programadores.jpg",
+      coverImageWebp: "/cuentos/Zorrito en la fábrica de programadores.webp",
+      primaryHref: "/cuentos/Zorrito en la fábrica de programadores.pdf",
+      primaryLabel: t.ctaDownloadFree,
+      primaryExternal: true,
+      primaryIcon: "download",
+      secondaryHref: "/blog/fabrica-de-programadores",
+      secondaryLabel: t.ctaReadStory,
+      secondaryIcon: "book",
+    },
+    {
+      tier: "paid",
+      name: t.augmentedProductName,
+      tagline: t.augmentedProductTagline,
+      description: t.augmentedProductDescription,
+      coverImage: "/cover.png",
+      coverImageWebp: "/cover.png",
+      primaryHref: "https://medinson.gumroad.com/l/sgdywj",
+      primaryLabel: t.ctaBuyNow,
+      primaryExternal: true,
+      primaryIcon: "external",
+      secondaryHref: "/blog/el-programador-aumentado",
+      secondaryLabel: t.ctaViewBook,
+      secondaryIcon: "book",
+    },
+  ];
 
   return (
     <section
       id="fabrica-programadores"
-      className="relative z-10 py-24 px-4 md:px-6 bg-slate-50/50 border-t border-slate-100"
+      tabIndex={-1}
+      className="relative z-10 border-t border-slate-200/80 bg-linear-to-b from-slate-50/90 to-white py-20 px-4 md:px-6 outline-none"
     >
-      <div className="max-w-6xl mx-auto">
-        <Carousel opts={{ align: "start", loop: true }} className="mx-auto w-full px-12 md:px-14">
-          <CarouselContent>
-            <CarouselItem>
-              <div className="grid md:grid-cols-[1fr_1fr] gap-12 items-center">
-                <div className="flex flex-col justify-center">
-                  <h2 className="text-3xl font-bold tracking-tight text-slate-900 sm:text-4xl mb-6">
-                    {t.fabricaTitle}
-                  </h2>
+      <div className="mx-auto max-w-6xl">
+        <header className="mx-auto mb-12 max-w-3xl text-center md:mb-14">
+          <h2 className="text-balance text-2xl font-bold tracking-tight text-slate-900 sm:text-3xl md:text-4xl">
+            {t.productsSectionTitle}
+          </h2>
+          <p className="mt-4 text-pretty text-base text-slate-600 sm:text-lg">
+            {t.productsSectionSubtitle}
+          </p>
+        </header>
 
-                  <div className="mb-8">
-                    <p className="text-lg text-slate-700 leading-relaxed mb-4">
-                      {(() => {
-                        const parts = t.fabricaDescription1.split(/\{bookName\}/);
-                        const matches =
-                          t.fabricaDescription1.match(/\{bookName\}/g) || [];
-                        const result: (string | React.ReactElement)[] = [];
+        <div className="grid gap-6 md:grid-cols-2 md:gap-8 md:items-stretch">
+          {products.map((product) => {
+            const isPaid = product.tier === "paid";
 
-                        parts.forEach((part, i) => {
-                          result.push(part);
-                          if (matches[i]) {
-                            result.push(
-                              <strong key={`bold-${i}`}>{t.fabricaBookName}</strong>
-                            );
-                          }
-                        });
-
-                        return result;
-                      })()}
-                    </p>
-                    <p className="text-lg text-slate-700 leading-relaxed">
-                      {t.fabricaDescription2}
-                    </p>
-                  </div>
-
-                  <div className="flex flex-col sm:flex-row gap-4">
-                    <Button
-                      asChild
-                      size="lg"
-                      className="rounded-full bg-purple-600 hover:bg-purple-700 text-white px-8 py-6 text-base"
-                    >
-                      <Link href="/blog/fabrica-de-programadores">
-                        {language === "es" ? "Ver detalle" : "View details"}
-                        <BookOpen className="h-4 w-4 ml-2" />
-                      </Link>
-                    </Button>
-                    <Button
-                      asChild
-                      size="lg"
-                      variant="outline"
-                      className="rounded-full border-purple-200 text-purple-700 hover:bg-purple-50 px-8 py-6 text-base"
-                    >
-                      <a
-                        href="/cuentos/Zorrito en la fábrica de programadores.pdf"
-                        target="_blank"
-                        rel="noopener noreferrer"
+            return (
+              <Card
+                key={product.tier}
+                className={cn(
+                  "group relative flex flex-col overflow-hidden rounded-2xl border bg-white transition-all duration-300 ease-out",
+                  "hover:z-10 hover:scale-[1.02] hover:shadow-xl",
+                  isPaid
+                    ? "border-purple-200/90 shadow-lg shadow-purple-500/10 ring-1 ring-purple-200/60 md:shadow-2xl md:shadow-purple-500/15"
+                    : "border-slate-200/90 shadow-md shadow-slate-300/20 hover:shadow-lg"
+                )}
+              >
+                <div
+                  className={cn(
+                    "grid flex-1 gap-6 p-6 sm:p-7",
+                    "md:grid-cols-[minmax(0,1fr)_minmax(0,200px)] md:items-center",
+                    isPaid && "md:p-8"
+                  )}
+                >
+                  <div className="order-2 flex flex-col justify-center md:order-1">
+                    <div className="mb-4 flex flex-wrap items-center gap-2">
+                      <span
+                        className={cn(
+                          "inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-semibold uppercase tracking-wide",
+                          isPaid
+                            ? "bg-purple-600 text-white"
+                            : "bg-emerald-600 text-white"
+                        )}
                       >
-                        {language === "es" ? "Descargar cuento" : "Download story"}
-                        <Download className="h-4 w-4 ml-2" />
-                      </a>
-                    </Button>
-                  </div>
-                </div>
+                        {isPaid ? t.badgeProductPaid : t.badgeProductFree}
+                      </span>
+                    </div>
 
-                <div className="flex items-center justify-center">
-                  <div className="w-full max-w-md h-150 overflow-visible p-4">
-                    <Book3D
-                      coverImage="/cuentos/Zorrito en la fábrica de programadores.jpg"
-                      coverImageWebp="/cuentos/Zorrito en la fábrica de programadores.webp"
-                      className="w-full h-full scale-80"
-                    />
-                  </div>
-                </div>
-              </div>
-            </CarouselItem>
-
-            <CarouselItem>
-              <div className="grid md:grid-cols-[1fr_1fr] gap-12 items-center">
-                <div className="flex flex-col justify-center">
-                  <h2 className="text-3xl font-bold tracking-tight text-slate-900 sm:text-4xl mb-6">
-                    El Programador Aumentado
-                  </h2>
-
-                  <div className="mb-8">
-                    <p className="text-lg text-slate-700 leading-relaxed mb-4">
-                      {language === "es"
-                        ? "Deja atrás el vibe coding y adopta un desarrollo asistido por IA con intención, contexto y criterio profesional."
-                        : "Move beyond vibe coding and adopt AI-assisted development with intention, context, and professional judgment."}
-                    </p>
-                    <p className="text-lg text-slate-700 leading-relaxed">
-                      {language === "es"
-                        ? "Aprende a delegar mejor, validar resultados y mantener control real de arquitectura y calidad mientras desarrollas más rápido."
-                        : "Learn to delegate better, validate outcomes, and keep real control of architecture and quality while shipping faster."}
-                    </p>
-                  </div>
-
-                  <div className="flex flex-col sm:flex-row gap-4">
-                    <Button
-                      asChild
-                      size="lg"
-                      className="rounded-full bg-purple-600 hover:bg-purple-700 text-white px-8 py-6 text-base"
+                    <h3 className="text-xl font-bold tracking-tight text-slate-900 sm:text-2xl">
+                      {product.name}
+                    </h3>
+                    <p
+                      className={cn(
+                        "mt-1.5 text-pretty font-medium leading-snug text-slate-600",
+                        isPaid ? "sm:text-lg" : "text-base sm:text-[1.05rem]"
+                      )}
                     >
-                      <Link href="/blog/el-programador-aumentado">
-                        {language === "es" ? "Ver detalle" : "View details"}
-                        <BookOpen className="h-4 w-4 ml-2" />
-                      </Link>
-                    </Button>
-                    <Button
-                      asChild
-                      size="lg"
-                      variant="outline"
-                      className="rounded-full border-purple-200 text-purple-700 hover:bg-purple-50 px-8 py-6 text-base"
-                    >
-                      <a
-                        href="https://medinson.gumroad.com/l/sgdywj"
-                        target="_blank"
-                        rel="noopener noreferrer"
+                      {product.tagline}
+                    </p>
+
+                    <p className="mt-4 line-clamp-3 text-pretty text-sm leading-relaxed text-slate-600 sm:text-[0.9375rem]">
+                      {product.description}
+                    </p>
+
+                    <div className="mt-6 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
+                      <Button
+                        asChild
+                        size="lg"
+                        className={cn(
+                          "rounded-full px-6 py-5 text-sm font-semibold shadow-sm transition-shadow",
+                          isPaid
+                            ? "bg-purple-600 text-white hover:bg-purple-700 hover:shadow-md"
+                            : "bg-emerald-600 text-white hover:bg-emerald-700 hover:shadow-md"
+                        )}
                       >
-                        {language === "es" ? "Comprar libro" : "Buy book"}
-                        <ExternalLink className="h-4 w-4 ml-2" />
-                      </a>
-                    </Button>
+                        {product.primaryExternal ? (
+                          <a
+                            href={encodeURI(product.primaryHref)}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                          >
+                            {product.primaryLabel}
+                            {product.primaryIcon === "download" ? (
+                              <Download className="ml-2 h-4 w-4" />
+                            ) : (
+                              <ExternalLink className="ml-2 h-4 w-4" />
+                            )}
+                          </a>
+                        ) : (
+                          <Link href={product.primaryHref}>
+                            {product.primaryLabel}
+                            {product.primaryIcon === "download" ? (
+                              <Download className="ml-2 h-4 w-4" />
+                            ) : (
+                              <ExternalLink className="ml-2 h-4 w-4" />
+                            )}
+                          </Link>
+                        )}
+                      </Button>
+
+                      <Button
+                        asChild
+                        size="lg"
+                        variant="outline"
+                        className={cn(
+                          "rounded-full border-2 px-6 py-5 text-sm font-semibold bg-white/80 backdrop-blur-sm transition-colors",
+                          isPaid
+                            ? "border-purple-200 text-purple-800 hover:bg-purple-50"
+                            : "border-slate-200 text-slate-800 hover:bg-slate-50"
+                        )}
+                      >
+                        {product.secondaryExternal ? (
+                          <a
+                            href={product.secondaryHref}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                          >
+                            {product.secondaryLabel}
+                            {product.secondaryIcon === "book" ? (
+                              <BookOpen className="ml-2 h-4 w-4" />
+                            ) : (
+                              <ExternalLink className="ml-2 h-4 w-4" />
+                            )}
+                          </a>
+                        ) : (
+                          <Link href={product.secondaryHref}>
+                            {product.secondaryLabel}
+                            {product.secondaryIcon === "book" ? (
+                              <BookOpen className="ml-2 h-4 w-4" />
+                            ) : (
+                              <ExternalLink className="ml-2 h-4 w-4" />
+                            )}
+                          </Link>
+                        )}
+                      </Button>
+                    </div>
+                  </div>
+
+                  <div className="order-1 flex justify-center md:order-2 md:justify-end">
+                    <div
+                      className={cn(
+                        "flex w-full max-w-[180px] items-center justify-center rounded-xl bg-linear-to-br p-3 transition-transform duration-300 sm:max-w-[200px]",
+                        isPaid
+                          ? "from-purple-50/90 to-violet-100/50"
+                          : "from-slate-50 to-slate-100/80"
+                      )}
+                    >
+                      <Book3D
+                        coverImage={product.coverImage}
+                        coverImageWebp={product.coverImageWebp}
+                        alt={`${product.name} — ${product.tagline}`}
+                        className="drop-shadow-md"
+                      />
+                    </div>
                   </div>
                 </div>
 
-                <div className="flex items-center justify-center">
-                  <div className="w-full max-w-md h-150 overflow-visible p-4">
-                    <Book3D
-                      coverImage="/cover.png"
-                      coverImageWebp="/cover.png"
-                      className="w-full h-full scale-80"
-                    />
-                  </div>
-                </div>
-              </div>
-            </CarouselItem>
-          </CarouselContent>
-
-          <CarouselPrevious className="left-0 border-purple-200 text-purple-700 hover:bg-purple-50" />
-          <CarouselNext className="right-0 border-purple-200 text-purple-700 hover:bg-purple-50" />
-        </Carousel>
+                {isPaid ? (
+                  <div
+                    className="pointer-events-none absolute inset-x-0 bottom-0 h-24 bg-linear-to-t from-purple-500/6 to-transparent"
+                    aria-hidden
+                  />
+                ) : null}
+              </Card>
+            );
+          })}
+        </div>
       </div>
     </section>
   );

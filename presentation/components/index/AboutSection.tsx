@@ -1,3 +1,4 @@
+"use client";
 import { AboutChatPanel } from "./AboutChatPanel";
 import { useI18n } from "@/presentation/utils/use-i18n";
 
@@ -9,9 +10,7 @@ export function AboutSection() {
       className="relative z-10 py-24 px-4 md:px-6 bg-white border-t border-slate-100"
     >
       <div className="max-w-6xl mx-auto">
-        {/* Título, descripción y chat */}
         <div className="grid md:grid-cols-[2fr_3fr] gap-8 mb-12">
-          {/* Columna izquierda: Título y descripción */}
           <div className="flex flex-col justify-center">
             <div className="text-center md:text-left mb-6">
               <h2 className="text-4xl font-bold tracking-tight text-slate-900 sm:text-4xl mb-4">
@@ -42,11 +41,24 @@ export function AboutSection() {
               <p className="text-xl text-slate-900 font-medium italic mb-8">
                 {t.aboutDescription2}
               </p>
+              <ul className="flex flex-wrap gap-4 text-sm text-slate-600 border-t border-slate-100 pt-6" aria-label="Resumen profesional">
+                <li className="flex items-center gap-2">
+                  <span className="h-1.5 w-1.5 rounded-full bg-violet-500" aria-hidden />
+                  {t.aboutStat1}
+                </li>
+                <li className="flex items-center gap-2">
+                  <span className="h-1.5 w-1.5 rounded-full bg-violet-500" aria-hidden />
+                  {t.aboutStat2}
+                </li>
+                <li className="flex items-center gap-2">
+                  <span className="h-1.5 w-1.5 rounded-full bg-violet-500" aria-hidden />
+                  {t.aboutStat3}
+                </li>
+              </ul>
             </div>
           </div>
 
-          {/* Columna derecha: Panel de chat */}
-          <div className="h-[500px]">
+          <div className="flex flex-col h-[500px] min-h-[400px]">
             <AboutChatPanel />
           </div>
         </div>

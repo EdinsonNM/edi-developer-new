@@ -1,7 +1,6 @@
 "use client";
 import dynamic from "next/dynamic";
 import { WhatIDoSection } from "@/presentation/components/index/WhatIDoSection";
-import { WhyWorkWithMeSection } from "@/presentation/components/index/WhyWorkWithMeSection";
 import { TalksSection } from "@/presentation/components/index/TalksSection";
 import { FabricaProgramadoresSection } from "@/presentation/components/index/FabricaProgramadoresSection";
 import { BlogSection } from "@/presentation/components/index/BlogSection";
@@ -10,6 +9,7 @@ import { ContactSection } from "@/presentation/components/index/ContactSection";
 import { FooterSection } from "@/presentation/components/index/FooterSection";
 import { HeroSection } from "@/presentation/components/index/HeroSection";
 import { Navbar } from "@/presentation/components/index/Navbar";
+import { AppsSection } from "@/presentation/components/index/AppsSection";
 import { LazySection } from "@/presentation/components/common/LazySection";
 import { useEffect } from "react";
 import { useI18n } from "@/presentation/utils/use-i18n";
@@ -21,15 +21,15 @@ const AboutSection = dynamic(
     import("@/presentation/components/index/AboutSection").then((m) => ({
       default: m.AboutSection,
     })),
-  { loading: () => <SectionPlaceholder className="min-h-[60vh]" /> }
+  { loading: () => <SectionPlaceholder className="min-h-[60vh]" /> },
 );
 
 const FeaturedProjectsSection = dynamic(
   () =>
     import("@/presentation/components/index/FeaturedProjectsSection").then(
-      (m) => ({ default: m.FeaturedProjectsSection })
+      (m) => ({ default: m.FeaturedProjectsSection }),
     ),
-  { loading: () => <SectionPlaceholder className="min-h-[50vh]" /> }
+  { loading: () => <SectionPlaceholder className="min-h-[50vh]" /> },
 );
 
 function SectionPlaceholder({ className = "" }: { className?: string }) {
@@ -47,7 +47,7 @@ export default function LandingPage() {
   // Función para scroll suave
   const handleNavClick = (
     e: React.MouseEvent<HTMLAnchorElement>,
-    href: string
+    href: string,
   ) => {
     e.preventDefault();
 
@@ -91,6 +91,14 @@ export default function LandingPage() {
       <HeroSection />
 
       <LazySection rootMargin="200px">
+        <AppsSection />
+      </LazySection>
+
+      <LazySection rootMargin="200px">
+        <FabricaProgramadoresSection />
+      </LazySection>
+
+      <LazySection rootMargin="200px">
         <AboutSection />
       </LazySection>
 
@@ -99,19 +107,7 @@ export default function LandingPage() {
       </LazySection>
 
       <LazySection rootMargin="200px">
-        <FeaturedProjectsSection />
-      </LazySection>
-
-      <LazySection rootMargin="200px">
-        <WhyWorkWithMeSection />
-      </LazySection>
-
-      <LazySection rootMargin="200px">
         <TalksSection />
-      </LazySection>
-
-      <LazySection rootMargin="200px">
-        <FabricaProgramadoresSection />
       </LazySection>
 
       <LazySection rootMargin="200px">

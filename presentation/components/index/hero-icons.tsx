@@ -1,26 +1,37 @@
-/**
- * Iconos mínimos para el hero del landing.
- * Solo Lucide para no cargar react-icons en el chunk inicial (mejor LCP/TBT).
- */
+import type { IconType } from "react-icons/lib";
 import {
-  Code2,
-  Cpu,
-  Box,
-  Layers,
-  Sparkles,
-  Terminal,
-  Globe,
-  Zap,
-  type LucideIcon,
-} from "lucide-react";
+  SiCss3,
+  SiHtml5,
+  SiJavascript,
+  SiMongodb,
+  SiNextdotjs,
+  SiNodedotjs,
+  SiOpenai,
+  SiPhp,
+  SiPython,
+  SiPytorch,
+  SiReact,
+  SiTailwindcss,
+  SiTensorflow,
+  SiTypescript,
+} from "react-icons/si";
 
-export const HERO_ICONS: { Icon: LucideIcon; color: string }[] = [
-  { Icon: Code2, color: "text-blue-500" },
-  { Icon: Cpu, color: "text-slate-600" },
-  { Icon: Box, color: "text-slate-700" },
-  { Icon: Layers, color: "text-blue-600" },
-  { Icon: Sparkles, color: "text-amber-500" },
-  { Icon: Terminal, color: "text-green-600" },
-  { Icon: Globe, color: "text-cyan-500" },
-  { Icon: Zap, color: "text-yellow-500" },
+/**
+ * Carrusel del hero: primero stack frontend reconocible, luego backend, datos e IA.
+ */
+export const HERO_ICONS: { Icon: IconType; color: string }[] = [
+  { Icon: SiReact, color: "text-[#61DAFB]" },
+  { Icon: SiTypescript, color: "text-[#3178C6]" },
+  { Icon: SiJavascript, color: "text-[#F7DF1E]" },
+  { Icon: SiNextdotjs, color: "text-slate-900" },
+  { Icon: SiTailwindcss, color: "text-[#06B6D4]" },
+  { Icon: SiHtml5, color: "text-[#E34F26]" },
+  { Icon: SiCss3, color: "text-[#1572B6]" },
+  { Icon: SiNodedotjs, color: "text-[#339933]" },
+  { Icon: SiPython, color: "text-[#3776AB]" },
+  { Icon: SiPhp, color: "text-[#777BB4]" },
+  { Icon: SiMongodb, color: "text-[#47A248]" },
+  { Icon: SiOpenai, color: "text-slate-800" },
+  { Icon: SiPytorch, color: "text-[#EE4C2C]" },
+  { Icon: SiTensorflow, color: "text-[#FF6F00]" },
 ];

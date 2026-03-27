@@ -1,35 +1,91 @@
 import CardSwap, { Card } from "@/components/CardSwap";
 import { useI18n } from "@/presentation/utils/use-i18n";
 import { useWindowSize } from "@/hooks/use-window-size";
+import { ExternalLink } from "lucide-react";
+import { cn } from "@/lib/utils";
+
+function ProjectBadge({
+  children,
+  variant = "default",
+}: {
+  children: React.ReactNode;
+  variant?: "liveApp" | "freeTool" | "experiment" | "content" | "demo" | "default";
+}) {
+  const styles: Record<string, string> = {
+    liveApp: "bg-emerald-500/90 text-white border-0",
+    freeTool: "bg-blue-500/90 text-white border-0",
+    experiment: "bg-violet-500/90 text-white border-0",
+    content: "bg-amber-500/90 text-white border-0",
+    demo: "bg-slate-600/90 text-white border-0",
+    default: "bg-white/20 text-white border border-white/40",
+  };
+  return (
+    <span
+      className={cn(
+        "inline-flex items-center rounded-full border px-2 py-0.5 text-xs font-medium",
+        styles[variant] ?? styles.default
+      )}
+    >
+      {children}
+    </span>
+  );
+}
 
 export function FeaturedProjectsSection() {
   const { t } = useI18n();
   const { width } = useWindowSize();
 
+  const projectLinks: Record<string, string> = {
+    neokids: "#",
+    costpro: "#",
+    zypher: "#",
+    yaqu: "#",
+  };
+
   const projects = [
     {
+      key: "neokids",
       title: t.neokidsTitle,
       subtitle: t.neokidsSubtitle,
       description: t.neokidsDesc,
       image: "/apps/neokids.png",
+      badge: t.badgeContent,
+      badgeVariant: "content" as const,
+      ctaLabel: t.neokidsCta,
+      ctaHref: projectLinks.neokids,
     },
     {
+      key: "costpro",
       title: t.costproTitle,
       subtitle: t.costproSubtitle,
       description: t.costproDesc,
       image: "/apps/costpro.png",
+      badge: t.badgeDemo,
+      badgeVariant: "demo" as const,
+      ctaLabel: t.costproCta,
+      ctaHref: projectLinks.costpro,
     },
     {
+      key: "zypher",
       title: t.zypherTitle,
       subtitle: t.zypherSubtitle,
       description: t.zypherDesc,
       image: "/apps/zypher.png",
+      badge: t.badgeLiveApp,
+      badgeVariant: "liveApp" as const,
+      ctaLabel: t.zypherCta,
+      ctaHref: projectLinks.zypher,
     },
     {
+      key: "yaqu",
       title: t.yaquTitle,
       subtitle: t.yaquSubtitle,
       description: t.yaquDesc,
       image: "/apps/yaqu.png",
+      badge: t.badgeLiveApp,
+      badgeVariant: "liveApp" as const,
+      ctaLabel: t.yaquCta,
+      ctaHref: projectLinks.yaqu,
     },
   ];
   return (
@@ -63,12 +119,11 @@ export function FeaturedProjectsSection() {
             >
               {projects.map((project, index) => (
                 <Card
-                  key={index}
+                  key={project.key}
                   customClass="bg-white border-slate-200 shadow-lg overflow-hidden"
                 >
                   <div className="h-full flex flex-col relative">
                     <div className="h-2 bg-gradient-to-r from-blue-500 via-violet-500 to-pink-500"></div>
-                    {/* Imagen del proyecto */}
                     <div className="relative flex-1 bg-slate-100 overflow-hidden">
                       <img
                         src={project.image}
@@ -77,23 +132,35 @@ export function FeaturedProjectsSection() {
                         loading="lazy"
                         decoding="async"
                         onError={(e) => {
-                          // Si la imagen no existe, ocultar el contenedor
                           const target = e.target as HTMLImageElement;
                           target.style.display = "none";
                           target.parentElement!.style.backgroundColor =
                             "#1e293b";
                         }}
                       />
-                      {/* Overlay para mejorar legibilidad */}
                       <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/40 to-black/20"></div>
-                      {/* Contenido sobre la imagen */}
-                      <div className="absolute bottom-0 left-0 right-0 p-4 sm:p-6 flex flex-col z-10">
-                        <h3 className="text-lg sm:text-xl md:text-2xl font-bold text-blue-400 mb-2 sm:mb-3">
+                      <div className="absolute bottom-0 left-0 right-0 p-4 sm:p-6 flex flex-col z-10 gap-2">
+                        <div className="flex flex-wrap gap-1.5">
+                          <ProjectBadge variant={project.badgeVariant}>
+                            {project.badge}
+                          </ProjectBadge>
+                        </div>
+                        <h3 className="text-lg sm:text-xl md:text-2xl font-bold text-blue-400 mb-1">
                           {project.title}
                         </h3>
-                        <p className="text-white/95 leading-relaxed text-sm sm:text-base">
+                        <p className="text-white/95 leading-relaxed text-sm sm:text-base mb-3">
                           {project.description}
                         </p>
+                        <a
+                          href={project.ctaHref}
+                          target={project.ctaHref.startsWith("http") ? "_blank" : undefined}
+                          rel={project.ctaHref.startsWith("http") ? "noopener noreferrer" : undefined}
+                          className="inline-flex items-center gap-1.5 text-sm font-medium text-blue-300 hover:text-blue-200 transition-colors w-fit"
+                          aria-label={project.ctaLabel}
+                        >
+                          {project.ctaLabel}
+                          <ExternalLink className="h-3.5 w-3.5" aria-hidden />
+                        </a>
                       </div>
                     </div>
                   </div>
