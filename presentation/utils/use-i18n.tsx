@@ -90,6 +90,11 @@ interface Translations {
   heroTitleLead: string;
   heroTitleAccent: string;
   heroSubtitle: string;
+  /** Titulares solo para 2.ª y 3.ª variante del hero (la 1.ª usa heroTitleLead / heroTitleAccent) */
+  heroTitleLeadFabrica: string;
+  heroTitleAccentFabrica: string;
+  heroTitleLeadAcademy: string;
+  heroTitleAccentAcademy: string;
   /** Segunda variante del párrafo (rotación): compra / libro; usa *título* para resaltar */
   heroDescriptionDeveloper: string;
   /** Tercera variante (rotación): Edi Academy; usa *Edi Academy* para resaltar */
@@ -353,10 +358,14 @@ const translations: Record<Language, Translations> = {
     heroTitleLead: "Construyo productos y soluciones con",
     heroTitleAccent: "inteligencia artificial",
     heroSubtitle: "",
+    heroTitleLeadFabrica: "El Programador Aumentado",
+    heroTitleAccentFabrica: "IA práctica para devs",
+    heroTitleLeadAcademy: "Edi Academy",
+    heroTitleAccentAcademy: "Formación práctica en IA para tu futuro",
     heroDescriptionDeveloper:
       "Llévate *El Programador Aumentado*: la guía práctica para integrar IA en tu trabajo como dev. Compra con un clic en Fábrica de Programadores.",
     heroDescriptionAcademy:
-      "En *Edi Academy* encontrarás formación práctica en IA para docentes, desarrolladores y equipos: más de 51h de contenido listo para aplicar.",
+      "*Edi Academy*: cursos y rutas de IA aplicada para docentes, desarrolladores y equipos — pensados para llevar lo aprendido al día a día.",
     heroDescription:
       "Conoce mis productos: apps y herramientas con IA listas para usar y resolver problemas de verdad.",
     contactMe: "Contáctame",
@@ -528,7 +537,7 @@ const translations: Record<Language, Translations> = {
     ediAcademyTitle: "Formación especializada en",
     ediAcademyTitleHighlight: "IA",
     ediAcademyDescription:
-      "Cursos diseñados para diferentes perfiles que buscan dominar la inteligencia artificial",
+      "Rutas prácticas de IA para distintos perfiles: del aula al código y a los equipos que quieren adoptar IA con criterio.",
     ediAcademyProfile1Label: "EDUCADORES",
     ediAcademyProfile1Title: "Docentes",
     ediAcademyProfile1Desc:
@@ -541,7 +550,7 @@ const translations: Record<Language, Translations> = {
     ediAcademyProfile3Title: "Empresas",
     ediAcademyProfile3Desc:
       "Capacitación para equipos. Optimiza flujos de trabajo con IA.",
-    ediAcademyMetric1Value: "+51h",
+    ediAcademyMetric1Value: "Modular",
     ediAcademyMetric1Label: "CONTENIDO",
     ediAcademyMetric2Value: "100%",
     ediAcademyMetric2Label: "PRÁCTICO",
@@ -658,10 +667,14 @@ const translations: Record<Language, Translations> = {
     heroTitleLead: "I build products and solutions with",
     heroTitleAccent: "artificial intelligence",
     heroSubtitle: "",
+    heroTitleLeadFabrica: "The Augmented Programmer",
+    heroTitleAccentFabrica: "Practical AI for devs",
+    heroTitleLeadAcademy: "Edi Academy",
+    heroTitleAccentAcademy: "Hands-on AI training for your future",
     heroDescriptionDeveloper:
       "Get *The Augmented Programmer*: a practical playbook for weaving AI into your daily dev work. Purchase in one step from Programmers Factory.",
     heroDescriptionAcademy:
-      "*Edi Academy* offers hands-on AI training for educators, developers, and teams — 51+ hours of content you can apply right away.",
+      "*Edi Academy*: applied AI courses and learning paths for educators, developers, and teams — built to use what you learn on the job.",
     heroDescription:
       "Explore my products — AI-powered apps and tools you can try today, built for real use cases.",
     contactMe: "Contact Me",
@@ -803,7 +816,8 @@ const translations: Record<Language, Translations> = {
     fabricaProductDescription:
       "An illustrated story that introduces kids to code with warmth and playfulness. Read it on the web or download the PDF free.",
     augmentedProductName: "The Augmented Programmer",
-    augmentedProductTagline: "How to build software with AI without losing control",
+    augmentedProductTagline:
+      "How to build software with AI without losing control",
     augmentedProductDescription:
       "Learn to use AI to ship faster without sacrificing quality: delegate with judgment, validate output, and keep architectural control.",
     badgeProductFree: "Free",
@@ -830,7 +844,7 @@ const translations: Record<Language, Translations> = {
     ediAcademyTitle: "Specialized training in",
     ediAcademyTitleHighlight: "AI",
     ediAcademyDescription:
-      "Courses designed for different profiles seeking to master artificial intelligence",
+      "Practical AI learning paths for different profiles — from the classroom to code and teams adopting AI with judgment.",
     ediAcademyProfile1Label: "EDUCATORS",
     ediAcademyProfile1Title: "Teachers",
     ediAcademyProfile1Desc:
@@ -842,7 +856,7 @@ const translations: Record<Language, Translations> = {
     ediAcademyProfile3Label: "CORPORATE",
     ediAcademyProfile3Title: "Companies",
     ediAcademyProfile3Desc: "Training for teams. Optimize workflows with AI.",
-    ediAcademyMetric1Value: "+51h",
+    ediAcademyMetric1Value: "Modular",
     ediAcademyMetric1Label: "CONTENT",
     ediAcademyMetric2Value: "100%",
     ediAcademyMetric2Label: "PRACTICAL",
@@ -910,7 +924,7 @@ export const I18nProvider = ({ children }: { children: ReactNode }) => {
   // Memoizar el valor del contexto para evitar re-renders innecesarios
   const contextValue = useMemo(
     () => ({ language, setLanguage: handleSetLanguage, t }),
-    [language, handleSetLanguage, t]
+    [language, handleSetLanguage, t],
   );
 
   return (

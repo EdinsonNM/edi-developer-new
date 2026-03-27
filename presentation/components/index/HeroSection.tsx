@@ -18,7 +18,20 @@ type HeroSlideCta = "apps" | "fabrica" | "academy";
 type HeroSlide = {
   text: string;
   cta: HeroSlideCta;
+  titleLead: string;
+  titleAccent: string;
 };
+
+function heroAccentGradientForCta(cta: HeroSlideCta): string {
+  switch (cta) {
+    case "fabrica":
+      return "from-emerald-600 via-teal-600 to-cyan-600";
+    case "academy":
+      return "from-sky-600 via-blue-600 to-indigo-600";
+    default:
+      return "from-violet-600 via-blue-600 to-cyan-500";
+  }
+}
 
 function scrollToSection(selector: string) {
   const element = document.querySelector(selector);
@@ -165,16 +178,41 @@ export function HeroSection() {
 
   const slides = useMemo((): HeroSlide[] => {
     const list: HeroSlide[] = [
-      { text: t.heroDescription, cta: "apps" },
+      {
+        text: t.heroDescription,
+        cta: "apps",
+        titleLead: t.heroTitleLead,
+        titleAccent: t.heroTitleAccent,
+      },
     ];
     if (developerDesc) {
-      list.push({ text: developerDesc, cta: "fabrica" });
+      list.push({
+        text: developerDesc,
+        cta: "fabrica",
+        titleLead: t.heroTitleLeadFabrica,
+        titleAccent: t.heroTitleAccentFabrica,
+      });
     }
     if (academyDesc) {
-      list.push({ text: academyDesc, cta: "academy" });
+      list.push({
+        text: academyDesc,
+        cta: "academy",
+        titleLead: t.heroTitleLeadAcademy,
+        titleAccent: t.heroTitleAccentAcademy,
+      });
     }
     return list;
-  }, [t.heroDescription, developerDesc, academyDesc]);
+  }, [
+    t.heroDescription,
+    t.heroTitleLead,
+    t.heroTitleAccent,
+    t.heroTitleLeadFabrica,
+    t.heroTitleAccentFabrica,
+    t.heroTitleLeadAcademy,
+    t.heroTitleAccentAcademy,
+    developerDesc,
+    academyDesc,
+  ]);
 
   const hasRotatingDescription = slides.length > 1;
   const showFabricaCta = slides.some((s) => s.cta === "fabrica");
@@ -202,14 +240,11 @@ export function HeroSection() {
   const activeDescIndex = reduceMotion ? 0 : descIndex;
   const activeCta = slides[activeDescIndex]?.cta ?? "apps";
 
-  const primaryCtaActive = hasRotatingDescription && activeCta === "apps";
-  const secondaryCtaActive = hasRotatingDescription && activeCta === "fabrica";
-
   const showAugmentedBook = showFabricaCta && activeCta === "fabrica";
   const bookAlt = `${t.augmentedProductName} — ${t.augmentedProductTagline}`;
 
   const descBaseClass =
-    "max-w-2xl text-lg leading-relaxed text-slate-700 text-left [text-shadow:0_1px_2px_rgba(255,255,255,1),0_0_22px_rgba(255,255,255,0.7)]";
+    "max-w-2xl text-base leading-relaxed text-slate-700 text-center sm:text-lg lg:text-left [text-shadow:0_1px_2px_rgba(255,255,255,1),0_0_22px_rgba(255,255,255,0.7)]";
 
   const ctaTransition =
     "transition-all duration-700 ease-in-out motion-reduce:transition-none";
@@ -217,39 +252,77 @@ export function HeroSection() {
     "shadow-xl shadow-violet-500/25 motion-safe:shadow-violet-500/35";
   const secondaryCtaActiveExtras =
     "shadow-xl shadow-emerald-600/20 motion-safe:shadow-emerald-600/30";
-  const ctaDimmedClasses =
-    "opacity-[0.72] scale-[0.98] shadow-md motion-reduce:opacity-90 motion-reduce:scale-100";
+  const academyCtaActiveExtras =
+    "shadow-xl shadow-sky-500/25 motion-safe:shadow-sky-500/35";
 
   return (
     <main
       id="inicio"
-      className="relative z-10 flex h-screen flex-col items-center justify-center px-4 pt-20 text-left sm:px-8 lg:px-12"
+      className="relative z-10 flex min-h-dvh flex-col items-center justify-center px-4 py-16 pt-20 text-center lg:text-left sm:px-8 sm:py-20 lg:px-12"
     >
       <div className="fixed inset-0 z-0 h-full w-full overflow-hidden bg-white opacity-40 pointer-events-none">
         <HeroVideoBackdrop />
       </div>
 
       {/* Contenido del Hero: centrado en viewport (márgenes izq/der simétricos); libro al borde derecho del bloque */}
-      <div className="relative z-10 mx-auto flex w-full max-w-6xl flex-col items-stretch text-left lg:flex-row lg:items-center lg:justify-between lg:gap-8 xl:gap-12">
-        <div className="flex min-w-0 flex-1 flex-col items-start text-left">
-        <h1 className="max-w-2xl text-4xl font-bold tracking-tight text-slate-900 sm:text-7xl md:text-6xl mb-6 animate-slide-up text-left">
-          <span className="[text-shadow:0_1px_2px_rgba(255,255,255,1),0_0_28px_rgba(255,255,255,0.75),0_2px_12px_rgba(255,255,255,0.45)]">
-            {t.heroTitleLead}
-          </span>
-          <br />
-          <span className="bg-linear-to-r from-violet-600 via-blue-600 to-cyan-500 bg-clip-text text-transparent [filter:drop-shadow(0_1px_0_rgba(255,255,255,0.95))_drop-shadow(0_4px_22px_rgba(255,255,255,0.88))]">
-            {t.heroTitleAccent}
-          </span>
-          {t.heroSubtitle ? (
-            <>
-              {" "}
-              <br />
-              <span className="text-[40px] text-slate-600 [text-shadow:0_1px_2px_rgba(255,255,255,1),0_0_20px_rgba(255,255,255,0.65)]">
-                {t.heroSubtitle}
-              </span>
-            </>
-          ) : null}
-        </h1>
+      <div className="relative z-10 mx-auto flex w-full max-w-6xl flex-col items-center text-center lg:flex-row lg:items-center lg:justify-between lg:gap-8 lg:text-left xl:gap-12">
+        <div className="flex min-w-0 flex-1 flex-col items-center text-center lg:items-start lg:text-left">
+        {hasRotatingDescription ? (
+          <h1 className="animate-slide-up mb-5 grid w-full max-w-2xl min-h-[6.5rem] text-center text-[1.65rem] font-bold leading-tight tracking-tight text-slate-900 xs:text-[1.85rem] sm:mb-6 sm:min-h-[9rem] sm:text-5xl md:min-h-[8.5rem] md:text-6xl lg:text-left lg:text-7xl [grid-template-areas:'hero-h1']">
+            {slides.map((slide, i) => (
+              <div
+                key={`${slide.cta}-h1-${i}`}
+                className={`col-start-1 row-start-1 m-0 [grid-area:hero-h1] transition-all duration-700 ease-in-out motion-reduce:transition-none ${
+                  activeDescIndex === i
+                    ? "z-10 translate-y-0 opacity-100"
+                    : "pointer-events-none z-0 translate-y-1.5 opacity-0 motion-reduce:translate-y-0"
+                }`}
+                aria-hidden={activeDescIndex !== i}
+              >
+                <span className="[text-shadow:0_1px_2px_rgba(255,255,255,1),0_0_28px_rgba(255,255,255,0.75),0_2px_12px_rgba(255,255,255,0.45)]">
+                  {slide.titleLead}
+                </span>
+                <br />
+                <span
+                  className={cn(
+                    "bg-linear-to-r bg-clip-text text-transparent [filter:drop-shadow(0_1px_0_rgba(255,255,255,0.95))_drop-shadow(0_4px_22px_rgba(255,255,255,0.88))]",
+                    heroAccentGradientForCta(slide.cta),
+                  )}
+                >
+                  {slide.titleAccent}
+                </span>
+                {i === 0 && t.heroSubtitle ? (
+                  <>
+                    {" "}
+                    <br />
+                    <span className="mt-1 block text-xl text-slate-600 sm:text-2xl md:text-[40px] [text-shadow:0_1px_2px_rgba(255,255,255,1),0_0_20px_rgba(255,255,255,0.65)]">
+                      {t.heroSubtitle}
+                    </span>
+                  </>
+                ) : null}
+              </div>
+            ))}
+          </h1>
+        ) : (
+          <h1 className="mb-5 max-w-2xl animate-slide-up text-center text-[1.65rem] font-bold leading-tight tracking-tight text-slate-900 xs:text-[1.85rem] sm:mb-6 sm:text-5xl md:text-6xl lg:text-left lg:text-7xl">
+            <span className="[text-shadow:0_1px_2px_rgba(255,255,255,1),0_0_28px_rgba(255,255,255,0.75),0_2px_12px_rgba(255,255,255,0.45)]">
+              {t.heroTitleLead}
+            </span>
+            <br />
+            <span className="bg-linear-to-r from-violet-600 via-blue-600 to-cyan-500 bg-clip-text text-transparent [filter:drop-shadow(0_1px_0_rgba(255,255,255,0.95))_drop-shadow(0_4px_22px_rgba(255,255,255,0.88))]">
+              {t.heroTitleAccent}
+            </span>
+            {t.heroSubtitle ? (
+              <>
+                {" "}
+                <br />
+                <span className="mt-1 block text-xl text-slate-600 sm:text-2xl md:text-[40px] [text-shadow:0_1px_2px_rgba(255,255,255,1),0_0_20px_rgba(255,255,255,0.65)]">
+                  {t.heroSubtitle}
+                </span>
+              </>
+            ) : null}
+          </h1>
+        )}
 
         {hasRotatingDescription ? (
           <div
@@ -279,64 +352,83 @@ export function HeroSection() {
           </p>
         )}
 
-        {showAugmentedBook ? (
-          <div className="mb-8 flex w-full justify-center lg:hidden">
-            <div className="w-[210px] sm:w-[230px]">
-              <Book3D
-                coverImage={AUGMENTED_BOOK_COVER}
-                coverImageWebp={AUGMENTED_BOOK_COVER_WEBP}
-                alt={bookAlt}
-                className="mx-auto max-h-[270px] drop-shadow-md"
-              />
-            </div>
-          </div>
-        ) : null}
-
-        {/* CTA Buttons */}
-        <div className="flex flex-col sm:flex-row flex-wrap items-stretch sm:items-center justify-start gap-4 mb-20 animate-fade-in-up opacity-0 [animation-delay:300ms] [animation-fill-mode:forwards] w-full sm:w-auto">
-          <HeroCtaWithShine
-            active={primaryCtaActive}
-            shineColor={["#a855f7", "#6366f1", "#22d3ee", "#a855f7"]}
-            href="#apps"
-            onClick={(e) => {
-              e.preventDefault();
-              scrollToSection("#apps");
-            }}
-            className={`flex items-center gap-2 rounded-full bg-slate-900 px-8 py-3.5 text-base font-medium text-white hover:bg-slate-800 hover:scale-105 active:scale-95 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 ${ctaTransition} ${
-              primaryCtaActive ? primaryCtaActiveExtras : ""
-            } ${
-              hasRotatingDescription && !primaryCtaActive
-                ? ctaDimmedClasses
-                : ""
-            } shadow-lg shadow-slate-900/20`}
-            aria-current={primaryCtaActive ? "true" : undefined}
-            aria-label={t.heroCtaPrimary}
-          >
-            <span>{t.heroCtaPrimary}</span>
-            <ArrowRight className="h-4 w-4" aria-hidden="true" />
-          </HeroCtaWithShine>
-          {showFabricaCta ? (
+        {/* Un solo CTA acorde al slide activo (rotación) o solo apps si hay un único slide */}
+        <div
+          className={cn(
+            "mb-14 flex w-full min-h-[3.25rem] flex-col flex-wrap items-center justify-center gap-3 animate-fade-in-up opacity-0 [animation-delay:300ms] [animation-fill-mode:forwards] sm:mb-20 lg:justify-start",
+            !hasRotatingDescription && "sm:flex-row sm:w-auto",
+            hasRotatingDescription && "sm:w-auto",
+          )}
+        >
+          {hasRotatingDescription ? (
+            <>
+              {activeCta === "apps" ? (
+                <HeroCtaWithShine
+                  active
+                  shineColor={["#a855f7", "#6366f1", "#22d3ee", "#a855f7"]}
+                  href="#apps"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    scrollToSection("#apps");
+                  }}
+                  className={`flex items-center justify-center gap-2 rounded-full bg-slate-900 px-8 py-3.5 text-base font-medium text-white hover:bg-slate-800 hover:scale-105 active:scale-95 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 ${ctaTransition} ${primaryCtaActiveExtras} shadow-lg shadow-slate-900/20`}
+                  aria-current="true"
+                  aria-label={t.heroCtaPrimary}
+                >
+                  <span>{t.heroCtaPrimary}</span>
+                  <ArrowRight className="h-4 w-4 shrink-0" aria-hidden="true" />
+                </HeroCtaWithShine>
+              ) : null}
+              {activeCta === "fabrica" && showFabricaCta ? (
+                <HeroCtaWithShine
+                  active
+                  shineColor={["#34d399", "#10b981", "#059669", "#34d399"]}
+                  href="#fabrica-programadores"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    scrollToSection("#fabrica-programadores");
+                  }}
+                  className={`flex items-center justify-center gap-2 rounded-full border border-gray-300 bg-white px-8 py-3.5 text-base font-medium text-slate-900 hover:bg-gray-100 hover:scale-105 active:scale-95 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 ${ctaTransition} ${secondaryCtaActiveExtras}`}
+                  aria-current="true"
+                  aria-label={t.heroCtaSecondary}
+                >
+                  {t.heroCtaSecondary}
+                </HeroCtaWithShine>
+              ) : null}
+              {activeCta === "academy" ? (
+                <HeroCtaWithShine
+                  active
+                  shineColor={["#0ea5e9", "#6366f1", "#4f46e5", "#0ea5e9"]}
+                  href="#edi-academy"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    scrollToSection("#edi-academy");
+                  }}
+                  className={`flex items-center justify-center gap-2 rounded-full border border-sky-200 bg-white px-8 py-3.5 text-base font-medium text-slate-900 hover:bg-sky-50 hover:scale-105 active:scale-95 focus:outline-none focus:ring-2 focus:ring-sky-500 focus:ring-offset-2 ${ctaTransition} ${academyCtaActiveExtras}`}
+                  aria-current="true"
+                  aria-label={t.goToEdiAcademy}
+                >
+                  <span>{t.goToEdiAcademy}</span>
+                  <ArrowRight className="h-4 w-4 shrink-0" aria-hidden="true" />
+                </HeroCtaWithShine>
+              ) : null}
+            </>
+          ) : (
             <HeroCtaWithShine
-              active={secondaryCtaActive}
-              shineColor={["#34d399", "#10b981", "#059669", "#34d399"]}
-              href="#fabrica-programadores"
+              active
+              shineColor={["#a855f7", "#6366f1", "#22d3ee", "#a855f7"]}
+              href="#apps"
               onClick={(e) => {
                 e.preventDefault();
-                scrollToSection("#fabrica-programadores");
+                scrollToSection("#apps");
               }}
-              className={`flex items-center gap-2 rounded-full bg-white px-8 py-3.5 text-base font-medium text-slate-900 border border-slate-200 hover:bg-slate-50 hover:scale-105 active:scale-95 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 ${ctaTransition} ${
-                secondaryCtaActive ? secondaryCtaActiveExtras : ""
-              } ${
-                hasRotatingDescription && !secondaryCtaActive
-                  ? ctaDimmedClasses
-                  : ""
-              } border-gray-300 hover:bg-gray-100`}
-              aria-current={secondaryCtaActive ? "true" : undefined}
-              aria-label={t.heroCtaSecondary}
+              className={`flex items-center justify-center gap-2 rounded-full bg-slate-900 px-8 py-3.5 text-base font-medium text-white hover:bg-slate-800 hover:scale-105 active:scale-95 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 ${ctaTransition} ${primaryCtaActiveExtras} shadow-lg shadow-slate-900/20 sm:w-auto`}
+              aria-label={t.heroCtaPrimary}
             >
-              {t.heroCtaSecondary}
+              <span>{t.heroCtaPrimary}</span>
+              <ArrowRight className="h-4 w-4 shrink-0" aria-hidden="true" />
             </HeroCtaWithShine>
-          ) : null}
+          )}
         </div>
         </div>
 
