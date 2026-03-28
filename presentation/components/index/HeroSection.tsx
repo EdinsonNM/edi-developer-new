@@ -268,7 +268,7 @@ export function HeroSection() {
       <div className="relative z-10 mx-auto flex w-full max-w-6xl flex-col items-center text-center lg:flex-row lg:items-center lg:justify-between lg:gap-8 lg:text-left xl:gap-12">
         <div className="flex min-w-0 flex-1 flex-col items-center text-center lg:items-start lg:text-left">
         {hasRotatingDescription ? (
-          <h1 className="animate-slide-up mb-5 grid w-full max-w-2xl min-h-[6.5rem] text-center text-[1.65rem] font-bold leading-tight tracking-tight text-slate-900 xs:text-[1.85rem] sm:mb-6 sm:min-h-[9rem] sm:text-5xl md:min-h-[8.5rem] md:text-6xl lg:text-left lg:text-7xl [grid-template-areas:'hero-h1']">
+          <h1 className="animate-slide-up mb-5 grid w-full max-w-2xl min-h-[6rem] text-center text-[1.5rem] font-bold leading-tight tracking-tight text-slate-900 xs:text-[1.7rem] sm:mb-6 sm:min-h-[8rem] sm:text-4xl md:min-h-[7.5rem] md:text-5xl lg:text-left lg:text-6xl [grid-template-areas:'hero-h1']">
             {slides.map((slide, i) => (
               <div
                 key={`${slide.cta}-h1-${i}`}
@@ -304,7 +304,7 @@ export function HeroSection() {
             ))}
           </h1>
         ) : (
-          <h1 className="mb-5 max-w-2xl animate-slide-up text-center text-[1.65rem] font-bold leading-tight tracking-tight text-slate-900 xs:text-[1.85rem] sm:mb-6 sm:text-5xl md:text-6xl lg:text-left lg:text-7xl">
+          <h1 className="mb-5 max-w-2xl animate-slide-up text-center text-[1.5rem] font-bold leading-tight tracking-tight text-slate-900 xs:text-[1.7rem] sm:mb-6 sm:text-4xl md:text-5xl lg:text-left lg:text-6xl">
             <span className="[text-shadow:0_1px_2px_rgba(255,255,255,1),0_0_28px_rgba(255,255,255,0.75),0_2px_12px_rgba(255,255,255,0.45)]">
               {t.heroTitleLead}
             </span>
