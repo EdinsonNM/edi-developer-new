@@ -184,3 +184,93 @@ export async function chatWithOpenAI(
   const assistant = sanitizeResponse(parsedAssistantJson, language);
   return { assistant, rawModelResponse: rawJsonText };
 }
+
+/**
+ * Versión en streaming: pide la respuesta en TEXTO PLANO (sin JSON) y devuelve
+ * un ReadableStream que emite los tokens de texto a medida que llegan.
+ */
+export async function streamOpenAI(
+  userInput: string,
+  messagesForApi: ChatContent[],
+  language: "es" | "en"
+): Promise<ReadableStream<Uint8Array>> {
+  const apiKey = process.env.OPENAI_API_KEY;
+  if (!apiKey) {
+    throw new Error("OPENAI_API_KEY no está configurada en el servidor.");
+  }
+
+  const model = process.env.OPENAI_MODEL ?? "gpt-4o-mini";
+  const url = "https://api.openai.com/v1/chat/completions";
+
+  const historyMessages = messagesForApi.map((m) => ({
+    role: m.role === "model" ? ("assistant" as const) : ("user" as const),
+    content: m.parts.map((p) => p.text).join(""),
+  }));
+
+  const plainTextInstruction =
+    language === "es"
+      ? "\n\nResponde en TEXTO PLANO (sin JSON ni markdown), solo el texto de la respuesta para el visitante. Sé breve y conversacional."
+      : "\n\nReply in PLAIN TEXT (no JSON, no markdown), only the answer text for the visitor. Be brief and conversational.";
+
+  const messages = [
+    { role: "system" as const, content: generateDynamicPrompt(language) + plainTextInstruction },
+    ...historyMessages,
+    { role: "user" as const, content: userInput },
+  ];
+
+  const response = await fetch(url, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${apiKey}`,
+    },
+    body: JSON.stringify({ model, messages, stream: true }),
+  });
+
+  if (!response.ok || !response.body) {
+    const errorBody = await response.text().catch(() => "");
+    throw new Error(
+      `Error de la API: ${response.status} ${response.statusText} - ${errorBody}`
+    );
+  }
+
+  // Transforma el SSE de OpenAI (líneas `data: {...}`) en texto plano (deltas).
+  const upstream = response.body.getReader();
+  const decoder = new TextDecoder();
+  const encoder = new TextEncoder();
+  let buffer = "";
+
+  return new ReadableStream<Uint8Array>({
+    async pull(controller) {
+      const { done, value } = await upstream.read();
+      if (done) {
+        controller.close();
+        return;
+      }
+      buffer += decoder.decode(value, { stream: true });
+      const lines = buffer.split("\n");
+      buffer = lines.pop() ?? "";
+      for (const line of lines) {
+        const trimmed = line.trim();
+        if (!trimmed.startsWith("data:")) continue;
+        const data = trimmed.slice(5).trim();
+        if (data === "[DONE]") {
+          controller.close();
+          return;
+        }
+        try {
+          const json = JSON.parse(data) as {
+            choices?: Array<{ delta?: { content?: string } }>;
+          };
+          const delta = json.choices?.[0]?.delta?.content;
+          if (delta) controller.enqueue(encoder.encode(delta));
+        } catch {
+          /* fragmento incompleto: se completará en el siguiente chunk */
+        }
+      }
+    },
+    cancel() {
+      upstream.cancel().catch(() => {});
+    },
+  });
+}

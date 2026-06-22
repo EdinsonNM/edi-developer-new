@@ -1,5 +1,7 @@
 import { NextResponse } from "next/server";
-import { chatWithOpenAI } from "@/lib/chat-openai";
+import { streamOpenAI } from "@/lib/chat-openai";
+
+export const runtime = "nodejs";
 
 export type ChatRequestBody = {
   userInput: string;
@@ -20,13 +22,18 @@ export async function POST(request: Request) {
     }
 
     const lang = language === "en" ? "en" : "es";
-    const { assistant, rawModelResponse } = await chatWithOpenAI(
+    const stream = await streamOpenAI(
       userInput.trim(),
       Array.isArray(messagesForApi) ? messagesForApi : [],
       lang
     );
 
-    return NextResponse.json({ assistant, rawModelResponse });
+    return new Response(stream, {
+      headers: {
+        "Content-Type": "text/plain; charset=utf-8",
+        "Cache-Control": "no-cache, no-transform",
+      },
+    });
   } catch (err) {
     console.error("[api/chat]", err);
     const message = err instanceof Error ? err.message : "Error en el servidor";

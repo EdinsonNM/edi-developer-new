@@ -20,6 +20,7 @@ export default function AskEdiTerminal({ lang, term }: { lang: Lang; term: HomeC
   const [turns, setTurns] = useState<Turn[]>([]);
   const [input, setInput] = useState("");
   const [loading, setLoading] = useState(false);
+  const [streaming, setStreaming] = useState(false);
   const bodyRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
 
@@ -37,6 +38,7 @@ export default function AskEdiTerminal({ lang, term }: { lang: Lang; term: HomeC
     const history = turns;
     setTurns((p) => [...p, { role: "user", text }]);
     setLoading(true);
+    setStreaming(false);
     try {
       const res = await fetch("/api/chat", {
         method: "POST",
@@ -47,13 +49,45 @@ export default function AskEdiTerminal({ lang, term }: { lang: Lang; term: HomeC
           language: lang,
         }),
       });
-      const data = await res.json();
-      const reply: string = data?.assistant?.response || data?.error || term.noResponse;
-      setTurns((p) => [...p, { role: "model", text: reply }]);
+
+      // error (no streaming): el servidor responde JSON con { error }
+      if (!res.ok || !res.body) {
+        const data = await res.json().catch(() => null);
+        setTurns((p) => [...p, { role: "model", text: data?.error || term.noResponse }]);
+        return;
+      }
+
+      // stream de texto plano: vamos agregando los tokens en vivo
+      const reader = res.body.getReader();
+      const decoder = new TextDecoder();
+      let acc = "";
+      let started = false;
+      while (true) {
+        const { done, value } = await reader.read();
+        if (done) break;
+        const chunk = decoder.decode(value, { stream: true });
+        if (!chunk) continue;
+        acc += chunk;
+        if (!started) {
+          started = true;
+          setStreaming(true);
+          setTurns((p) => [...p, { role: "model", text: acc }]);
+        } else {
+          setTurns((p) => {
+            const copy = [...p];
+            copy[copy.length - 1] = { role: "model", text: acc };
+            return copy;
+          });
+        }
+      }
+      if (!started) {
+        setTurns((p) => [...p, { role: "model", text: term.noResponse }]);
+      }
     } catch {
       setTurns((p) => [...p, { role: "model", text: term.connError }]);
     } finally {
       setLoading(false);
+      setStreaming(false);
       requestAnimationFrame(() => inputRef.current?.focus());
     }
   };
@@ -81,7 +115,7 @@ export default function AskEdiTerminal({ lang, term }: { lang: Lang; term: HomeC
           )
         )}
 
-        {loading && (
+        {loading && !streaming && (
           <div className="mt-2.5 text-[#9B9BA1]">
             {term.thinking}<span style={{ animation: "hm-blink 1.1s step-end infinite" }}>…</span>
           </div>
