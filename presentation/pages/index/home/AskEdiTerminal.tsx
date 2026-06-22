@@ -7,9 +7,12 @@ type Turn = { role: "user" | "model"; text: string };
 
 const Prompt = () => (
   <>
-    <span className="text-[#FAFAF9]">visitante</span>
-    <span className="text-[#6b6b70]">@edi-dev</span>
-    <span className="text-[#9B9BA1]">:~$</span>
+    <span className="text-[#27C93F]">visitante</span>
+    <span className="text-[#6b6b70]">@</span>
+    <span className="text-[#5AC8FA]">edi-dev</span>
+    <span className="text-[#6b6b70]">:</span>
+    <span className="text-[#BF8BFF]">~</span>
+    <span className="text-[#9B9BA1]">$</span>
   </>
 );
 
@@ -58,9 +61,9 @@ export default function AskEdiTerminal({ lang, term }: { lang: Lang; term: HomeC
   return (
     <div data-reveal className="rounded-[14px] overflow-hidden border border-white/[.08] bg-[#0C0C0E]">
       <div className="flex items-center gap-2 px-4 py-[13px] border-b border-white/[.06]">
-        <span className="h-2.5 w-2.5 rounded-full bg-[#3a3a3f]" />
-        <span className="h-2.5 w-2.5 rounded-full bg-[#3a3a3f]" />
-        <span className="h-2.5 w-2.5 rounded-full bg-[#3a3a3f]" />
+        <span className="h-3 w-3 rounded-full bg-[#FF5F56] border border-black/10" />
+        <span className="h-3 w-3 rounded-full bg-[#FFBD2E] border border-black/10" />
+        <span className="h-3 w-3 rounded-full bg-[#27C93F] border border-black/10" />
         <span className="mono ml-2 text-xs text-[#6b6b70]">{term.title}</span>
       </div>
       <div
