@@ -48,6 +48,16 @@
 .hm-card { transition: background .4s; }
 .hm-card:hover { background: #141416; }
 
+/* cards de productos translúcidas (dejan ver la animación del fondo) */
+.hm-card-glass {
+  background: rgba(16, 16, 19, .42);
+  -webkit-backdrop-filter: blur(3px);
+  backdrop-filter: blur(3px);
+  border: 1px solid rgba(255, 255, 255, .08);
+  transition: background .4s, border-color .4s;
+}
+.hm-card-glass:hover { background: rgba(22, 22, 26, .58); border-color: rgba(255, 255, 255, .16); }
+
 .hm-card-sm { transition: background .4s; }
 .hm-card-sm:hover { background: #141416; }
 

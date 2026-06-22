@@ -396,7 +396,7 @@ export default function HomeMinimal() {
           </div>
           <div ref={htrackRef} className="h-track" style={{ display: "flex", gap: 28, padding: `36px ${PAD}`, marginTop: 18, willChange: "transform" }}>
             {products.map((p) => (
-              <div key={p.n} data-hov className="hm-card" style={{ position: "relative", flex: "none", width: "min(82vw,620px)", borderRadius: 18, overflow: "hidden", background: "#101012" }}>
+              <a key={p.n} href={p.url} target="_blank" rel="noopener noreferrer" data-hov className="hm-card-glass" style={{ position: "relative", flex: "none", width: "min(82vw,620px)", borderRadius: 18, overflow: "hidden", display: "block" }}>
                 <div style={{ padding: "34px 34px 30px" }}>
                   <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 28 }}>
                     <div className="mono" style={{ fontSize: 12, letterSpacing: ".1em", color: "#6b6b70" }}>{p.tag}</div>
@@ -410,12 +410,12 @@ export default function HomeMinimal() {
                   <p style={{ marginTop: 16, fontSize: 18, color: "#d4d4d2", lineHeight: 1.4 }}>{p.tagline}</p>
                   <p style={{ marginTop: 14, fontSize: 15, color: "#9B9BA1", lineHeight: 1.6, maxWidth: "48ch", textWrap: "pretty" } as CSSProperties}>{p.desc}</p>
                 </div>
-                <div style={{ position: "relative", height: 190, background: "#0E0E10", overflow: "hidden" }}>
+                <div style={{ position: "relative", height: 190, background: "rgba(8,8,10,.35)", overflow: "hidden" }}>
                   <div style={{ position: "absolute", inset: 0, backgroundImage: "radial-gradient(circle at 1px 1px,rgba(255,255,255,.05) 1px,transparent 0)", backgroundSize: "16px 16px" }} />
-                  <a href={p.url} data-hov className="mono" style={{ position: "absolute", left: 24, bottom: 18, fontSize: 13, color: "#FAFAF9", display: "flex", alignItems: "center", gap: 8 }}>{p.link} <span>↗</span></a>
+                  <span className="mono" style={{ position: "absolute", left: 24, bottom: 18, fontSize: 13, color: "#FAFAF9", display: "flex", alignItems: "center", gap: 8 }}>{p.link} <span>↗</span></span>
                   <div className="mono" style={{ position: "absolute", right: 22, top: 16, fontSize: 40, fontWeight: 600, color: "rgba(255,255,255,.06)" }}>0{p.n}</div>
                 </div>
-              </div>
+              </a>
             ))}
             <div style={{ flex: "none", width: "min(60vw,360px)", display: "flex", flexDirection: "column", justifyContent: "center", gap: 14, padding: "0 12px" }}>
               <div className="mono" style={{ fontSize: 12, color: "#6b6b70", letterSpacing: ".1em" }}>{t.moreComing}</div>
@@ -432,10 +432,10 @@ export default function HomeMinimal() {
           <h2 data-reveal style={{ fontSize: "clamp(28px,4.4vw,52px)", fontWeight: 600, letterSpacing: "-.035em", maxWidth: "20ch", marginBottom: 56, textWrap: "balance" } as CSSProperties}>{t.s3title}</h2>
           <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit,minmax(340px,1fr))", gap: 32 }}>
             {resources.map((r, i) => (
-              <div key={i} data-reveal data-hov className="hm-card-sm" style={{ position: "relative", display: "flex", gap: 26, padding: 30, borderRadius: 16, background: "#101012" }}>
+              <a key={i} href={r.href} data-reveal data-hov className="hm-card-sm" style={{ position: "relative", display: "flex", gap: 26, padding: 30, borderRadius: 16, background: "#101012" }}>
                 <div style={{ flex: "none", width: 84, height: 116, borderRadius: 6, position: "relative", overflow: "hidden", background: "#1a1a1d" }}>
-                  <div style={{ position: "absolute", left: 0, top: 0, bottom: 0, width: 4, background: "rgba(255,255,255,.55)" }} />
-                  <div className="mono" style={{ position: "absolute", left: 14, right: 8, bottom: 10, fontSize: 9, color: "#6b6b70", lineHeight: 1.3 }}>{r.kind}</div>
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img src={encodeURI(r.cover)} alt={r.name} loading="lazy" style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "cover" }} />
                 </div>
                 <div style={{ minWidth: 0 }}>
                   <span className="mono" style={{ fontSize: 11, padding: "4px 10px", borderRadius: 999, color: "#9B9BA1", border: "1px solid rgba(255,255,255,.12)" }}>{r.tag}</span>
@@ -443,7 +443,7 @@ export default function HomeMinimal() {
                   <p style={{ marginTop: 10, color: "#9B9BA1", fontSize: 14, lineHeight: 1.6, textWrap: "pretty" } as CSSProperties}>{r.desc}</p>
                   <div className="mono" style={{ marginTop: 18, fontSize: 13, color: "#FAFAF9" }}>{r.cta} →</div>
                 </div>
-              </div>
+              </a>
             ))}
           </div>
         </div>
@@ -510,11 +510,11 @@ export default function HomeMinimal() {
               <div className="mono" style={{ fontSize: 12, letterSpacing: ".14em", color: "#9B9BA1", marginBottom: 16 }}>07 — {t.s7eyebrow}</div>
               <h2 style={{ fontSize: "clamp(28px,4.4vw,52px)", fontWeight: 600, letterSpacing: "-.035em" }}>{t.s7title}</h2>
             </div>
-            <a href="#" data-hov className="mono hm-link-mono" style={{ fontSize: 13, color: "#9B9BA1" }}>{t.s7all} →</a>
+            <a href="/blog" data-hov className="mono hm-link-mono" style={{ fontSize: 13, color: "#9B9BA1" }}>{t.s7all} →</a>
           </div>
           <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit,minmax(290px,1fr))", gap: 28 }}>
             {posts.map((post, i) => (
-              <a key={i} href="#" data-reveal data-hov className="hm-blog" style={{ display: "flex", flexDirection: "column", borderRadius: 14, overflow: "hidden", background: "#101012" }}>
+              <a key={i} href={post.href} data-reveal data-hov className="hm-blog" style={{ display: "flex", flexDirection: "column", borderRadius: 14, overflow: "hidden", background: "#101012" }}>
                 <div style={{ height: 160, position: "relative", overflow: "hidden", background: "#0E0E10" }}>
                   <div style={{ position: "absolute", inset: 0, backgroundImage: "radial-gradient(circle at 1px 1px,rgba(255,255,255,.05) 1px,transparent 0)", backgroundSize: "14px 14px" }} />
                   <div className="mono" style={{ position: "absolute", right: 14, top: 12, fontSize: 11, color: "#6b6b70" }}>{post.cat}</div>
@@ -556,7 +556,7 @@ export default function HomeMinimal() {
               </div>
             ))}
           </div>
-          <a data-reveal data-hov data-magnetic href="#contacto" className="hm-btn-solid" style={{ display: "inline-flex", alignItems: "center", gap: 10, marginTop: 40, padding: "14px 26px", borderRadius: 10, fontWeight: 600, color: "#0A0A0B", background: "#FAFAF9" }}>{t.s8cta} <span className="mono">→</span></a>
+          <a data-reveal data-hov data-magnetic href="https://edi-academy.lovable.app/" target="_blank" rel="noopener noreferrer" className="hm-btn-solid" style={{ display: "inline-flex", alignItems: "center", gap: 10, marginTop: 40, padding: "14px 26px", borderRadius: 10, fontWeight: 600, color: "#0A0A0B", background: "#FAFAF9" }}>{t.s8cta} <span className="mono">→</span></a>
         </div>
       </section>
 
@@ -594,8 +594,8 @@ export default function HomeMinimal() {
             <div style={{ display: "flex", alignItems: "center", gap: 10, fontWeight: 600, fontSize: 18 }}><span style={{ width: 9, height: 9, borderRadius: 2, background: "#FAFAF9" }} />edi<span style={{ color: "#6b6b70" }}>-developer</span><span className="mono" style={{ color: "#9B9BA1" }}>.dev</span></div>
             <p style={{ marginTop: 16, color: "#9B9BA1", fontSize: 14, lineHeight: 1.6, maxWidth: 280, textWrap: "pretty" } as CSSProperties}>{t.footTag}</p>
             <div style={{ display: "flex", gap: 12, marginTop: 22 }}>
-              <a href="#" data-hov className="mono hm-pill" style={{ fontSize: 13, padding: "9px 15px", borderRadius: 9, border: "1px solid rgba(255,255,255,.1)", color: "#9B9BA1" }}>GitHub ↗</a>
-              <a href="#" data-hov className="mono hm-pill" style={{ fontSize: 13, padding: "9px 15px", borderRadius: 9, border: "1px solid rgba(255,255,255,.1)", color: "#9B9BA1" }}>LinkedIn ↗</a>
+              <a href="https://github.com/edinsonnm" target="_blank" rel="noopener noreferrer" data-hov className="mono hm-pill" style={{ fontSize: 13, padding: "9px 15px", borderRadius: 9, border: "1px solid rgba(255,255,255,.1)", color: "#9B9BA1" }}>GitHub ↗</a>
+              <a href="https://linkedin.com/in/edinsonnm" target="_blank" rel="noopener noreferrer" data-hov className="mono hm-pill" style={{ fontSize: 13, padding: "9px 15px", borderRadius: 9, border: "1px solid rgba(255,255,255,.1)", color: "#9B9BA1" }}>LinkedIn ↗</a>
             </div>
           </div>
           <div>
@@ -608,7 +608,7 @@ export default function HomeMinimal() {
           </div>
           <div>
             <div className="mono" style={{ fontSize: 12, color: "#5a5a60", letterSpacing: ".08em" }}>{t.footContact}</div>
-            <a href="#contacto" data-hov className="hm-link-mono" style={{ display: "block", marginTop: 18, fontSize: 14, color: "#d4d4d2" }}>hola@edi-developer.dev</a>
+            <a href="mailto:hola@edi-developer.dev" data-hov className="hm-link-mono" style={{ display: "block", marginTop: 18, fontSize: 14, color: "#d4d4d2" }}>hola@edi-developer.dev</a>
             <a href="#contacto" data-hov data-magnetic style={{ display: "inline-flex", marginTop: 20, padding: "11px 20px", borderRadius: 10, fontSize: 14, fontWeight: 600, color: "#0A0A0B", background: "#FAFAF9" }}>{t.contactMe}</a>
           </div>
         </div>
@@ -693,12 +693,12 @@ function buildData(lang: Lang) {
       tagline: lang === "es" ? "Infraestructura de IA para empresas peruanas." : "AI infrastructure for Peruvian companies.",
       desc: lang === "es" ? "Un solo gateway compatible con OpenAI para rutear entre OpenAI, Anthropic, Gemini, Groq y proveedores locales — con contratos, soporte y facturación en Perú." : "A single OpenAI-compatible gateway to route across OpenAI, Anthropic, Gemini, Groq and local providers — with contracts, support and billing in Peru.",
       link: lang === "es" ? "Visitar Khipu" : "Visit Khipu" },
-    { n: 2, name: "Slaim", url: "#", tag: "AI · PRESENTACIONES",
+    { n: 2, name: "Slaim", url: "https://slaim.vercel.app", tag: "AI · PRESENTACIONES",
       badges: [lang === "es" ? "En vivo" : "Live", lang === "es" ? "Gratis" : "Free"],
       tagline: lang === "es" ? "De idea a presentación lista en minutos." : "From idea to a finished deck in minutes.",
       desc: lang === "es" ? "Genera contenido, estructura y notas para tus presentaciones automáticamente usando IA." : "Generates content, structure and speaker notes for your presentations automatically using AI.",
       link: lang === "es" ? "Abrir Slaim" : "Open Slaim" },
-    { n: 3, name: "Emotional AI", url: "#", tag: "AI · ASISTENTE",
+    { n: 3, name: "Emotional AI", url: "https://emotional-ai.app", tag: "AI · ASISTENTE",
       badges: [lang === "es" ? "En vivo" : "Live", lang === "es" ? "Experimental" : "Experimental"],
       tagline: lang === "es" ? "Tu negocio con rostro y voz." : "Your business with a face and a voice.",
       desc: lang === "es" ? "Consultas y cuestionarios con un asistente que se siente cercano. Conecta MCP y responde con lo que ya tienes en sistemas internos." : "Queries and quizzes with an assistant that feels close. Connects MCP and answers with what you already have in internal systems.",
@@ -707,9 +707,11 @@ function buildData(lang: Lang) {
 
   const resources = [
     { name: lang === "es" ? "El Programador Aumentado" : "The Augmented Programmer", tag: lang === "es" ? "Producto" : "Product", kind: lang === "es" ? "LIBRO" : "BOOK",
+      cover: "/cover.png", href: "/blog/el-programador-aumentado",
       desc: lang === "es" ? "Cómo desarrollar software con IA sin perder el control: delegación con criterio, revisión de resultados y control de arquitectura." : "How to develop software with AI without losing control: delegating with judgment, reviewing results and owning the architecture.",
       cta: lang === "es" ? "Ver libro" : "View book" },
     { name: lang === "es" ? "Fábrica de Programadores" : "Programmer Factory", tag: lang === "es" ? "Gratis" : "Free", kind: lang === "es" ? "CUENTO" : "STORY",
+      cover: "/cuentos/Zorrito en la fábrica de programadores.webp", href: "/blog/fabrica-de-programadores",
       desc: lang === "es" ? "Un cuento ilustrado que acerca la programación a los niños con humor y ternura. Léelo en la web o descarga el PDF sin coste." : "An illustrated story that brings programming closer to kids with humor and warmth. Read online or download the free PDF.",
       cta: lang === "es" ? "Leer cuento" : "Read story" },
   ];
@@ -727,9 +729,12 @@ function buildData(lang: Lang) {
     : ["AI for developers", "Technical storytelling", "Modern software engineering", "3D with React Three Fiber", "Educational innovation", "Technology with purpose"];
 
   const posts = [
-    { cat: lang === "es" ? "// IA" : "// AI", title: lang === "es" ? "El programador aumentado por IA" : "The AI-augmented programmer", meta: "8 min · 2026" },
-    { cat: "// 3D", title: lang === "es" ? "Profundidad y luz con WebGL" : "Depth and light with WebGL", meta: "12 min · 2026" },
-    { cat: "// FRONTEND", title: lang === "es" ? "Interfaces que se sienten rápidas" : "Interfaces that feel fast", meta: "6 min · 2026" },
+    { cat: lang === "es" ? "// REFLEXIÓN" : "// REFLECTION", href: "/blog/buscar-trabajo-en-2026", meta: "2026",
+      title: lang === "es" ? "Mucha experiencia, cero respuestas: buscar trabajo en 2026" : "Lots of experience, zero replies: job hunting in 2026" },
+    { cat: lang === "es" ? "// INVESTIGACIÓN" : "// RESEARCH", href: "/blog/interfaces-generativas-llm", meta: "2025",
+      title: lang === "es" ? "Interfaces que se generan solas: el futuro de la UX con LLMs" : "Interfaces that generate themselves: the future of UX with LLMs" },
+    { cat: lang === "es" ? "// LIBRO" : "// BOOK", href: "/blog/el-programador-aumentado", meta: "2024",
+      title: lang === "es" ? "El Programador Aumentado" : "The Augmented Programmer" },
   ];
 
   const metrics = [
