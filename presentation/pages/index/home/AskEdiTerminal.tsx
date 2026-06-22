@@ -88,7 +88,7 @@ export default function AskEdiTerminal({ lang, term }: { lang: Lang; term: HomeC
     } finally {
       setLoading(false);
       setStreaming(false);
-      requestAnimationFrame(() => inputRef.current?.focus());
+      requestAnimationFrame(() => inputRef.current?.focus({ preventScroll: true }));
     }
   };
 
@@ -138,7 +138,7 @@ export default function AskEdiTerminal({ lang, term }: { lang: Lang; term: HomeC
             value={input}
             disabled={loading}
             onChange={(e) => setInput(e.target.value)}
-            onKeyDown={(e) => { if (e.key === "Enter") send(input); }}
+            onKeyDown={(e) => { if (e.key === "Enter") { e.preventDefault(); send(input); } }}
             placeholder={term.placeholder}
             aria-label={term.aria}
             className="hm-term-input flex-1 min-w-0 bg-transparent border-none outline-none text-[#FAFAF9] text-[13.5px] cursor-text"

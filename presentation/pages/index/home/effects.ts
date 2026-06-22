@@ -201,6 +201,48 @@ export function useHomeEffects(lang: string) {
         hProgRef.current.textContent = String(n).padStart(2, "0") + " / " + String(parts).padStart(2, "0");
       }
     };
+    /* ---------- carrusel productos: drag-to-scroll en móvil (touch + puntero) ---------- */
+    {
+      const track = htrackRef.current;
+      if (track && window.innerWidth <= 980) {
+        let down = false, startX = 0, startLeft = 0, moved = false;
+        const onDown = (e: PointerEvent) => {
+          if (e.pointerType === "touch") return; // touch usa swipe nativo
+          down = true; moved = false;
+          startX = e.clientX;
+          startLeft = track.scrollLeft;
+          track.style.scrollSnapType = "none";
+        };
+        const onMove = (e: PointerEvent) => {
+          if (!down) return;
+          const dx = e.clientX - startX;
+          if (Math.abs(dx) > 4) moved = true;
+          track.scrollLeft = startLeft - dx;
+        };
+        const onUp = () => {
+          if (!down) return;
+          down = false;
+          track.style.scrollSnapType = "x mandatory";
+        };
+        // evita que un drag dispare el click del enlace de la card
+        const onClick = (e: MouseEvent) => { if (moved) { e.preventDefault(); e.stopPropagation(); } };
+        track.addEventListener("pointerdown", onDown);
+        track.addEventListener("pointermove", onMove);
+        track.addEventListener("pointerup", onUp);
+        track.addEventListener("pointercancel", onUp);
+        track.addEventListener("pointerleave", onUp);
+        track.addEventListener("click", onClick, true);
+        cleanups.push(() => {
+          track.removeEventListener("pointerdown", onDown);
+          track.removeEventListener("pointermove", onMove);
+          track.removeEventListener("pointerup", onUp);
+          track.removeEventListener("pointercancel", onUp);
+          track.removeEventListener("pointerleave", onUp);
+          track.removeEventListener("click", onClick, true);
+        });
+      }
+    }
+
     const onScroll = () => {
       if (revealCheck) revealCheck();
       if (videoSeek) videoSeek();
@@ -244,7 +286,7 @@ export function useHomeEffects(lang: string) {
     /* ---------- reloj Lima ---------- */
     const clockEl = clockRef.current;
     let clockTimer: ReturnType<typeof setInterval> | null = null;
-    if (clockEl) {
+    if (clockEl && window.innerWidth >= 640) {
       clockEl.style.display = "inline";
       const tick = () => {
         try {

@@ -1,9 +1,78 @@
 "use client";
 
+import { useEffect, useRef, useState } from "react";
 import type { RefObject } from "react";
 import type { HomeContent, Lang, SectionRef } from "./content";
 
 type T = HomeContent["t"];
+
+/* ===================== Audio ambiente (suena solo al hacer scroll) + mute/unmute ===================== */
+function AmbientAudio() {
+  const audioRef = useRef<HTMLAudioElement>(null);
+  const [on, setOn] = useState(true); // armado: si scrolleas, suena
+  const onRef = useRef(true);
+
+  const toggle = () => {
+    const a = audioRef.current;
+    if (!a) return;
+    if (on) {
+      a.pause();
+      onRef.current = false;
+      setOn(false);
+    } else {
+      a.muted = false;
+      a.volume = 0.4;
+      onRef.current = true;
+      setOn(true);
+    }
+  };
+
+  /* mientras el audio esté armado, reproduce solo durante el scroll y pausa al detenerse */
+  useEffect(() => {
+    let idle: ReturnType<typeof setTimeout>;
+    const onScroll = () => {
+      const a = audioRef.current;
+      if (!a || !onRef.current) return;
+      a.muted = false;
+      a.volume = 0.4;
+      if (a.paused) void a.play().catch(() => {});
+      clearTimeout(idle);
+      idle = setTimeout(() => a.pause(), 220);
+    };
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => {
+      window.removeEventListener("scroll", onScroll);
+      clearTimeout(idle);
+    };
+  }, []);
+
+  return (
+    <>
+      <audio ref={audioRef} src="/videos/video-developer-new-audio.m4a" loop preload="auto" />
+      <button
+        type="button"
+        onClick={toggle}
+        data-hov
+        aria-label={on ? "Silenciar audio" : "Activar audio"}
+        className="fixed bottom-[26px] right-[26px] z-[61] flex h-9 w-9 items-center justify-center rounded-full border border-[#2c2c30] bg-[#0A0A0B]/60 text-[#FAFAF9] backdrop-blur transition-colors hover:border-[#FAFAF9]/50"
+      >
+        {on ? (
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+            <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5" />
+            <path d="M15.54 8.46a5 5 0 0 1 0 7.07" />
+            <path d="M19.07 4.93a10 10 0 0 1 0 14.14" />
+          </svg>
+        ) : (
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+            <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5" />
+            <line x1="23" y1="9" x2="17" y2="15" />
+            <line x1="17" y1="9" x2="23" y2="15" />
+          </svg>
+        )}
+      </button>
+    </>
+  );
+}
 
 /* ===================== Fondo: video scrubbed + velo + grano + cursor ===================== */
 export function Backdrop({
@@ -20,11 +89,11 @@ export function Backdrop({
       <div className="fixed inset-0 -z-[3] bg-[#0A0A0B] pointer-events-none" />
       <video
         ref={videoRef}
-        src="/videos/video-developer-scrub.mp4"
+        src="/videos/video-developer-new-scrub.mp4"
         muted
         playsInline
         preload="auto"
-        className="fixed inset-0 -z-[2] h-full w-full object-cover pointer-events-none"
+        className="fixed inset-0 -z-[2] h-full w-full object-cover object-[68%_38%] md:object-center pointer-events-none"
       />
       <div
         className="fixed inset-0 -z-[1] pointer-events-none"
@@ -44,6 +113,9 @@ export function Backdrop({
         className="fixed inset-0 z-[59] pointer-events-none"
         style={{ background: "radial-gradient(130% 100% at 50% 28%, transparent 60%, rgba(0,0,0,.55) 100%)" }}
       />
+
+      {/* audio ambiente + control */}
+      <AmbientAudio />
     </>
   );
 }

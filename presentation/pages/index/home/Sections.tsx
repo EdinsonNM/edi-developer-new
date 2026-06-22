@@ -138,7 +138,7 @@ export function Resources({ t }: { t: T["resources"] }) {
 export function About({ t, lang }: { t: T["about"]; lang: Lang }) {
   return (
     <section id="sobre" data-section-el="sobre" className="relative hm-sec hm-pad-x">
-      <div className="max-w-[1280px] mx-auto grid gap-[clamp(40px,5vw,80px)] items-center [grid-template-columns:repeat(auto-fit,minmax(370px,1fr))]">
+      <div className="max-w-[1280px] mx-auto grid gap-[clamp(40px,5vw,80px)] items-center [grid-template-columns:minmax(0,1fr)] lg:[grid-template-columns:repeat(auto-fit,minmax(370px,1fr))]">
         <div>
           <div data-reveal className="hm-eyebrow mb-4">04 — {t.eyebrow}</div>
           <h2 data-reveal className="hm-h2 leading-[1.06] [text-wrap:balance]">{t.titlePre} <span className="text-[#FAFAF9]">{t.titleGrad}</span></h2>
@@ -269,14 +269,14 @@ export function Academy({ t }: { t: T["academy"] }) {
 
 /* ===================== 09 CONTACTO ===================== */
 export function Contact({ t }: { t: T["contact"] }) {
-  const field = "hm-field w-full mt-2 px-3.5 py-[13px] rounded-[10px] border border-white/10 bg-[#0A0A0B] text-[#FAFAF9] text-[15px] outline-none cursor-text";
+  const field = "hm-field w-full mt-2 px-3.5 py-[13px] rounded-[10px] border border-white/10 bg-[#0A0A0B]/50 text-[#FAFAF9] text-[15px] outline-none cursor-text";
   return (
     <section id="contacto" data-section-el="contacto" className="relative hm-sec-lg hm-pad-x">
       <div className="max-w-[780px] mx-auto text-center">
         <div data-reveal className="hm-eyebrow mb-4">09 — {t.eyebrow}</div>
         <h2 data-reveal className="hm-display [text-wrap:balance]">{t.titlePre} <span className="text-[#FAFAF9]">{t.titleGrad}</span></h2>
         <p data-reveal className="mt-[22px] text-[17px] text-[#9B9BA1] max-w-[46ch] mx-auto [text-wrap:pretty]">{t.lead}</p>
-        <div data-reveal className="mt-[46px] p-[34px] rounded-[18px] text-left bg-[#101012]">
+        <div data-reveal className="mt-[46px] p-[34px] rounded-[18px] text-left bg-[#101012]/55 backdrop-blur-md border border-white/[.08]">
           <div className="grid grid-cols-2 gap-4">
             <label className="block">
               <span className="mono text-xs text-[#9B9BA1]">{t.form.name}</span>

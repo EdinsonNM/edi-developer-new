@@ -61,12 +61,16 @@
 
 @media (max-width: 980px) {
   .side-index { display: none !important; }
+  /* evita scroll horizontal de la página; el carrusel conserva su propio scroll interno */
+  html, body { overflow-x: hidden; }
+  .hm { overflow-x: hidden; max-width: 100vw; }
   /* en móvil: sin pin; las cards se desplazan con swipe horizontal nativo + snap */
-  .h-wrap { height: auto !important; }
+  .h-wrap { height: auto !important; overflow: hidden; }
   .h-pin { position: static !important; height: auto !important; display: block !important; }
   .h-track {
     transform: none !important;
     overflow-x: auto;
+    max-width: 100vw;
     scroll-snap-type: x mandatory;
     -webkit-overflow-scrolling: touch;
     scrollbar-width: none;
