@@ -340,7 +340,7 @@ export default function HomeMinimal() {
       <nav style={{ position: "fixed", top: 0, left: 0, right: 0, zIndex: 58, display: "flex", alignItems: "center", justifyContent: "space-between", padding: `18px ${PAD}`, backdropFilter: "blur(12px)", WebkitBackdropFilter: "blur(12px)", background: "linear-gradient(180deg,rgba(10,10,11,.82),rgba(10,10,11,0))" }}>
         <a href="#inicio" data-hov style={{ display: "flex", alignItems: "center", gap: 11, fontWeight: 600, letterSpacing: "-.01em", fontSize: 16 }}>
           <span style={{ width: 9, height: 9, borderRadius: 2, background: "#FAFAF9" }} />
-          edi<span style={{ color: "#6b6b70" }}>-developer</span><span className="mono" style={{ color: "#9B9BA1" }}>.dev</span>
+          <span>edi<span style={{ color: "#6b6b70" }}>-developer</span><span className="mono" style={{ color: "#9B9BA1" }}>.dev</span></span>
         </a>
         <div style={{ display: "flex", alignItems: "center", gap: 20 }}>
           <span ref={clockRef} className="mono" style={{ display: "none", fontSize: 12, color: "#5a5a60", letterSpacing: ".05em" }}>--:--:-- LIM</span>
@@ -591,7 +591,10 @@ export default function HomeMinimal() {
         <div style={{ height: 1, background: "linear-gradient(90deg,transparent,rgba(255,255,255,.22),transparent)" }} />
         <div style={{ padding: `clamp(54px,9vh,90px) ${PAD} 40px`, maxWidth: 1280, margin: "0 auto", display: "grid", gridTemplateColumns: "repeat(auto-fit,minmax(220px,1fr))", gap: 44 }}>
           <div>
-            <div style={{ display: "flex", alignItems: "center", gap: 10, fontWeight: 600, fontSize: 18 }}><span style={{ width: 9, height: 9, borderRadius: 2, background: "#FAFAF9" }} />edi<span style={{ color: "#6b6b70" }}>-developer</span><span className="mono" style={{ color: "#9B9BA1" }}>.dev</span></div>
+            <div style={{ display: "flex", alignItems: "center", gap: 10, fontWeight: 600, fontSize: 18 }}>
+              <span style={{ width: 9, height: 9, borderRadius: 2, background: "#FAFAF9" }} />
+              <span style={{ letterSpacing: "-.01em" }}>edi<span style={{ color: "#6b6b70" }}>-developer</span><span className="mono" style={{ color: "#9B9BA1" }}>.dev</span></span>
+            </div>
             <p style={{ marginTop: 16, color: "#9B9BA1", fontSize: 14, lineHeight: 1.6, maxWidth: 280, textWrap: "pretty" } as CSSProperties}>{t.footTag}</p>
             <div style={{ display: "flex", gap: 12, marginTop: 22 }}>
               <a href="https://github.com/edinsonnm" target="_blank" rel="noopener noreferrer" data-hov className="mono hm-pill" style={{ fontSize: 13, padding: "9px 15px", borderRadius: 9, border: "1px solid rgba(255,255,255,.1)", color: "#9B9BA1" }}>GitHub ↗</a>
