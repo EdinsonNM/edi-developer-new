@@ -45,7 +45,7 @@ const jsonLd = {
   name: "Edinson Nuñez More",
   alternateName: "Edi Developer",
   url: "https://edi-developer.dev/",
-  image: "https://edi-developer.dev/edi-dev-portada.png?v=2025-optimized",
+  image: "https://edi-developer.dev/brand/og.jpg?v=2026",
   jobTitle: "Software Engineer",
   worksFor: { "@type": "Organization", name: "Freelance" },
   description:
@@ -98,7 +98,7 @@ export const metadata: Metadata = {
       "Ingeniero de software con más de 14 años de experiencia. Especialista en Frontend, IA aplicada, gráficos 3D y arquitectura web moderna. La tecnología es magia cuando abre oportunidades.",
     images: [
       {
-        url: "https://edi-developer.dev/edi-dev-portada.png?v=2025-optimized",
+        url: "https://edi-developer.dev/brand/og.jpg?v=2026",
         width: 1200,
         height: 630,
         alt: "Edi Developer - Portafolio de Edinson Nuñez More",
@@ -112,7 +112,7 @@ export const metadata: Metadata = {
     title: "Edi Developer - Innovación que abre oportunidades",
     description:
       "Ingeniero de software con más de 14 años de experiencia. Especialista en Frontend, IA aplicada, gráficos 3D y arquitectura web moderna.",
-    images: ["https://edi-developer.dev/edi-dev-portada.png?v=2025-optimized"],
+    images: ["https://edi-developer.dev/brand/og.jpg?v=2026"],
   },
   icons: {
     icon: "/icons/web/favicon.ico",
