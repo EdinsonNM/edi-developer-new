@@ -1,4 +1,31 @@
 import { systemPrompt } from "@/presentation/utils/hooks/system-prompt";
+import edinsonProfile from "@/presentation/utils/hooks/edinson_profile.json";
+
+/**
+ * Prompt para el terminal en streaming: misma persona, pero responde en
+ * TEXTO PLANO conversacional (sin JSON ni gráficos), usando el perfil de
+ * Edinson como única fuente de verdad.
+ */
+function buildStreamSystemPrompt(language: "es" | "en"): string {
+  const es = language === "es";
+  const offTopic = es
+    ? "Este chat solo responde preguntas sobre Edinson Nuñez More: su experiencia, habilidades, proyectos o charlas."
+    : "This chat only answers questions about Edinson Nuñez More: his experience, skills, projects or talks.";
+
+  return [
+    es
+      ? "Eres el asistente de Edinson Nuñez More. Respondes ÚNICAMENTE preguntas sobre su carrera profesional, usando su perfil (JSON abajo) como única fuente de verdad."
+      : "You are Edinson Nuñez More's assistant. You ONLY answer questions about his professional career, using his profile (JSON below) as the single source of truth.",
+    es ? "Reglas:" : "Rules:",
+    es
+      ? "- Responde SIEMPRE en español, en TEXTO PLANO conversacional y breve (1–3 frases). Nada de JSON, markdown, listas ni gráficos."
+      : "- ALWAYS reply in English, in brief conversational PLAIN TEXT (1–3 sentences). No JSON, markdown, lists or charts.",
+    `- ${es ? "Si la pregunta no es sobre Edinson, responde:" : "If the question isn't about Edinson, reply:"} "${offTopic}"`,
+    "",
+    (es ? "Perfil de Edinson (JSON):" : "Edinson's profile (JSON):"),
+    JSON.stringify(edinsonProfile),
+  ].join("\n");
+}
 
 export type ChatContent = {
   role: "user" | "model";
@@ -207,13 +234,8 @@ export async function streamOpenAI(
     content: m.parts.map((p) => p.text).join(""),
   }));
 
-  const plainTextInstruction =
-    language === "es"
-      ? "\n\nResponde en TEXTO PLANO (sin JSON ni markdown), solo el texto de la respuesta para el visitante. Sé breve y conversacional."
-      : "\n\nReply in PLAIN TEXT (no JSON, no markdown), only the answer text for the visitor. Be brief and conversational.";
-
   const messages = [
-    { role: "system" as const, content: generateDynamicPrompt(language) + plainTextInstruction },
+    { role: "system" as const, content: buildStreamSystemPrompt(language) },
     ...historyMessages,
     { role: "user" as const, content: userInput },
   ];
