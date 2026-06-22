@@ -78,6 +78,24 @@ export function buildHomeContent(lang: Lang) {
             : "Queries and quizzes with an assistant that feels close. Connects MCP and answers with what you already have in internal systems.",
           link: es ? "Conocer Emotional AI" : "Meet Emotional AI",
         },
+        {
+          n: 4, name: "Zypher", url: "https://app-zypher.netlify.app", tag: "AI · EDUCACIÓN",
+          badges: [es ? "En vivo" : "Live"],
+          tagline: es ? "Agenda escolar inteligente para padres y colegios." : "A smart school agenda for parents and schools.",
+          desc: es
+            ? "Organiza tareas, comunicados y el día a día escolar en un solo lugar, potenciado con IA."
+            : "Organize tasks, announcements and daily school life in one place, powered by AI.",
+          link: es ? "Abrir Zypher" : "Open Zypher",
+        },
+        {
+          n: 5, name: "Yaqu", url: "https://yaqu-app-frontend-production.up.railway.app/", tag: "AI · AGRICULTURA",
+          badges: [es ? "En vivo" : "Live", es ? "Juntas de usuarios" : "Water user boards"],
+          tagline: es ? "Gestión de riego agrícola para juntas de usuarios." : "Agricultural irrigation management for water user boards.",
+          desc: es
+            ? "Software para que las juntas de usuarios planifiquen y controlen el riego de cultivos, optimizando el uso del agua en el campo."
+            : "Software for water user boards to plan and control crop irrigation, optimizing water use in the field.",
+          link: es ? "Abrir Yaqu" : "Open Yaqu",
+        },
       ],
     },
     resources: {

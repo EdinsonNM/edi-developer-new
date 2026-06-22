@@ -143,6 +143,10 @@ interface Translations {
   emotionalAiDescription: string;
   emotionalAiCta: string;
   emotionalAiHref: string;
+  zypherAppTagline: string;
+  zypherAppDescription: string;
+  zypherAppCta: string;
+  zypherAppHref: string;
   badgeLive: string;
   badgeFree: string;
   badgeComingSoon: string;
@@ -426,6 +430,11 @@ const translations: Record<Language, Translations> = {
       "Consultas, dudas y cuestionarios con un asistente que se siente cercano, no como un chat anónimo. Tu negocio con rostro y voz; conecta MCP y responde con lo que ya tienes en sistemas internos.",
     emotionalAiCta: "Conocer Emotional AI",
     emotionalAiHref: "https://emotional-ai.app",
+    zypherAppTagline: "Agenda escolar inteligente para padres y colegios.",
+    zypherAppDescription:
+      "Organiza tareas, comunicados y el día a día escolar en un solo lugar, potenciado con IA.",
+    zypherAppCta: "Abrir Zypher",
+    zypherAppHref: "https://app-zypher.netlify.app",
     badgeLive: "En vivo",
     badgeFree: "Gratis",
     badgeComingSoon: "Próximamente",
@@ -735,6 +744,11 @@ const translations: Record<Language, Translations> = {
       "Questions, doubts, and surveys with an assistant that feels human—not like an anonymous chat. Your business with face and voice; connect MCP and answer with what you already have in internal systems.",
     emotionalAiCta: "Explore Emotional AI",
     emotionalAiHref: "https://emotional-ai.app",
+    zypherAppTagline: "A smart school agenda for parents and schools.",
+    zypherAppDescription:
+      "Organize tasks, announcements and daily school life in one place, powered by AI.",
+    zypherAppCta: "Open Zypher",
+    zypherAppHref: "https://app-zypher.netlify.app",
     badgeLive: "Live",
     badgeFree: "Free",
     badgeComingSoon: "Coming Soon",

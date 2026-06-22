@@ -39,6 +39,7 @@ export function AppsPageClient() {
   const { t } = useI18n();
   const [slaimImageError, setSlaimImageError] = useState(false);
   const [emotionalAiImageError, setEmotionalAiImageError] = useState(false);
+  const [zypherImageError, setZypherImageError] = useState(false);
 
   return (
     <InternalLayout>
@@ -129,6 +130,42 @@ export function AppsPageClient() {
                   </div>
                 )}
               </div>
+            </div>
+          </Card>
+
+          {/* Zypher */}
+          <Card id="zypher" className="overflow-hidden border-white/[.08] scroll-mt-24">
+            <div className="grid md:grid-cols-[1fr_1.2fr] gap-0">
+              <div className="relative aspect-video md:aspect-auto md:min-h-[240px] bg-linear-to-br from-white/[.04] to-white/[.01] flex items-center justify-center p-6">
+                {!zypherImageError ? (
+                  // eslint-disable-next-line @next/next/no-img-element
+                  <img
+                    src="/apps/zypher.png"
+                    alt={t.zypherTitle}
+                    className="w-full h-full object-cover rounded-lg"
+                    onError={() => setZypherImageError(true)}
+                  />
+                ) : (
+                  <div className="text-[#6b6b70] flex flex-col items-center gap-2">
+                    <Monitor className="w-14 h-14" aria-hidden />
+                    <span className="text-sm font-medium">{t.zypherTitle}</span>
+                  </div>
+                )}
+              </div>
+              <CardContent className="flex flex-col justify-center p-8">
+                <div className="flex flex-wrap gap-2 mb-3">
+                  <AppBadge variant="live">{t.badgeLive}</AppBadge>
+                </div>
+                <p className="text-sm font-semibold text-emerald-300 mb-1">{t.zypherTitle}</p>
+                <h2 className="text-2xl font-bold text-[#FAFAF9] mb-2">{t.zypherAppTagline}</h2>
+                <p className="text-[#9B9BA1] mb-6">{t.zypherAppDescription}</p>
+                <Button asChild size="lg" className="rounded-full w-fit">
+                  <Link href={t.zypherAppHref} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2" aria-label={t.zypherAppCta}>
+                    {t.zypherAppCta}
+                    <ExternalLink className="h-4 w-4" aria-hidden />
+                  </Link>
+                </Button>
+              </CardContent>
             </div>
           </Card>
 

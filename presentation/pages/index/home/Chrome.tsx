@@ -21,7 +21,7 @@ function AmbientAudio() {
       setOn(false);
     } else {
       a.muted = false;
-      a.volume = 0.4;
+      a.volume = 0.32;
       onRef.current = true;
       setOn(true);
     }
@@ -34,7 +34,7 @@ function AmbientAudio() {
       const a = audioRef.current;
       if (!a || !onRef.current) return;
       a.muted = false;
-      a.volume = 0.4;
+      a.volume = 0.32;
       if (a.paused) void a.play().catch(() => {});
       clearTimeout(idle);
       idle = setTimeout(() => a.pause(), 220);
