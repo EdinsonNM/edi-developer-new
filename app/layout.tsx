@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { PT_Sans, Ubuntu_Sans_Mono, Geist } from "next/font/google";
+import { PT_Sans, Ubuntu_Sans_Mono, Geist, Space_Grotesk, JetBrains_Mono } from "next/font/google";
 import Script from "next/script";
 import { Suspense } from "react";
 import { Providers } from "@/components/providers";
@@ -22,6 +22,20 @@ const ptSans = PT_Sans({
 const ubuntuMono = Ubuntu_Sans_Mono({
   subsets: ["latin"],
   variable: "--font-ubuntu-mono",
+  display: "swap",
+});
+
+const spaceGrotesk = Space_Grotesk({
+  weight: ["400", "500", "600", "700"],
+  subsets: ["latin"],
+  variable: "--font-space",
+  display: "swap",
+});
+
+const jetbrainsMono = JetBrains_Mono({
+  weight: ["400", "500"],
+  subsets: ["latin"],
+  variable: "--font-jetbrains",
   display: "swap",
 });
 
@@ -135,7 +149,7 @@ export default function RootLayout({
         />
       </head>
       <body
-        className={`${ptSans.variable} ${ubuntuMono.variable} font-sans antialiased min-h-screen`}
+        className={`${ptSans.variable} ${ubuntuMono.variable} ${spaceGrotesk.variable} ${jetbrainsMono.variable} font-sans antialiased min-h-screen`}
         suppressHydrationWarning
       >
         {GA_MEASUREMENT_ID && (

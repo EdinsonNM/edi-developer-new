@@ -1,0 +1,84 @@
+/* ===== Home Minimal — fiel al diseño "Home Minimal.dc.html" ===== */
+.hm {
+  position: relative;
+  background: transparent;
+  color: #FAFAF9;
+  font-family: var(--font-space), system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+.hm a { color: inherit; text-decoration: none; }
+.hm input, .hm textarea, .hm button { font-family: inherit; }
+.hm .mono { font-family: var(--font-jetbrains), ui-monospace, monospace; }
+.hm ::selection { background: rgba(255, 255, 255, .16); color: #fff; }
+
+@media (hover: hover) and (pointer: fine) {
+  .hm { cursor: none; }
+}
+
+@keyframes hm-blink { 0%, 49% { opacity: 1; } 50%, 100% { opacity: 0; } }
+
+/* custom cursor */
+.obs-dot {
+  position: fixed; top: 0; left: 0; width: 5px; height: 5px; border-radius: 50%;
+  background: #FAFAF9; transform: translate(-50%, -50%); z-index: 9999;
+  pointer-events: none; display: none;
+}
+.obs-ring {
+  position: fixed; top: 0; left: 0; width: 30px; height: 30px; border-radius: 50%;
+  border: 1px solid rgba(255, 255, 255, .35); transform: translate(-50%, -50%);
+  z-index: 9998; pointer-events: none;
+  transition: width .25s ease, height .25s ease, border-color .25s ease; display: none;
+}
+@media (hover: hover) and (pointer: fine) { .obs-dot, .obs-ring { display: block; } }
+
+.edge-readout { display: none; }
+@media (min-width: 1340px) { .edge-readout { display: block; } }
+
+@media (max-width: 980px) {
+  .side-index { display: none !important; }
+  .h-track { flex-direction: column !important; transform: none !important; }
+  .h-pin { position: static !important; height: auto !important; }
+  .h-wrap { height: auto !important; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .hm *, .obs-dot, .obs-ring { animation: none !important; }
+}
+
+/* hover treatments (replican style-hover del artifact) */
+.hm-card { transition: background .4s; }
+.hm-card:hover { background: #141416; }
+
+.hm-card-sm { transition: background .4s; }
+.hm-card-sm:hover { background: #141416; }
+
+.hm-blog { transition: background .4s, transform .4s; }
+.hm-blog:hover { background: #141416; transform: translateY(-4px); }
+
+.hm-service { transition: opacity .3s; }
+.hm-service:hover { opacity: .62; }
+
+.hm-pill { transition: .25s; }
+.hm-pill:hover { border-color: rgba(255, 255, 255, .4) !important; color: #FAFAF9 !important; }
+
+.hm-pill-soft { transition: .3s; }
+.hm-pill-soft:hover { border-color: rgba(255, 255, 255, .4) !important; color: #FAFAF9 !important; }
+
+.hm-btn-solid { transition: opacity .25s; }
+.hm-btn-solid:hover { opacity: .86; }
+
+.hm-btn-ghost { transition: border-color .25s, color .25s; }
+.hm-btn-ghost:hover { border-color: rgba(255, 255, 255, .5) !important; color: #FAFAF9 !important; }
+
+.hm-link-mono { transition: color .25s; }
+.hm-link-mono:hover { color: #FAFAF9 !important; }
+
+.hm-idx { transition: color .3s; }
+.hm-idx-bar { transition: width .3s, background .3s; }
+
+.hm-field { transition: .25s; }
+.hm-field:focus { border-color: rgba(255, 255, 255, .45) !important; }
+
+.hm-nav-btn { transition: .25s; }
+
+.hm-term-input::placeholder { color: #5a5a60; }
+.hm-term-input:disabled { opacity: .6; }

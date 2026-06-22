@@ -1,13 +1,12 @@
 "use client";
 
 import dynamic from "next/dynamic";
-import Loading from "@/presentation/components/loading/loading";
 
-const LandingPage = dynamic(
-  () => import("@/presentation/pages/index/index").then((m) => m.default),
-  { ssr: false, loading: () => <Loading /> }
+const HomeMinimal = dynamic(
+  () => import("@/presentation/pages/index/HomeMinimal"),
+  { ssr: false }
 );
 
 export function HomePageClient() {
-  return <LandingPage />;
+  return <HomeMinimal />;
 }
