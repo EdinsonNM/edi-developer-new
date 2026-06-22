@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
+import { InternalLayout } from "@/presentation/components/internal/InternalLayout";
 
 export const metadata: Metadata = {
   title: "Fábrica de Programadores",
@@ -10,7 +11,8 @@ export const metadata: Metadata = {
 
 export default function FabricaDeProgramadoresBlogPage() {
   return (
-    <main className="mx-auto flex min-h-screen w-full max-w-4xl flex-col px-6 py-16 text-foreground md:px-10">
+    <InternalLayout>
+    <main className="mx-auto flex w-full max-w-4xl flex-col px-6 py-16 text-foreground md:px-10">
       <p className="text-sm font-semibold uppercase tracking-[0.2em] text-muted-foreground">
         Blog · Cuento infantil
       </p>
@@ -46,5 +48,6 @@ export default function FabricaDeProgramadoresBlogPage() {
         </Button>
       </div>
     </main>
+    </InternalLayout>
   );
 }

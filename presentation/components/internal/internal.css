@@ -1,0 +1,56 @@
+/* ===== Páginas internas — paleta del landing sobre tokens shadcn ===== */
+.internal-dark {
+  /* tokens fuente shadcn (las utilidades bg-card/border-border los usan directo) */
+  --background: #0A0A0B;
+  --foreground: #FAFAF9;
+  --card: #101012;
+  --card-foreground: #FAFAF9;
+  --popover: #101012;
+  --popover-foreground: #FAFAF9;
+  --muted: #141416;
+  --muted-foreground: #9B9BA1;
+  --secondary: #141416;
+  --secondary-foreground: #FAFAF9;
+  --accent: #16161a;
+  --accent-foreground: #FAFAF9;
+  --primary: #FAFAF9;
+  --primary-foreground: #0A0A0B;
+  --border: rgba(255, 255, 255, .10);
+  --input: rgba(255, 255, 255, .12);
+  --ring: rgba(255, 255, 255, .30);
+
+  /* …y los mapeados --color-* por si alguna utilidad los referencia */
+  --color-background: #0A0A0B;
+  --color-foreground: #FAFAF9;
+  --color-card: #101012;
+  --color-card-foreground: #FAFAF9;
+  --color-popover: #101012;
+  --color-popover-foreground: #FAFAF9;
+  --color-muted: #141416;
+  --color-muted-foreground: #9B9BA1;
+  --color-secondary: #141416;
+  --color-secondary-foreground: #FAFAF9;
+  --color-accent: #16161a;
+  --color-accent-foreground: #FAFAF9;
+  --color-primary: #FAFAF9;
+  --color-primary-foreground: #0A0A0B;
+  --color-border: rgba(255, 255, 255, .10);
+  --color-input: rgba(255, 255, 255, .12);
+  --color-ring: rgba(255, 255, 255, .30);
+
+  background: transparent;
+  color: #FAFAF9;
+  font-family: var(--font-space), system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  min-height: 100vh;
+  position: relative;
+}
+.internal-dark ::selection { background: rgba(255, 255, 255, .16); color: #fff; }
+.internal-mono { font-family: var(--font-jetbrains), ui-monospace, monospace; }
+
+/* titulares con el tracking del landing */
+.internal-dark h1 { letter-spacing: -.04em; }
+.internal-dark h2 { letter-spacing: -.03em; }
+
+.internal-nav-link { transition: color .25s; }
+.internal-nav-link:hover { color: #FAFAF9; }

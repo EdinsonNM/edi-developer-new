@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { chatWithGemini } from "@/lib/chat-gemini";
+import { chatWithOpenAI } from "@/lib/chat-openai";
 
 export type ChatRequestBody = {
   userInput: string;
@@ -20,7 +20,7 @@ export async function POST(request: Request) {
     }
 
     const lang = language === "en" ? "en" : "es";
-    const { assistant, rawModelResponse } = await chatWithGemini(
+    const { assistant, rawModelResponse } = await chatWithOpenAI(
       userInput.trim(),
       Array.isArray(messagesForApi) ? messagesForApi : [],
       lang

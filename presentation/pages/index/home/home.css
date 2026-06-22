@@ -1,12 +1,22 @@
-/* ===== Home Minimal — fiel al diseño "Home Minimal.dc.html" ===== */
+/* ===== Home Minimal — estilos base, tokens y clases semánticas ===== */
 .hm {
   position: relative;
   background: transparent;
   color: #FAFAF9;
   font-family: var(--font-space), system-ui, sans-serif;
   -webkit-font-smoothing: antialiased;
+  /* tokens de paleta (monocromo) */
+  --ink: #FAFAF9;
+  --muted: #9B9BA1;
+  --dim: #6b6b70;
+  --faint: #5a5a60;
+  --panel: #101012;
+  --line: rgba(255, 255, 255, .08);
 }
-.hm a { color: inherit; text-decoration: none; }
+.hm a { text-decoration: none; }
+/* hereda el color SOLO si el enlace no define su propio color con una utilidad
+   text-[...] de Tailwind (evita que herede y borre el color del botón/enlace). */
+.hm a:where(:not([class*="text-["])) { color: inherit; }
 .hm input, .hm textarea, .hm button { font-family: inherit; }
 .hm .mono { font-family: var(--font-jetbrains), ui-monospace, monospace; }
 .hm ::selection { background: rgba(255, 255, 255, .16); color: #fff; }
@@ -17,7 +27,22 @@
 
 @keyframes hm-blink { 0%, 49% { opacity: 1; } 50%, 100% { opacity: 0; } }
 
-/* custom cursor */
+/* ---------- layout tokens ---------- */
+.hm-pad-x { padding-inline: clamp(20px, 5vw, 56px); }
+.hm-sec { padding-block: clamp(70px, 10vh, 130px); }
+.hm-sec-lg { padding-block: clamp(90px, 14vh, 170px); }
+.hm-hero { padding: clamp(96px, 14vh, 150px) clamp(20px, 5vw, 56px) clamp(40px, 7vh, 80px); }
+
+/* ---------- tipografía clamp (semántica) ---------- */
+.hm-eyebrow { font-family: var(--font-jetbrains), ui-monospace, monospace; font-size: 12px; letter-spacing: .14em; color: var(--muted); }
+.hm-h1 { font-size: clamp(40px, 8.4vw, 124px); line-height: .93; font-weight: 600; letter-spacing: -.05em; }
+.hm-h2 { font-size: clamp(28px, 4.4vw, 52px); font-weight: 600; letter-spacing: -.035em; }
+.hm-h2-sm { font-size: clamp(26px, 4vw, 46px); font-weight: 600; letter-spacing: -.035em; }
+.hm-prod-name { font-size: clamp(30px, 4.4vw, 52px); font-weight: 600; letter-spacing: -.035em; line-height: 1.02; }
+.hm-service-title { font-size: clamp(22px, 3vw, 34px); font-weight: 500; letter-spacing: -.03em; line-height: 1.05; }
+.hm-display { font-size: clamp(34px, 6vw, 76px); font-weight: 600; letter-spacing: -.05em; line-height: .98; }
+
+/* ---------- cursor custom ---------- */
 .obs-dot {
   position: fixed; top: 0; left: 0; width: 5px; height: 5px; border-radius: 50%;
   background: #FAFAF9; transform: translate(-50%, -50%); z-index: 9999;
@@ -36,15 +61,25 @@
 
 @media (max-width: 980px) {
   .side-index { display: none !important; }
-  .h-track { flex-direction: column !important; transform: none !important; }
-  .h-pin { position: static !important; height: auto !important; }
+  /* en móvil: sin pin; las cards se desplazan con swipe horizontal nativo + snap */
   .h-wrap { height: auto !important; }
+  .h-pin { position: static !important; height: auto !important; display: block !important; }
+  .h-track {
+    transform: none !important;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    padding-bottom: 28px;
+  }
+  .h-track::-webkit-scrollbar { display: none; }
+  .h-track > * { scroll-snap-align: start; }
 }
 @media (prefers-reduced-motion: reduce) {
   .hm *, .obs-dot, .obs-ring { animation: none !important; }
 }
 
-/* hover treatments (replican style-hover del artifact) */
+/* ---------- hover treatments (replican style-hover del artifact) ---------- */
 .hm-card { transition: background .4s; }
 .hm-card:hover { background: #141416; }
 

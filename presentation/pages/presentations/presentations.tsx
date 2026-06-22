@@ -85,35 +85,36 @@ export default function Presentations() {
   };
 
   return (
-    <div className="relative min-h-screen w-full overflow-x-hidden bg-white text-slate-900 selection:bg-blue-100">
+    <div className="internal-mono-root relative min-h-screen w-full overflow-x-hidden bg-[#0A0A0B] text-[#FAFAF9] selection:bg-white/20" style={{ fontFamily: "var(--font-space), system-ui, sans-serif" }}>
       {/* Navbar - mismo estilo que index */}
       <nav
-        className={`fixed top-0 left-0 right-0 z-50 flex items-center justify-between px-6 py-4 backdrop-blur-sm bg-white/50 border-b border-slate-100 transition-transform duration-300 ${
+        className={`fixed top-0 left-0 right-0 z-50 flex items-center justify-between px-6 py-4 backdrop-blur-sm bg-[#0A0A0B]/60 border-b border-white/[.08] transition-transform duration-300 ${
           isNavbarVisible ? "translate-y-0" : "-translate-y-full"
         }`}
       >
         <div className="flex items-center gap-2">
-          <a
+          <Link
             href="/#inicio"
             onClick={(e) => handleNavClick(e, "/#inicio")}
             className="cursor-pointer"
           >
+            {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
               src={typeof logo === "string" ? logo : logo.src}
               alt="Edi Developer"
               className="h-8"
             />
-          </a>
+          </Link>
         </div>
 
         {/* Menú Desktop */}
-        <div className="hidden lg:flex items-center gap-6 text-sm font-medium text-slate-600">
+        <div className="hidden lg:flex items-center gap-6 text-sm font-medium text-[#9B9BA1]">
           {navigationItems.map((item) => (
             <a
               key={item.href}
               href={item.href}
               onClick={(e) => handleNavClick(e, item.href)}
-              className="hover:text-blue-600 transition-colors px-2 py-1 rounded-md hover:bg-slate-50"
+              className="hover:text-[#FAFAF9] transition-colors px-2 py-1 rounded-md hover:bg-white/[.06]"
             >
               {item.label}
             </a>
@@ -121,13 +122,13 @@ export default function Presentations() {
         </div>
 
         <div className="flex items-center gap-4">
-          <button className="hidden md:flex items-center gap-2 rounded-full bg-slate-900 px-4 py-2 text-sm font-medium text-white hover:bg-slate-800 transition-colors">
+          <button className="hidden md:flex items-center gap-2 rounded-full bg-[#FAFAF9] px-4 py-2 text-sm font-medium text-[#0A0A0B] hover:bg-white/90 transition-colors">
             <Download className="h-4 w-4" />
             <span>Download CV</span>
           </button>
           <button
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-            className="lg:hidden text-slate-600 hover:text-blue-600 transition-colors"
+            className="lg:hidden text-[#9B9BA1] hover:text-[#FAFAF9] transition-colors"
             aria-label="Toggle menu"
           >
             <Menu className="h-6 w-6" />
@@ -136,19 +137,19 @@ export default function Presentations() {
 
         {/* Menú Mobile */}
         {isMobileMenuOpen && (
-          <div className="absolute top-full left-0 right-0 bg-white border-b border-slate-100 shadow-lg lg:hidden">
+          <div className="absolute top-full left-0 right-0 bg-[#0A0A0B] border-b border-white/[.08] shadow-lg lg:hidden">
             <div className="flex flex-col px-6 py-4 gap-2">
               {navigationItems.map((item) => (
                 <a
                   key={item.href}
                   href={item.href}
                   onClick={(e) => handleNavClick(e, item.href)}
-                  className="text-slate-600 hover:text-blue-600 transition-colors px-4 py-2 rounded-md hover:bg-slate-50"
+                  className="text-[#9B9BA1] hover:text-[#FAFAF9] transition-colors px-4 py-2 rounded-md hover:bg-white/[.06]"
                 >
                   {item.label}
                 </a>
               ))}
-              <button className="flex items-center justify-center gap-2 rounded-full bg-slate-900 px-4 py-2 text-sm font-medium text-white hover:bg-slate-800 transition-colors mt-2">
+              <button className="flex items-center justify-center gap-2 rounded-full bg-[#FAFAF9] px-4 py-2 text-sm font-medium text-[#0A0A0B] hover:bg-white/90 transition-colors mt-2">
                 <Download className="h-4 w-4" />
                 <span>Download CV</span>
               </button>
@@ -163,15 +164,15 @@ export default function Presentations() {
         <div className="mb-12 md:mb-16">
           <Link
             href="/#recursos"
-            className="inline-flex items-center gap-2 text-slate-600 hover:text-slate-900 transition-colors mb-6"
+            className="inline-flex items-center gap-2 text-[#9B9BA1] hover:text-[#FAFAF9] transition-colors mb-6"
           >
             <ArrowLeft className="h-4 w-4" />
             <span>Volver a recursos</span>
           </Link>
-          <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold tracking-tight text-slate-900 sm:text-4xl mb-4">
+          <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold tracking-tight text-[#FAFAF9] sm:text-4xl mb-4">
             Guías y Artículos
           </h1>
-          <p className="text-lg text-slate-600 max-w-2xl">
+          <p className="text-lg text-[#9B9BA1] max-w-2xl">
             Presentaciones y materiales de charlas que he dictado sobre
             desarrollo, arquitectura y tecnología.
           </p>
@@ -189,7 +190,7 @@ export default function Presentations() {
 
         {presentations.length === 0 && (
           <div className="text-center py-12">
-            <p className="text-slate-500">
+            <p className="text-[#6b6b70]">
               Próximamente se agregarán más presentaciones.
             </p>
           </div>

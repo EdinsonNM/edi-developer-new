@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Calendar, Clock, User, Tag } from "lucide-react";
+import { InternalLayout } from "@/presentation/components/internal/InternalLayout";
 
 export const metadata: Metadata = {
   title: "Interfaces que se generan solas: el futuro de la UX con LLMs",
@@ -21,7 +22,8 @@ const TAGS = [
 
 export default function InterfacesGenerativasLlmBlogPage() {
   return (
-    <main className="mx-auto min-h-screen w-full max-w-7xl px-6 py-16 text-foreground md:px-10">
+    <InternalLayout>
+    <main className="mx-auto w-full max-w-7xl px-6 py-16 text-foreground md:px-10">
       <div className="grid gap-10 lg:grid-cols-[minmax(0,1fr)_340px] lg:items-start">
         <section className="min-w-0">
           <p className="text-sm font-semibold uppercase tracking-[0.2em] text-muted-foreground">
@@ -595,5 +597,6 @@ export default function InterfacesGenerativasLlmBlogPage() {
         </aside>
       </div>
     </main>
+    </InternalLayout>
   );
 }

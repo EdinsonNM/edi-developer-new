@@ -5,13 +5,15 @@ import { blogPosts } from "./data";
 import { useI18n } from "@/presentation/utils/use-i18n";
 import { BookOpen, ArrowLeft } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { InternalLayout } from "@/presentation/components/internal/InternalLayout";
 
 export function BlogPageClient() {
   const { language } = useI18n();
   const sorted = [...blogPosts].sort((a, b) => (b.date > a.date ? 1 : -1));
 
   return (
-    <main className="mx-auto min-h-screen w-full max-w-4xl px-6 py-16 text-foreground md:px-10">
+    <InternalLayout>
+    <main className="mx-auto w-full max-w-4xl px-6 py-16 text-foreground md:px-10">
       <div className="mb-12">
         <Button variant="ghost" size="sm" asChild className="mb-6 -ml-2 text-muted-foreground hover:text-foreground">
           <Link href="/">
@@ -54,5 +56,6 @@ export function BlogPageClient() {
         ))}
       </ul>
     </main>
+    </InternalLayout>
   );
 }

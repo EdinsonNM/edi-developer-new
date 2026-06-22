@@ -3,6 +3,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import { ExternalLink } from "lucide-react";
+import { InternalLayout } from "@/presentation/components/internal/InternalLayout";
 
 export const metadata: Metadata = {
   title: "El Programador Aumentado",
@@ -12,7 +13,8 @@ export const metadata: Metadata = {
 
 export default function ElProgramadorAumentadoBlogPage() {
   return (
-    <main className="mx-auto min-h-screen w-full max-w-7xl px-6 py-16 text-foreground md:px-10">
+    <InternalLayout>
+    <main className="mx-auto w-full max-w-7xl px-6 py-16 text-foreground md:px-10">
       <div className="grid gap-10 lg:grid-cols-[minmax(0,1fr)_420px] lg:items-start">
         <section className="min-w-0">
           <p className="text-sm font-semibold uppercase tracking-[0.2em] text-muted-foreground">
@@ -300,5 +302,6 @@ export default function ElProgramadorAumentadoBlogPage() {
         </aside>
       </div>
     </main>
+    </InternalLayout>
   );
 }
