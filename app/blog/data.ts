@@ -79,7 +79,7 @@ export const blogPosts: BlogPost[] = [
       "Move beyond vibe coding and adopt AI-assisted development with intention, context, and professional judgment.",
     date: "2024-12",
     category: "Libro",
-    image: "/cover.png",
+    image: "/blog/el-programador-aumentado-og.jpg",
     featured: true,
   },
   {
