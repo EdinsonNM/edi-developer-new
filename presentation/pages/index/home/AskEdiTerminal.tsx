@@ -23,10 +23,21 @@ export default function AskEdiTerminal({ lang, term }: { lang: Lang; term: HomeC
   const [loading, setLoading] = useState(false);
   const [streaming, setStreaming] = useState(false);
   const bodyRef = useRef<HTMLDivElement>(null);
-  const inputRef = useRef<HTMLInputElement>(null);
+  const inputRef = useRef<HTMLTextAreaElement>(null);
+
+  const resizeInput = () => {
+    const el = inputRef.current;
+    if (!el) return;
+    el.style.height = "auto";
+    el.style.height = `${el.scrollHeight}px`;
+  };
 
   // reinicia la conversación al cambiar de idioma
   useEffect(() => { setTurns([]); }, [lang]);
+
+  useEffect(() => {
+    resizeInput();
+  }, [input]);
 
   useEffect(() => {
     if (bodyRef.current) bodyRef.current.scrollTop = bodyRef.current.scrollHeight;
@@ -149,7 +160,7 @@ export default function AskEdiTerminal({ lang, term }: { lang: Lang; term: HomeC
 
         {turns.map((m, i) =>
           m.role === "user" ? (
-            <div key={i} className="mt-3"><Prompt /> <span className="text-[#FAFAF9]">{m.text}</span></div>
+            <div key={i} className="mt-3"><Prompt /> <span className="text-[#FAFAF9] whitespace-pre-line break-words">{m.text}</span></div>
           ) : (
             <div key={i} className="mt-2.5 text-[#d4d4d2] whitespace-pre-line">{m.text}</div>
           )
@@ -172,34 +183,45 @@ export default function AskEdiTerminal({ lang, term }: { lang: Lang; term: HomeC
         )}
 
         <form
-          className="mt-[18px] flex items-center gap-2"
+          className="mt-[18px]"
           onSubmit={(e) => {
             e.preventDefault();
             send(input);
           }}
         >
-          <Prompt />
-          <input
-            ref={inputRef}
-            value={input}
-            disabled={loading}
-            onChange={(e) => setInput(e.target.value)}
-            placeholder={term.placeholder}
-            aria-label={term.aria}
-            enterKeyHint="send"
-            className="hm-term-input flex-1 min-w-0 bg-transparent border-none outline-none text-[#FAFAF9] text-[13.5px] cursor-text"
-            style={{ caretColor: "#FAFAF9" }}
-          />
-          <button
-            type="submit"
-            disabled={loading || !input.trim()}
-            aria-label={term.sendAria}
-            className="md:hidden shrink-0 flex items-center justify-center h-7 w-7 rounded-[7px] border border-[#27C93F]/35 bg-[#27C93F]/10 text-[#27C93F] disabled:opacity-35 disabled:pointer-events-none active:bg-[#27C93F]/20 transition-colors"
-          >
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.25" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
-              <path d="M12 19V5M5 12l7-7 7 7" />
-            </svg>
-          </button>
+          <div className="flex flex-col md:flex-row md:items-start md:gap-2">
+            <span className="shrink-0 md:pt-[3px]"><Prompt /></span>
+            <textarea
+              ref={inputRef}
+              value={input}
+              disabled={loading}
+              rows={1}
+              onChange={(e) => setInput(e.target.value)}
+              onKeyDown={(e) => {
+                if (e.key === "Enter" && !e.shiftKey) {
+                  e.preventDefault();
+                  send(input);
+                }
+              }}
+              placeholder={term.placeholder}
+              aria-label={term.aria}
+              enterKeyHint="send"
+              className="hm-term-input w-full md:flex-1 min-w-0 mt-1.5 md:mt-0 resize-none overflow-hidden bg-transparent border-none outline-none text-[#FAFAF9] text-[13.5px] leading-[1.8] cursor-text break-words"
+              style={{ caretColor: "#FAFAF9" }}
+            />
+          </div>
+          <div className="md:hidden flex justify-end mt-2">
+            <button
+              type="submit"
+              disabled={loading || !input.trim()}
+              aria-label={term.sendAria}
+              className="shrink-0 flex items-center justify-center h-7 w-7 rounded-[7px] border border-[#27C93F]/35 bg-[#27C93F]/10 text-[#27C93F] disabled:opacity-35 disabled:pointer-events-none active:bg-[#27C93F]/20 transition-colors"
+            >
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.25" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
+                <path d="M12 19V5M5 12l7-7 7 7" />
+              </svg>
+            </button>
+          </div>
         </form>
       </div>
     </div>
