@@ -12,6 +12,20 @@ export interface BlogPost {
 
 export const blogPosts: BlogPost[] = [
   {
+    slug: "ya-no-alcanzan-las-horas",
+    titleEs:
+      "La extraña sensación de que ya no alcanzan las horas para todas las ideas",
+    titleEn:
+      "The strange feeling that there aren't enough hours for all the ideas",
+    descriptionEs:
+      "Una reflexión sobre crear con IA no como producto ni objetivo, sino como compañera de exploración: pasar de '¿cómo construyo esto?' a '¿qué quiero que sienta quien lo use?'.",
+    descriptionEn:
+      "A reflection on creating with AI not as a product or a goal, but as a companion for exploration: moving from 'how do I build this?' to 'what do I want the person using it to feel?'.",
+    date: "2026-06",
+    category: "Reflexión",
+    featured: true,
+  },
+  {
     slug: "buscar-trabajo-en-2026",
     titleEs:
       "Mucha experiencia, cero respuestas: lo que nadie te dice sobre buscar trabajo en 2026",

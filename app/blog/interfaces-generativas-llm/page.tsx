@@ -3,12 +3,15 @@ import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Calendar, Clock, User, Tag } from "lucide-react";
 import { InternalLayout } from "@/presentation/components/internal/InternalLayout";
+import { buildBlogMetadata } from "../blog-metadata";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = buildBlogMetadata({
+  slug: "interfaces-generativas-llm",
   title: "Interfaces que se generan solas: el futuro de la UX con LLMs",
   description:
     "Generative UI: cómo los Large Language Models están cambiando el diseño de interfaces. Investigación, stack tecnológica y oportunidades en Perú y Latinoamérica.",
-};
+  image: "/blog/interfaces-que-se-geenran-solas.png",
+});
 
 const TAGS = [
   "GenerativeUI",

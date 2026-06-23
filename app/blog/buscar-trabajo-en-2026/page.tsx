@@ -2,13 +2,16 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { InternalLayout } from "@/presentation/components/internal/InternalLayout";
+import { buildBlogMetadata } from "../blog-metadata";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = buildBlogMetadata({
+  slug: "buscar-trabajo-en-2026",
   title:
     "Mucha experiencia, cero respuestas: lo que nadie te dice sobre buscar trabajo en 2026",
   description:
     "Reflexión sobre buscar trabajo en 2026: mercados cambiantes, procesos largos, inglés intermedio y la decisión de evolucionar con IA y proyectos como Gravion.",
-};
+  image: "/blog/mucha-experiencia-cero-respuestas.png",
+});
 
 export default function BuscarTrabajoEn2026BlogPage() {
   return (

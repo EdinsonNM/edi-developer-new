@@ -2,12 +2,15 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { InternalLayout } from "@/presentation/components/internal/InternalLayout";
+import { buildBlogMetadata } from "../blog-metadata";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = buildBlogMetadata({
+  slug: "fabrica-de-programadores",
   title: "Fábrica de Programadores",
   description:
     "Un cuento para inspirar a niños y niñas a explorar la creatividad, la lógica y el pensamiento tecnológico.",
-};
+  image: "/cuentos/Zorrito en la fábrica de programadores.webp",
+});
 
 export default function FabricaDeProgramadoresBlogPage() {
   return (

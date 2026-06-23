@@ -142,6 +142,7 @@ export function buildHomeContent(lang: Lang) {
           : ["What stack?", "Does he mentor?", "3D projects?"],
         placeholder: es ? "escribe tu pregunta…" : "type your question…",
         aria: es ? "Pregúntale a la IA sobre Edi" : "Ask the AI about Edi",
+        sendAria: es ? "Enviar pregunta" : "Send question",
         thinking: es ? "pensando" : "thinking",
         noResponse: es ? "Sin respuesta." : "No response.",
         connError: es ? "Error de conexión. Intenta de nuevo." : "Connection error. Try again.",

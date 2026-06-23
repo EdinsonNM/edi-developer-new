@@ -4,12 +4,15 @@ import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import { ExternalLink } from "lucide-react";
 import { InternalLayout } from "@/presentation/components/internal/InternalLayout";
+import { buildBlogMetadata } from "../blog-metadata";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = buildBlogMetadata({
+  slug: "el-programador-aumentado",
   title: "El Programador Aumentado",
   description:
     "Cómo pasar del vibe coding al desarrollo asistido por IA con intención, contexto y criterio profesional.",
-};
+  image: "/cover.png",
+});
 
 export default function ElProgramadorAumentadoBlogPage() {
   return (
