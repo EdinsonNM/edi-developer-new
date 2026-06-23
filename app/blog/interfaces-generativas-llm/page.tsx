@@ -3,7 +3,7 @@ import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Calendar, Clock, User, Tag } from "lucide-react";
 import { InternalLayout } from "@/presentation/components/internal/InternalLayout";
-import { ShareButtons } from "@/presentation/components/blog/ShareButtons";
+import { BlogPostHeader } from "@/presentation/components/blog/BlogPostHeader";
 import { buildBlogMetadata } from "../blog-metadata";
 
 export const metadata: Metadata = buildBlogMetadata({
@@ -27,17 +27,14 @@ export default function InterfacesGenerativasLlmBlogPage() {
   return (
     <InternalLayout>
     <main className="mx-auto w-full max-w-7xl px-6 py-16 text-foreground md:px-10">
+      <BlogPostHeader
+        slug="interfaces-generativas-llm"
+        title="Interfaces que se generan solas: el futuro de la UX con Large Language Models"
+        category="Investigación"
+      />
       <div className="grid gap-10 lg:grid-cols-[minmax(0,1fr)_340px] lg:items-start">
         <section className="min-w-0">
-          <p className="text-sm font-semibold uppercase tracking-[0.2em] text-muted-foreground">
-            Blog · Investigación
-          </p>
-          <h1 className="mt-3 text-4xl font-bold leading-tight text-foreground md:text-5xl">
-            Interfaces que se generan solas: el futuro de la UX con Large
-            Language Models
-          </h1>
-
-          <article className="mt-8 space-y-8 text-lg leading-relaxed text-muted-foreground">
+          <article className="space-y-8 text-lg leading-relaxed text-muted-foreground">
             <p>
               ¿Qué pasa si en lugar de pedirle datos a una app, la app te
               construye exactamente la interfaz que necesitas en ese momento?
@@ -553,7 +550,7 @@ export default function InterfacesGenerativasLlmBlogPage() {
 
           <div className="mt-10">
             <Button asChild variant="outline" size="lg">
-              <Link href="/">Volver al inicio</Link>
+              <Link href="/blog">Volver al blog</Link>
             </Button>
           </div>
         </section>
@@ -598,9 +595,6 @@ export default function InterfacesGenerativasLlmBlogPage() {
             </div>
           </div>
         </aside>
-      </div>
-      <div className="mt-12">
-        <ShareButtons slug="interfaces-generativas-llm" title="Interfaces que se generan solas: el futuro de la UX con LLMs" />
       </div>
     </main>
     </InternalLayout>

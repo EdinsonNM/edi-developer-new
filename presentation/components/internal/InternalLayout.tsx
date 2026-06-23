@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { ArrowLeft } from "lucide-react";
 import type { ReactNode } from "react";
 import { useI18n } from "@/presentation/utils/use-i18n";
@@ -15,7 +16,12 @@ import "./internal.css";
  */
 export function InternalLayout({ children }: { children: ReactNode }) {
   const { language, setLanguage } = useI18n();
+  const pathname = usePathname();
   const es = language === "es";
+
+  const isBlogPost = pathname.startsWith("/blog/") && pathname !== "/blog";
+  const backHref = isBlogPost ? "/blog" : "/";
+  const backLabel = isBlogPost ? "Blog" : es ? "Inicio" : "Home";
 
   return (
     <div className="internal-dark">
@@ -50,9 +56,9 @@ export function InternalLayout({ children }: { children: ReactNode }) {
           <span>edi<span className="text-[#6b6b70]">-developer</span><span className="internal-mono text-[#9B9BA1]">.dev</span></span>
         </Link>
         <div className="flex items-center gap-5">
-          <Link href="/" className="internal-nav-link internal-mono flex items-center gap-2 text-[13px] text-[#9B9BA1]">
+          <Link href={backHref} className="internal-nav-link internal-mono flex items-center gap-2 text-[13px] text-[#9B9BA1]">
             <ArrowLeft className="h-3.5 w-3.5" />
-            {es ? "Inicio" : "Home"}
+            {backLabel}
           </Link>
           <div className="internal-mono flex items-center rounded-full overflow-hidden text-xs border border-white/10">
             <button onClick={() => setLanguage("es")} className={`px-[11px] py-1.5 transition-colors ${es ? "bg-[#FAFAF9] text-[#0A0A0B]" : "bg-transparent text-[#9B9BA1]"}`}>ES</button>

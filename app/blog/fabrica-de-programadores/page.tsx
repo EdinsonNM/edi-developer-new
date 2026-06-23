@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { InternalLayout } from "@/presentation/components/internal/InternalLayout";
-import { ShareButtons } from "@/presentation/components/blog/ShareButtons";
+import { BlogPostHeader } from "@/presentation/components/blog/BlogPostHeader";
 import { buildBlogMetadata } from "../blog-metadata";
 
 export const metadata: Metadata = buildBlogMetadata({
@@ -16,14 +16,13 @@ export default function FabricaDeProgramadoresBlogPage() {
   return (
     <InternalLayout>
     <main className="mx-auto flex w-full max-w-4xl flex-col px-6 py-16 text-foreground md:px-10">
-      <p className="text-sm font-semibold uppercase tracking-[0.2em] text-muted-foreground">
-        Blog · Cuento infantil
-      </p>
-      <h1 className="mt-3 text-4xl font-bold leading-tight md:text-5xl">
-        Fábrica de Programadores
-      </h1>
+      <BlogPostHeader
+        slug="fabrica-de-programadores"
+        title="Fábrica de Programadores"
+        category="Cuento infantil"
+      />
 
-      <div className="mt-8 space-y-5 text-lg leading-relaxed text-muted-foreground">
+      <div className="space-y-5 text-lg leading-relaxed text-muted-foreground">
         <p>
           Este cuento nace para inspirar a niños y niñas a descubrir que crear
           tecnología también puede ser una aventura llena de imaginación,
@@ -47,11 +46,8 @@ export default function FabricaDeProgramadoresBlogPage() {
           </a>
         </Button>
         <Button asChild variant="outline" size="lg">
-          <Link href="/">Volver al inicio</Link>
+          <Link href="/blog">Volver al blog</Link>
         </Button>
-      </div>
-      <div className="mt-12">
-        <ShareButtons slug="fabrica-de-programadores" title="Fábrica de Programadores" />
       </div>
     </main>
     </InternalLayout>

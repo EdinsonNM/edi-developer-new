@@ -4,7 +4,7 @@ import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import { ExternalLink } from "lucide-react";
 import { InternalLayout } from "@/presentation/components/internal/InternalLayout";
-import { ShareButtons } from "@/presentation/components/blog/ShareButtons";
+import { BlogPostHeader } from "@/presentation/components/blog/BlogPostHeader";
 import { buildBlogMetadata } from "../blog-metadata";
 
 export const metadata: Metadata = buildBlogMetadata({
@@ -18,17 +18,14 @@ export default function ElProgramadorAumentadoBlogPage() {
   return (
     <InternalLayout>
     <main className="mx-auto w-full max-w-7xl px-6 py-16 text-foreground md:px-10">
+      <BlogPostHeader
+        slug="el-programador-aumentado"
+        title="No necesitas aprender más herramientas. Necesitas aprender a trabajar mejor."
+        category="Libro"
+      />
       <div className="grid gap-10 lg:grid-cols-[minmax(0,1fr)_420px] lg:items-start">
         <section className="min-w-0">
-          <p className="text-sm font-semibold uppercase tracking-[0.2em] text-muted-foreground">
-            Blog · Libro
-          </p>
-          <h1 className="mt-3 text-4xl font-bold leading-tight md:text-5xl">
-            No necesitas aprender más herramientas. Necesitas aprender a
-            trabajar mejor.
-          </h1>
-
-          <article className="mt-8 space-y-8 text-lg leading-relaxed text-muted-foreground">
+          <article className="space-y-8 text-lg leading-relaxed text-muted-foreground">
         <p>
           Vivimos en una época curiosa para quienes construimos software.
         </p>
@@ -275,7 +272,7 @@ export default function ElProgramadorAumentadoBlogPage() {
 
           <div className="mt-10">
             <Button asChild variant="outline" size="lg">
-              <Link href="/">Volver al inicio</Link>
+              <Link href="/blog">Volver al blog</Link>
             </Button>
           </div>
         </section>
@@ -303,9 +300,6 @@ export default function ElProgramadorAumentadoBlogPage() {
             <ExternalLink className="h-5 w-5 shrink-0" aria-hidden />
           </a>
         </aside>
-      </div>
-      <div className="mt-12">
-        <ShareButtons slug="el-programador-aumentado" title="El Programador Aumentado" />
       </div>
     </main>
     </InternalLayout>

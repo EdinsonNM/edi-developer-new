@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { InternalLayout } from "@/presentation/components/internal/InternalLayout";
-import { ShareButtons } from "@/presentation/components/blog/ShareButtons";
+import { BlogPostHeader } from "@/presentation/components/blog/BlogPostHeader";
 import { buildBlogMetadata } from "../blog-metadata";
 
 export const metadata: Metadata = buildBlogMetadata({
@@ -17,15 +17,13 @@ export default function BuscarTrabajoEn2026BlogPage() {
   return (
     <InternalLayout>
     <main className="mx-auto flex w-full max-w-4xl flex-col px-6 py-16 text-foreground md:px-10">
-      <p className="text-sm font-semibold uppercase tracking-[0.2em] text-muted-foreground">
-        Blog · Reflexión
-      </p>
-      <h1 className="mt-3 text-4xl font-bold leading-tight md:text-5xl">
-        Mucha experiencia, cero respuestas: lo que nadie te dice sobre buscar
-        trabajo en 2026
-      </h1>
+      <BlogPostHeader
+        slug="buscar-trabajo-en-2026"
+        title="Mucha experiencia, cero respuestas: lo que nadie te dice sobre buscar trabajo en 2026"
+        category="Reflexión"
+      />
 
-      <article className="mt-8 space-y-8 text-lg leading-relaxed text-muted-foreground">
+      <article className="space-y-8 text-lg leading-relaxed text-muted-foreground">
         <p>Desde diciembre de 2025 estoy buscando trabajo.</p>
         <p>
           Salí de Tekton, empresa en la que trabajé desde 2023. Incluso antes de
@@ -219,16 +217,9 @@ export default function BuscarTrabajoEn2026BlogPage() {
         </section>
       </article>
 
-      <div className="mt-12">
-        <ShareButtons
-          slug="buscar-trabajo-en-2026"
-          title="Mucha experiencia, cero respuestas: lo que nadie te dice sobre buscar trabajo en 2026"
-        />
-      </div>
-
       <div className="mt-10">
         <Button asChild variant="outline" size="lg">
-          <Link href="/">Volver al inicio</Link>
+          <Link href="/blog">Volver al blog</Link>
         </Button>
       </div>
     </main>

@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { InternalLayout } from "@/presentation/components/internal/InternalLayout";
-import { ShareButtons } from "@/presentation/components/blog/ShareButtons";
+import { BlogPostHeader } from "@/presentation/components/blog/BlogPostHeader";
 import { buildBlogMetadata } from "../blog-metadata";
 
 export const metadata: Metadata = buildBlogMetadata({
@@ -16,14 +16,13 @@ export default function IngenieriaConIntencionBlogPage() {
   return (
     <InternalLayout>
       <main className="mx-auto flex w-full max-w-4xl flex-col px-6 py-16 text-foreground md:px-10">
-        <p className="text-sm font-semibold uppercase tracking-[0.2em] text-muted-foreground">
-          Blog · Reflexión
-        </p>
-        <h1 className="mt-3 text-4xl font-bold leading-tight md:text-5xl">
-          Ingeniería con intención
-        </h1>
+        <BlogPostHeader
+          slug="ingenieria-con-intencion"
+          title="Ingeniería con intención"
+          category="Reflexión"
+        />
 
-        <article className="mt-8 space-y-6 text-lg leading-relaxed text-muted-foreground">
+        <article className="space-y-6 text-lg leading-relaxed text-muted-foreground">
           <p>
             Durante mucho tiempo pensé que un buen producto era aquel que
             resolvía un problema.
@@ -178,16 +177,9 @@ export default function IngenieriaConIntencionBlogPage() {
           </p>
         </article>
 
-        <div className="mt-12">
-          <ShareButtons
-            slug="ingenieria-con-intencion"
-            title="Ingeniería con intención"
-          />
-        </div>
-
         <div className="mt-10">
           <Button asChild variant="outline" size="lg">
-            <Link href="/">Volver al inicio</Link>
+            <Link href="/blog">Volver al blog</Link>
           </Button>
         </div>
       </main>

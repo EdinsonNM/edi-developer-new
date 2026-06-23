@@ -101,3 +101,12 @@ export const blogPosts: BlogPost[] = [
 export const featuredBlogPosts = blogPosts
   .filter((p) => p.featured)
   .sort((a, b) => b.date.localeCompare(a.date));
+
+export function getBlogPostBySlug(slug: string): BlogPost | undefined {
+  return blogPosts.find((p) => p.slug === slug);
+}
+
+export function getBlogPostImage(slug: string, override?: string): string {
+  if (override) return override;
+  return getBlogPostBySlug(slug)?.image ?? `/blog/${slug}-og.jpg`;
+}
