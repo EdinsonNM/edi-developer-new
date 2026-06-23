@@ -11,6 +11,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { Send, CheckCircle2, AlertCircle } from "lucide-react";
 import { useState } from "react";
 import { useI18n } from "@/presentation/utils/use-i18n";
+import { FORMSPREE_URL } from "@/lib/site-config";
 
 export function ContactSection() {
   const { t } = useI18n();
@@ -30,7 +31,7 @@ export function ContactSection() {
     setSubmitStatus("idle");
 
     try {
-      const response = await fetch("https://formspree.io/f/mdkbwwro", {
+      const response = await fetch(FORMSPREE_URL, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

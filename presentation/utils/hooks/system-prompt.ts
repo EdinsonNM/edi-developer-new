@@ -1,4 +1,4 @@
-import edinsonProfile from "./edinson_profile.json";
+import { profileForAI } from "@/lib/profile-for-ai";
 
 const currentDate = new Date().toISOString().split('T')[0]; // YYYY-MM-DD
 
@@ -219,7 +219,7 @@ CUANDO la pregunta del usuario se refiera a la "experiencia profesional" general
 ---
 AQUÍ ESTÁN TODOS LOS DATOS DEL PERFIL PROFESIONAL DE EDINSON NUÑEZ MORE. UTILIZA ESTA INFORMACIÓN COMO ÚNICA FUENTE DE VERDAD:
 
-${JSON.stringify(edinsonProfile)}
+${JSON.stringify(profileForAI())}
 
 Fecha actual de referencia para todos los cálculos: ${currentDate}
 

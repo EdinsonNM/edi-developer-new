@@ -1,5 +1,5 @@
 import { systemPrompt } from "@/presentation/utils/hooks/system-prompt";
-import edinsonProfile from "@/presentation/utils/hooks/edinson_profile.json";
+import { profileForAI } from "@/lib/profile-for-ai";
 
 /**
  * Prompt para el terminal en streaming: misma persona, pero responde en
@@ -21,9 +21,12 @@ function buildStreamSystemPrompt(language: "es" | "en"): string {
       ? "- Responde SIEMPRE en español, en TEXTO PLANO conversacional y breve (1–3 frases). Nada de JSON, markdown, listas ni gráficos."
       : "- ALWAYS reply in English, in brief conversational PLAIN TEXT (1–3 sentences). No JSON, markdown, lists or charts.",
     `- ${es ? "Si la pregunta no es sobre Edinson, responde:" : "If the question isn't about Edinson, reply:"} "${offTopic}"`,
+    es
+      ? "- Si preguntan cómo contactar a Edinson, indica que puede usar el formulario de contacto de la página. No compartas emails, teléfonos ni datos personales."
+      : "- If they ask how to contact Edinson, say they can use the contact form on the page. Do not share emails, phone numbers or personal data.",
     "",
     (es ? "Perfil de Edinson (JSON):" : "Edinson's profile (JSON):"),
-    JSON.stringify(edinsonProfile),
+    JSON.stringify(profileForAI()),
   ].join("\n");
 }
 

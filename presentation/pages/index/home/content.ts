@@ -1,5 +1,6 @@
 import { useMemo } from "react";
 import { useI18n } from "@/presentation/utils/use-i18n";
+import { CONTACT_EMAIL } from "@/lib/site-config";
 
 export type Lang = "es" | "en";
 
@@ -204,13 +205,18 @@ export function buildHomeContent(lang: Lang) {
       titlePre: es ? "¿Tienes una idea?" : "Got an idea?",
       titleGrad: es ? "Trabajemos juntos" : "Let's work together",
       lead: es
-        ? "Completa el formulario o escríbeme directamente para proyectos, colaboraciones o charlas."
-        : "Fill the form or write me directly for projects, collaborations or talks.",
+        ? "Cuéntame sobre tu proyecto, colaboración o charla usando el formulario."
+        : "Tell me about your project, collaboration or talk using the form below.",
       form: {
         name: es ? "Nombre" : "Name", namePh: es ? "Tu nombre" : "Your name",
         email: "Email", emailPh: es ? "tu@email.com" : "you@email.com",
         msg: es ? "Mensaje" : "Message", msgPh: es ? "Cuéntame sobre tu proyecto o idea…" : "Tell me about your project or idea…",
         send: es ? "Enviar mensaje" : "Send message",
+        sending: es ? "Enviando…" : "Sending…",
+        success: es ? "¡Mensaje enviado! Te responderé pronto." : "Message sent! I'll get back to you soon.",
+        error: es
+          ? "No se pudo enviar. Intenta de nuevo o escríbeme desde el enlace del pie de página."
+          : "Could not send. Try again or use the email link in the footer.",
       },
     },
     footer: {
@@ -218,7 +224,7 @@ export function buildHomeContent(lang: Lang) {
       nav: es ? "NAVEGACIÓN" : "NAVIGATION",
       contact: es ? "CONTACTO" : "CONTACT",
       made: es ? "Hecho con código y café · Lima, PE" : "Made with code and coffee · Lima, PE",
-      email: "hola@edi-developer.dev",
+      email: CONTACT_EMAIL,
       github: "https://github.com/edinsonnm",
       linkedin: "https://linkedin.com/in/edinsonnm",
     },

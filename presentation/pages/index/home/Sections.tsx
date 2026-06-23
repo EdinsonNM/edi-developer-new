@@ -1,8 +1,9 @@
 "use client";
 
-import type { RefObject } from "react";
+import { useState, type RefObject } from "react";
 import type { HomeContent, Lang } from "./content";
 import AskEdiTerminal from "./AskEdiTerminal";
+import { FORMSPREE_URL } from "@/lib/site-config";
 
 type T = HomeContent["t"];
 const CONTAINER = "max-w-[1280px] mx-auto";
@@ -270,29 +271,105 @@ export function Academy({ t }: { t: T["academy"] }) {
 /* ===================== 09 CONTACTO ===================== */
 export function Contact({ t }: { t: T["contact"] }) {
   const field = "hm-field w-full mt-2 px-3.5 py-[13px] rounded-[10px] border border-white/10 bg-[#0A0A0B]/50 text-[#FAFAF9] text-[15px] outline-none cursor-text";
+  const [formData, setFormData] = useState({ name: "", email: "", message: "" });
+  const [status, setStatus] = useState<"idle" | "sending" | "success" | "error">("idle");
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (status === "sending") return;
+    setStatus("sending");
+    try {
+      const res = await fetch(FORMSPREE_URL, {
+        method: "POST",
+        headers: { "Content-Type": "application/json", Accept: "application/json" },
+        body: JSON.stringify(formData),
+      });
+      if (res.ok) {
+        setFormData({ name: "", email: "", message: "" });
+        setStatus("success");
+        setTimeout(() => setStatus("idle"), 5000);
+      } else {
+        setStatus("error");
+        setTimeout(() => setStatus("idle"), 5000);
+      }
+    } catch {
+      setStatus("error");
+      setTimeout(() => setStatus("idle"), 5000);
+    }
+  };
+
   return (
     <section id="contacto" data-section-el="contacto" className="relative hm-sec-lg hm-pad-x">
       <div className="max-w-[780px] mx-auto text-center">
         <div data-reveal className="hm-eyebrow mb-4">09 — {t.eyebrow}</div>
         <h2 data-reveal className="hm-display [text-wrap:balance]">{t.titlePre} <span className="text-[#FAFAF9]">{t.titleGrad}</span></h2>
         <p data-reveal className="mt-[22px] text-[17px] text-[#9B9BA1] max-w-[46ch] mx-auto [text-wrap:pretty]">{t.lead}</p>
-        <div data-reveal className="mt-[46px] p-[34px] rounded-[18px] text-left bg-[#101012]/55 backdrop-blur-md border border-white/[.08]">
-          <div className="grid grid-cols-2 gap-4">
+        <form
+          data-reveal
+          onSubmit={handleSubmit}
+          className="mt-[46px] p-[34px] rounded-[18px] text-left bg-[#101012]/55 backdrop-blur-md border border-white/[.08]"
+        >
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <label className="block">
               <span className="mono text-xs text-[#9B9BA1]">{t.form.name}</span>
-              <input data-field data-hov placeholder={t.form.namePh} className={field} />
+              <input
+                data-field
+                data-hov
+                name="name"
+                type="text"
+                required
+                autoComplete="name"
+                placeholder={t.form.namePh}
+                value={formData.name}
+                onChange={(e) => setFormData((p) => ({ ...p, name: e.target.value }))}
+                className={field}
+              />
             </label>
             <label className="block">
               <span className="mono text-xs text-[#9B9BA1]">{t.form.email}</span>
-              <input data-field data-hov placeholder={t.form.emailPh} className={field} />
+              <input
+                data-field
+                data-hov
+                name="email"
+                type="email"
+                required
+                autoComplete="email"
+                placeholder={t.form.emailPh}
+                value={formData.email}
+                onChange={(e) => setFormData((p) => ({ ...p, email: e.target.value }))}
+                className={field}
+              />
             </label>
           </div>
           <label className="block mt-4">
             <span className="mono text-xs text-[#9B9BA1]">{t.form.msg}</span>
-            <textarea data-field data-hov rows={4} placeholder={t.form.msgPh} className={`${field} resize-y`} />
+            <textarea
+              data-field
+              data-hov
+              name="message"
+              rows={4}
+              required
+              placeholder={t.form.msgPh}
+              value={formData.message}
+              onChange={(e) => setFormData((p) => ({ ...p, message: e.target.value }))}
+              className={`${field} resize-y`}
+            />
           </label>
-          <button data-hov className="hm-btn-solid w-full mt-5 p-4 border-none cursor-none rounded-[10px] font-semibold text-[15px] text-[#0A0A0B] bg-[#FAFAF9]">{t.form.send}</button>
-        </div>
+          <button
+            type="submit"
+            data-hov
+            disabled={status === "sending"}
+            className="hm-btn-solid w-full mt-5 p-4 border-none cursor-none rounded-[10px] font-semibold text-[15px] text-[#0A0A0B] bg-[#FAFAF9] disabled:opacity-60"
+          >
+            {status === "sending" ? t.form.sending : t.form.send}
+          </button>
+          {status === "success" && (
+            <p className="mono mt-4 text-sm text-[#27C93F]" role="status">{t.form.success}</p>
+          )}
+          {status === "error" && (
+            <p className="mono mt-4 text-sm text-[#FF5F56]" role="alert">{t.form.error}</p>
+          )}
+        </form>
       </div>
     </section>
   );
