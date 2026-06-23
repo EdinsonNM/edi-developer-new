@@ -1,8 +1,36 @@
 import { useMemo } from "react";
 import { useI18n } from "@/presentation/utils/use-i18n";
 import { CONTACT_EMAIL } from "@/lib/site-config";
+import { blogPosts } from "@/app/blog/data";
 
 export type Lang = "es" | "en";
+
+/** Etiquetas de categoría (ES/EN) para las cards de blog del landing. */
+const BLOG_CATEGORY_LABELS: Record<string, { es: string; en: string }> = {
+  Reflexión: { es: "REFLEXIÓN", en: "REFLECTION" },
+  Investigación: { es: "INVESTIGACIÓN", en: "RESEARCH" },
+  Libro: { es: "LIBRO", en: "BOOK" },
+  "Cuento infantil": { es: "CUENTO", en: "STORY" },
+};
+
+/** Los 3 blogs más recientes, derivados de la fuente única (app/blog/data). */
+function latestBlogPosts(es: boolean) {
+  return [...blogPosts]
+    .sort((a, b) => (b.date > a.date ? 1 : -1))
+    .slice(0, 3)
+    .map((p) => {
+      const label =
+        BLOG_CATEGORY_LABELS[p.category]?.[es ? "es" : "en"] ??
+        p.category.toUpperCase();
+      return {
+        cat: `// ${label}`,
+        href: `/blog/${p.slug}`,
+        meta: p.date.split("-")[0],
+        img: p.image ?? "/brand/og.jpg?v=2026",
+        title: es ? p.titleEs : p.titleEn,
+      };
+    });
+}
 
 export interface SectionRef {
   id: string;
@@ -175,11 +203,7 @@ export function buildHomeContent(lang: Lang) {
       title: es ? "Notas y artículos" : "Notes and articles",
       all: es ? "Ver todos" : "View all",
       url: "/blog",
-      posts: [
-        { cat: es ? "// REFLEXIÓN" : "// REFLECTION", href: "/blog/buscar-trabajo-en-2026", meta: "2026", img: "/blog/mucha-experiencia-cero-respuestas.webp", title: es ? "Mucha experiencia, cero respuestas: buscar trabajo en 2026" : "Lots of experience, zero replies: job hunting in 2026" },
-        { cat: es ? "// INVESTIGACIÓN" : "// RESEARCH", href: "/blog/interfaces-generativas-llm", meta: "2025", img: "/blog/interfaces-que-se-geenran-solas.webp", title: es ? "Interfaces que se generan solas: el futuro de la UX con LLMs" : "Interfaces that generate themselves: the future of UX with LLMs" },
-        { cat: es ? "// LIBRO" : "// BOOK", href: "/blog/el-programador-aumentado", meta: "2024", img: "/blog/necesitas-aprender-trabajar-mejor.webp", title: es ? "El Programador Aumentado" : "The Augmented Programmer" },
-      ],
+      posts: latestBlogPosts(es),
     },
     academy: {
       eyebrow: "EDI ACADEMY",

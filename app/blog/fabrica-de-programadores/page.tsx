@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { InternalLayout } from "@/presentation/components/internal/InternalLayout";
+import { ShareButtons } from "@/presentation/components/blog/ShareButtons";
 import { buildBlogMetadata } from "../blog-metadata";
 
 export const metadata: Metadata = buildBlogMetadata({
@@ -49,6 +50,9 @@ export default function FabricaDeProgramadoresBlogPage() {
         <Button asChild variant="outline" size="lg">
           <Link href="/">Volver al inicio</Link>
         </Button>
+      </div>
+      <div className="mt-12">
+        <ShareButtons slug="fabrica-de-programadores" title="Fábrica de Programadores" />
       </div>
     </main>
     </InternalLayout>

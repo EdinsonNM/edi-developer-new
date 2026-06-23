@@ -4,6 +4,7 @@ import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import { ExternalLink } from "lucide-react";
 import { InternalLayout } from "@/presentation/components/internal/InternalLayout";
+import { ShareButtons } from "@/presentation/components/blog/ShareButtons";
 import { buildBlogMetadata } from "../blog-metadata";
 
 export const metadata: Metadata = buildBlogMetadata({
@@ -303,6 +304,9 @@ export default function ElProgramadorAumentadoBlogPage() {
             <ExternalLink className="h-5 w-5 shrink-0" aria-hidden />
           </a>
         </aside>
+      </div>
+      <div className="mt-12">
+        <ShareButtons slug="el-programador-aumentado" title="El Programador Aumentado" />
       </div>
     </main>
     </InternalLayout>

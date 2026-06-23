@@ -3,6 +3,7 @@ import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Calendar, Clock, User, Tag } from "lucide-react";
 import { InternalLayout } from "@/presentation/components/internal/InternalLayout";
+import { ShareButtons } from "@/presentation/components/blog/ShareButtons";
 import { buildBlogMetadata } from "../blog-metadata";
 
 export const metadata: Metadata = buildBlogMetadata({
@@ -598,6 +599,9 @@ export default function InterfacesGenerativasLlmBlogPage() {
             </div>
           </div>
         </aside>
+      </div>
+      <div className="mt-12">
+        <ShareButtons slug="interfaces-generativas-llm" title="Interfaces que se generan solas: el futuro de la UX con LLMs" />
       </div>
     </main>
     </InternalLayout>

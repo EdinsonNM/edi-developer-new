@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { InternalLayout } from "@/presentation/components/internal/InternalLayout";
+import { ShareButtons } from "@/presentation/components/blog/ShareButtons";
 import { buildBlogMetadata } from "../blog-metadata";
 
 export const metadata: Metadata = buildBlogMetadata({
@@ -218,6 +219,13 @@ export default function BuscarTrabajoEn2026BlogPage() {
           <p>Tal vez sea el punto exacto donde comienza algo más grande.</p>
         </section>
       </article>
+
+      <div className="mt-12">
+        <ShareButtons
+          slug="buscar-trabajo-en-2026"
+          title="Mucha experiencia, cero respuestas: lo que nadie te dice sobre buscar trabajo en 2026"
+        />
+      </div>
 
       <div className="mt-10">
         <Button asChild variant="outline" size="lg">

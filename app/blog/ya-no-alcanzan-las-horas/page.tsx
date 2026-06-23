@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { InternalLayout } from "@/presentation/components/internal/InternalLayout";
+import { ShareButtons } from "@/presentation/components/blog/ShareButtons";
 import { buildBlogMetadata } from "../blog-metadata";
 
 export const metadata: Metadata = buildBlogMetadata({
@@ -149,6 +150,13 @@ export default function YaNoAlcanzanLasHorasBlogPage() {
           </p>
           <p>...pero todos sienten.</p>
         </article>
+
+        <div className="mt-12">
+          <ShareButtons
+            slug="ya-no-alcanzan-las-horas"
+            title="La extraña sensación de que ya no alcanzan las horas para todas las ideas"
+          />
+        </div>
 
         <div className="mt-10">
           <Button asChild variant="outline" size="lg">
