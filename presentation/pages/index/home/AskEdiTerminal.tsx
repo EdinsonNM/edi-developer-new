@@ -171,20 +171,36 @@ export default function AskEdiTerminal({ lang, term }: { lang: Lang; term: HomeC
           </div>
         )}
 
-        <div className="mt-[18px] flex items-center gap-2">
+        <form
+          className="mt-[18px] flex items-center gap-2"
+          onSubmit={(e) => {
+            e.preventDefault();
+            send(input);
+          }}
+        >
           <Prompt />
           <input
             ref={inputRef}
             value={input}
             disabled={loading}
             onChange={(e) => setInput(e.target.value)}
-            onKeyDown={(e) => { if (e.key === "Enter") { e.preventDefault(); send(input); } }}
             placeholder={term.placeholder}
             aria-label={term.aria}
+            enterKeyHint="send"
             className="hm-term-input flex-1 min-w-0 bg-transparent border-none outline-none text-[#FAFAF9] text-[13.5px] cursor-text"
             style={{ caretColor: "#FAFAF9" }}
           />
-        </div>
+          <button
+            type="submit"
+            disabled={loading || !input.trim()}
+            aria-label={term.sendAria}
+            className="md:hidden shrink-0 flex items-center justify-center h-7 w-7 rounded-[7px] border border-[#27C93F]/35 bg-[#27C93F]/10 text-[#27C93F] disabled:opacity-35 disabled:pointer-events-none active:bg-[#27C93F]/20 transition-colors"
+          >
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.25" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
+              <path d="M12 19V5M5 12l7-7 7 7" />
+            </svg>
+          </button>
+        </form>
       </div>
     </div>
   );
