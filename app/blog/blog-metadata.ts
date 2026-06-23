@@ -1,14 +1,17 @@
 import type { Metadata } from "next";
 
 const SITE_URL = "https://edi-developer.dev";
-/** Imagen OG por defecto cuando un blog aún no tiene la suya. */
-const DEFAULT_OG_IMAGE = "/brand/og.jpg?v=2026";
 
 interface BlogMetadataInput {
   title: string;
   description: string;
   slug: string;
-  /** Ruta de la imagen para compartir (Open Graph / Twitter). Ej: "/blog/mi-post.png" */
+  /**
+   * Override opcional de la imagen para compartir. Por defecto se usa la
+   * versión optimizada generada por convención: `/blog/<slug>-og.jpg`
+   * (1200px de ancho, JPG ligero < 300 KB para que el preview cargue en
+   * todas las redes, incluido WhatsApp).
+   */
   image?: string;
 }
 
@@ -23,7 +26,7 @@ export function buildBlogMetadata({
   image,
 }: BlogMetadataInput): Metadata {
   const url = `${SITE_URL}/blog/${slug}`;
-  const ogImage = image ?? DEFAULT_OG_IMAGE;
+  const ogImage = image ?? `/blog/${slug}-og.jpg`;
 
   return {
     title,
@@ -35,7 +38,7 @@ export function buildBlogMetadata({
       siteName: "Edi Developer",
       title,
       description,
-      images: [{ url: ogImage, width: 1200, height: 630, alt: title }],
+      images: [{ url: ogImage, alt: title }],
       locale: "es_PE",
     },
     twitter: {

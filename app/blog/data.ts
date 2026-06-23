@@ -23,7 +23,7 @@ export const blogPosts: BlogPost[] = [
       "Solving a problem is just the starting point. A reflection on building software with intention and on how an experience makes people feel.",
     date: "2026-06",
     category: "Reflexión",
-    image: "/blog/ingenieria-con-intencion.png",
+    image: "/blog/ingenieria-con-intencion-og.jpg",
     featured: true,
   },
   {
@@ -38,7 +38,7 @@ export const blogPosts: BlogPost[] = [
       "A reflection on creating with AI not as a product or a goal, but as a companion for exploration: moving from 'how do I build this?' to 'what do I want the person using it to feel?'.",
     date: "2026-06",
     category: "Reflexión",
-    image: "/blog/ya-no-alcanzan-las-horas.png",
+    image: "/blog/ya-no-alcanzan-las-horas-og.jpg",
     featured: true,
   },
   {
@@ -53,7 +53,7 @@ export const blogPosts: BlogPost[] = [
       "Reflection on job hunting in 2026: changing markets, long processes, intermediate English, and the decision to evolve with AI and projects like Gravion.",
     date: "2026-02",
     category: "Reflexión",
-    image: "/blog/mucha-experiencia-cero-respuestas.png",
+    image: "/blog/buscar-trabajo-en-2026-og.jpg",
     featured: true,
   },
   {
@@ -66,7 +66,7 @@ export const blogPosts: BlogPost[] = [
       "Generative UI: how LLMs are changing UX. Research on dynamic widgets, Widget Registry, and opportunities in Peru and Latin America.",
     date: "2025-01",
     category: "Investigación",
-    image: "/blog/interfaces-que-se-geenran-solas.png",
+    image: "/blog/interfaces-generativas-llm-og.jpg",
     featured: true,
   },
   {

@@ -11,7 +11,6 @@ export const metadata: Metadata = buildBlogMetadata({
     "Mucha experiencia, cero respuestas: lo que nadie te dice sobre buscar trabajo en 2026",
   description:
     "Reflexión sobre buscar trabajo en 2026: mercados cambiantes, procesos largos, inglés intermedio y la decisión de evolucionar con IA y proyectos como Gravion.",
-  image: "/blog/mucha-experiencia-cero-respuestas.png",
 });
 
 export default function BuscarTrabajoEn2026BlogPage() {

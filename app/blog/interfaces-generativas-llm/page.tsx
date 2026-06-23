@@ -11,7 +11,6 @@ export const metadata: Metadata = buildBlogMetadata({
   title: "Interfaces que se generan solas: el futuro de la UX con LLMs",
   description:
     "Generative UI: cómo los Large Language Models están cambiando el diseño de interfaces. Investigación, stack tecnológica y oportunidades en Perú y Latinoamérica.",
-  image: "/blog/interfaces-que-se-geenran-solas.png",
 });
 
 const TAGS = [

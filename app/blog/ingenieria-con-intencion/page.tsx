@@ -10,7 +10,6 @@ export const metadata: Metadata = buildBlogMetadata({
   title: "Ingeniería con intención",
   description:
     "Resolver un problema es solo el punto de partida. Una reflexión sobre construir software pensando en la intención y en cómo una experiencia hace sentir a las personas.",
-  image: "/blog/ingenieria-con-intencion.png",
 });
 
 export default function IngenieriaConIntencionBlogPage() {

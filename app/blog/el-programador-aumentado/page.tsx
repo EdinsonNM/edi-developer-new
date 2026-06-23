@@ -12,7 +12,6 @@ export const metadata: Metadata = buildBlogMetadata({
   title: "El Programador Aumentado",
   description:
     "Cómo pasar del vibe coding al desarrollo asistido por IA con intención, contexto y criterio profesional.",
-  image: "/cover.png",
 });
 
 export default function ElProgramadorAumentadoBlogPage() {

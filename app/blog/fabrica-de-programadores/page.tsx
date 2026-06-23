@@ -10,7 +10,6 @@ export const metadata: Metadata = buildBlogMetadata({
   title: "Fábrica de Programadores",
   description:
     "Un cuento para inspirar a niños y niñas a explorar la creatividad, la lógica y el pensamiento tecnológico.",
-  image: "/cuentos/Zorrito en la fábrica de programadores.webp",
 });
 
 export default function FabricaDeProgramadoresBlogPage() {
