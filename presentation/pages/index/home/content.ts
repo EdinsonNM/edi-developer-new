@@ -16,7 +16,7 @@ const BLOG_CATEGORY_LABELS: Record<string, { es: string; en: string }> = {
 /** Los 3 blogs más recientes, derivados de la fuente única (app/blog/data). */
 function latestBlogPosts(es: boolean) {
   return [...blogPosts]
-    .sort((a, b) => (b.date > a.date ? 1 : -1))
+    .sort((a, b) => b.date.localeCompare(a.date))
     .slice(0, 3)
     .map((p) => {
       const label =

@@ -14,6 +14,19 @@ export interface BlogPost {
 
 export const blogPosts: BlogPost[] = [
   {
+    slug: "ingenieria-con-intencion",
+    titleEs: "Ingeniería con intención",
+    titleEn: "Engineering with intention",
+    descriptionEs:
+      "Resolver un problema es solo el punto de partida. Una reflexión sobre construir software pensando en la intención y en cómo una experiencia hace sentir a las personas.",
+    descriptionEn:
+      "Solving a problem is just the starting point. A reflection on building software with intention and on how an experience makes people feel.",
+    date: "2026-06",
+    category: "Reflexión",
+    image: "/blog/ingenieria-con-intencion.png",
+    featured: true,
+  },
+  {
     slug: "ya-no-alcanzan-las-horas",
     titleEs:
       "La extraña sensación de que ya no alcanzan las horas para todas las ideas",
@@ -87,4 +100,4 @@ export const blogPosts: BlogPost[] = [
 /** Posts destacados para la sección de inicio (orden: más recientes primero). */
 export const featuredBlogPosts = blogPosts
   .filter((p) => p.featured)
-  .sort((a, b) => (b.date > a.date ? 1 : -1));
+  .sort((a, b) => b.date.localeCompare(a.date));

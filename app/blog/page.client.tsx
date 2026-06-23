@@ -20,7 +20,7 @@ function formatDate(date: string, es: boolean): string {
 export function BlogPageClient() {
   const { language } = useI18n();
   const es = language === "es";
-  const sorted = [...blogPosts].sort((a, b) => (b.date > a.date ? 1 : -1));
+  const sorted = [...blogPosts].sort((a, b) => b.date.localeCompare(a.date));
   const [featured, ...rest] = sorted;
 
   const title = (p: BlogPost) => (es ? p.titleEs : p.titleEn);
