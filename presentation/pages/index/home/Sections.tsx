@@ -13,10 +13,9 @@ const SOLID_BTN = "hm-btn-solid inline-flex items-center gap-2.5 rounded-[10px] 
 const GHOST_BTN = "hm-btn-ghost inline-flex items-center gap-2.5 font-medium border border-white/[.16] text-[#FAFAF9]";
 
 /* ===================== 01 HERO ===================== */
-export function Hero({ t, canvasRef }: { t: T["hero"]; canvasRef: RefObject<HTMLCanvasElement | null> }) {
+export function Hero({ t }: { t: T["hero"] }) {
   return (
     <header id="inicio" data-section-el="inicio" className="hm-hero relative min-h-screen overflow-hidden flex items-center">
-      <canvas ref={canvasRef} className="absolute inset-0 z-0 block h-full w-full" />
       <div className="mono edge-readout absolute right-[clamp(20px,3vw,40px)] top-[42%] -translate-y-1/2 [writing-mode:vertical-rl] text-[11px] tracking-[.3em] text-[#3c3c42] z-[2]">
         EDI-DEVELOPER.DEV · 2026
       </div>

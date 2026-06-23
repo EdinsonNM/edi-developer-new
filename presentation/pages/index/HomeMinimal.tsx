@@ -10,7 +10,7 @@ import "./home/home.css";
 export default function HomeMinimal() {
   const { lang, setLanguage, t, sections } = useHomeContent();
   const {
-    rootRef, canvasRef, dotRef, ringRef, clockRef,
+    rootRef, dotRef, ringRef, clockRef,
     hwrapRef, htrackRef, hProgRef, videoRef,
   } = useHomeEffects(lang);
 
@@ -24,7 +24,7 @@ export default function HomeMinimal() {
       <SideIndex sections={sections} />
       <Navbar lang={lang} setLanguage={setLanguage} clockRef={clockRef} />
 
-      <Hero t={t.hero} canvasRef={canvasRef} />
+      <Hero t={t.hero} />
       <Products t={t.products} hwrapRef={hwrapRef} htrackRef={htrackRef} hProgRef={hProgRef} />
       <Resources t={t.resources} />
       <About t={t.about} lang={lang} />

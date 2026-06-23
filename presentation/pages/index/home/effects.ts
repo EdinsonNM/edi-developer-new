@@ -3,15 +3,14 @@
 import { useEffect, useRef } from "react";
 
 /**
- * Toda la lógica imperativa del landing: grid en perspectiva (canvas),
- * cursor custom, reveals on-scroll, video de fondo con scrubbing suavizado,
- * sección activa, scroll horizontal anclado, botones magnéticos, reloj y contadores.
+ * Toda la lógica imperativa del landing: cursor custom, reveals on-scroll,
+ * video de fondo con scrubbing suavizado, sección activa, scroll horizontal
+ * anclado, botones magnéticos, reloj y contadores.
  * Trabaja por atributos data-* dentro de `rootRef`, así que las secciones solo
  * necesitan declararlos en su markup.
  */
 export function useHomeEffects(lang: string) {
   const rootRef = useRef<HTMLDivElement>(null);
-  const canvasRef = useRef<HTMLCanvasElement>(null);
   const dotRef = useRef<HTMLDivElement>(null);
   const ringRef = useRef<HTMLDivElement>(null);
   const clockRef = useRef<HTMLSpanElement>(null);
@@ -26,59 +25,6 @@ export function useHomeEffects(lang: string) {
     const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     const q = (sel: string) => Array.from(root.querySelectorAll<HTMLElement>(sel));
     const cleanups: Array<() => void> = [];
-
-    /* ---------- canvas: grid en perspectiva monocromo ---------- */
-    let raf = 0;
-    const canvas = canvasRef.current;
-    const ctx = canvas?.getContext("2d") ?? null;
-    const mouse = { x: 0.5, y: 0.5, tx: 0.5, ty: 0.5 };
-    let cw = 0, ch = 0;
-    const resizeCanvas = () => {
-      if (!canvas || !ctx) return;
-      const dpr = Math.min(window.devicePixelRatio || 1, 2);
-      cw = canvas.clientWidth; ch = canvas.clientHeight;
-      canvas.width = cw * dpr; canvas.height = ch * dpr;
-      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-    };
-    const drawFrame = (time: number) => {
-      if (!ctx) return;
-      ctx.clearRect(0, 0, cw, ch);
-      mouse.x += (mouse.tx - mouse.x) * 0.04;
-      mouse.y += (mouse.ty - mouse.y) * 0.04;
-      const px = mouse.x - 0.5, py = mouse.y - 0.5;
-      const drift = reduced ? 0 : Math.sin(time * 0.15) * 0.01;
-      ctx.save();
-      ctx.lineWidth = 1;
-      const horizon = ch * (0.66 + py * 0.04), vanX = cw * (0.5 + px * 0.12 + drift);
-      for (let i = -12; i <= 12; i++) {
-        const fx = vanX + (i / 12) * cw * 1.5;
-        ctx.strokeStyle = "rgba(255,255,255," + (0.05 - (Math.abs(i) / 12) * 0.035) + ")";
-        ctx.beginPath(); ctx.moveTo(vanX, horizon); ctx.lineTo(fx, ch); ctx.stroke();
-      }
-      for (let j = 1; j <= 9; j++) {
-        const yy = horizon + Math.pow(j / 9, 2.3) * (ch - horizon);
-        ctx.strokeStyle = "rgba(255,255,255," + 0.06 * (1 - j / 10) + ")";
-        ctx.beginPath(); ctx.moveTo(0, yy); ctx.lineTo(cw, yy); ctx.stroke();
-      }
-      ctx.restore();
-    };
-    if (canvas && ctx) {
-      resizeCanvas();
-      const onMove = (e: MouseEvent) => {
-        const rect = canvas.getBoundingClientRect();
-        mouse.tx = (e.clientX - rect.left) / rect.width;
-        mouse.ty = (e.clientY - rect.top) / rect.height;
-      };
-      canvas.parentElement?.addEventListener("mousemove", onMove);
-      cleanups.push(() => canvas.parentElement?.removeEventListener("mousemove", onMove));
-      if (reduced) {
-        drawFrame(0);
-      } else {
-        const t0 = performance.now();
-        const loop = (t: number) => { drawFrame((t - t0) / 1000); raf = requestAnimationFrame(loop); };
-        raf = requestAnimationFrame(loop);
-      }
-    }
 
     /* ---------- cursor custom ---------- */
     let curRaf = 0;
@@ -264,7 +210,7 @@ export function useHomeEffects(lang: string) {
       updateHorizontal();
     };
     window.addEventListener("scroll", onScroll, { passive: true });
-    const onResize = () => { resizeCanvas(); updateHorizontal(); };
+    const onResize = () => { updateHorizontal(); };
     window.addEventListener("resize", onResize);
     onScroll();
 
@@ -322,7 +268,6 @@ export function useHomeEffects(lang: string) {
     countEls.forEach((e) => countIo.observe(e));
 
     return () => {
-      cancelAnimationFrame(raf);
       cancelAnimationFrame(curRaf);
       cancelAnimationFrame(videoRaf);
       if (clockTimer) clearInterval(clockTimer);
@@ -334,5 +279,5 @@ export function useHomeEffects(lang: string) {
     };
   }, [lang]);
 
-  return { rootRef, canvasRef, dotRef, ringRef, clockRef, hwrapRef, htrackRef, hProgRef, videoRef };
+  return { rootRef, dotRef, ringRef, clockRef, hwrapRef, htrackRef, hProgRef, videoRef };
 }
