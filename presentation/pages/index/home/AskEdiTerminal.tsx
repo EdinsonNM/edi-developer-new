@@ -153,7 +153,7 @@ export default function AskEdiTerminal({ lang, term }: { lang: Lang; term: HomeC
       </div>
       <div
         ref={bodyRef}
-        className="mono p-6 text-[13.5px] leading-[1.8] min-h-[250px] max-h-[340px] overflow-y-auto cursor-text"
+        className="mono hm-term-scroll p-6 text-[13.5px] leading-[1.8] min-h-[250px] max-h-[340px] overflow-y-auto cursor-text"
         onClick={() => inputRef.current?.focus()}
       >
         <div className="text-[#5a5a60]"># {term.comment}</div>

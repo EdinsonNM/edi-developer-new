@@ -146,24 +146,6 @@ body,
   width: 100%;
 }
 
-::-webkit-scrollbar {
-  width: 8px;
-}
-
-::-webkit-scrollbar-track {
-  background: rgba(255, 255, 255, 0.8);
-}
-
-::-webkit-scrollbar-thumb {
-  background-color: rgba(0, 0, 0, 0.2);
-  border-radius: 6px;
-  border: 3px solid rgba(0, 0, 0, 0.05);
-}
-
-::-webkit-scrollbar-thumb:hover {
-  background-color: rgba(0, 0, 0, 0.35);
-}
-
 @keyframes float-y {
   0% { transform: translateY(0); }
   50% { transform: translateY(-20px); }
@@ -261,4 +243,41 @@ body,
   html {
     @apply font-sans;
   }
+}
+
+/* Scrollbars — paleta landing (después de @layer base para ganar cascada) */
+html,
+body {
+  scrollbar-width: thin;
+  scrollbar-color: #6b6b70 #1a1a1c;
+}
+
+html::-webkit-scrollbar,
+body::-webkit-scrollbar {
+  width: 11px;
+  height: 11px;
+}
+
+html::-webkit-scrollbar-track,
+body::-webkit-scrollbar-track {
+  background: rgba(16, 16, 18, 0.92);
+  border-left: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+html::-webkit-scrollbar-thumb,
+body::-webkit-scrollbar-thumb {
+  background-color: #5a5a60;
+  border-radius: 999px;
+  border: 2px solid rgba(16, 16, 18, 0.92);
+  background-clip: padding-box;
+}
+
+html::-webkit-scrollbar-thumb:hover,
+body::-webkit-scrollbar-thumb:hover {
+  background-color: #9b9ba1;
+}
+
+html::-webkit-scrollbar-corner,
+body::-webkit-scrollbar-corner {
+  background: transparent;
 }
