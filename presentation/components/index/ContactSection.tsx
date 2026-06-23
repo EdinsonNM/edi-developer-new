@@ -12,9 +12,10 @@ import { Send, CheckCircle2, AlertCircle } from "lucide-react";
 import { useState } from "react";
 import { useI18n } from "@/presentation/utils/use-i18n";
 import { FORMSPREE_URL } from "@/lib/site-config";
+import { contactAnalytics } from "@/lib/analytics";
 
 export function ContactSection() {
-  const { t } = useI18n();
+  const { t, language } = useI18n();
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -30,6 +31,15 @@ export function ContactSection() {
     setIsSubmitting(true);
     setSubmitStatus("idle");
 
+    const messageLength = formData.message.trim().length;
+    contactAnalytics.submit({
+      language,
+      formVariant: "legacy",
+      messageLength,
+    });
+
+    const startedAt = performance.now();
+
     try {
       const response = await fetch(FORMSPREE_URL, {
         method: "POST",
@@ -41,16 +51,33 @@ export function ContactSection() {
       });
 
       if (response.ok) {
+        contactAnalytics.success({
+          language,
+          formVariant: "legacy",
+          messageLength,
+          durationMs: Math.round(performance.now() - startedAt),
+        });
         setSubmitStatus("success");
         setFormData({ name: "", email: "", message: "" });
         // Resetear el mensaje de éxito después de 5 segundos
         setTimeout(() => setSubmitStatus("idle"), 5000);
       } else {
+        contactAnalytics.error({
+          language,
+          formVariant: "legacy",
+          errorType: "server",
+          statusCode: response.status,
+        });
         setSubmitStatus("error");
         // Resetear el mensaje de error después de 5 segundos
         setTimeout(() => setSubmitStatus("idle"), 5000);
       }
-    } catch (error) {
+    } catch {
+      contactAnalytics.error({
+        language,
+        formVariant: "legacy",
+        errorType: "network",
+      });
       setSubmitStatus("error");
       // Resetear el mensaje de error después de 5 segundos
       setTimeout(() => setSubmitStatus("idle"), 5000);

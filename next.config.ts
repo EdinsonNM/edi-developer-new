@@ -20,7 +20,7 @@ const securityHeaders = [
       "style-src 'self' 'unsafe-inline'",
       "img-src 'self' data: https: blob:",
       "font-src 'self' data:",
-      "connect-src 'self' https://www.google-analytics.com https://formspree.io",
+      "connect-src 'self' https://www.google-analytics.com https://region1.google-analytics.com https://formspree.io",
       "media-src 'self'",
       "frame-ancestors 'none'",
       "base-uri 'self'",

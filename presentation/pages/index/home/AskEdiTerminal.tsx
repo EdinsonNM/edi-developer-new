@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import type { HomeContent, Lang } from "./content";
+import { chatAnalytics } from "@/lib/analytics";
 
 type Turn = { role: "user" | "model"; text: string };
 
@@ -31,9 +32,18 @@ export default function AskEdiTerminal({ lang, term }: { lang: Lang; term: HomeC
     if (bodyRef.current) bodyRef.current.scrollTop = bodyRef.current.scrollHeight;
   }, [turns, loading]);
 
-  const send = async (raw: string) => {
+  const send = async (raw: string, source: "chip" | "input" = "input") => {
     const text = raw.trim();
     if (!text || loading) return;
+    const turnIndex = Math.floor(turns.length / 2) + 1;
+    chatAnalytics.messageSent({
+      language: lang,
+      source,
+      messageLength: text.length,
+      turnIndex,
+    });
+
+    const startedAt = performance.now();
     setInput("");
     const history = turns;
     setTurns((p) => [...p, { role: "user", text }]);
@@ -53,6 +63,18 @@ export default function AskEdiTerminal({ lang, term }: { lang: Lang; term: HomeC
       // error (no streaming): el servidor responde JSON con { error }
       if (!res.ok || !res.body) {
         const data = await res.json().catch(() => null);
+        const errorType =
+          res.status === 429
+            ? "rate_limit"
+            : res.status === 400
+              ? "validation"
+              : "server";
+        chatAnalytics.responseError({
+          language: lang,
+          errorType,
+          statusCode: res.status,
+          turnIndex,
+        });
         setTurns((p) => [...p, { role: "model", text: data?.error || term.noResponse }]);
         return;
       }
@@ -81,9 +103,27 @@ export default function AskEdiTerminal({ lang, term }: { lang: Lang; term: HomeC
         }
       }
       if (!started) {
+        chatAnalytics.responseError({
+          language: lang,
+          errorType: "empty",
+          turnIndex,
+        });
         setTurns((p) => [...p, { role: "model", text: term.noResponse }]);
+        return;
       }
+
+      chatAnalytics.responseSuccess({
+        language: lang,
+        responseLength: acc.length,
+        durationMs: Math.round(performance.now() - startedAt),
+        turnIndex,
+      });
     } catch {
+      chatAnalytics.responseError({
+        language: lang,
+        errorType: "network",
+        turnIndex,
+      });
       setTurns((p) => [...p, { role: "model", text: term.connError }]);
     } finally {
       setLoading(false);
@@ -124,7 +164,7 @@ export default function AskEdiTerminal({ lang, term }: { lang: Lang; term: HomeC
         {turns.length === 0 && !loading && (
           <div className="flex flex-wrap gap-2 mt-5">
             {term.chips.map((c, i) => (
-              <button key={i} data-hov onClick={() => send(c)} className="hm-pill text-[11px] px-3 py-[7px] rounded-full border border-white/[.14] bg-transparent text-[#9B9BA1] cursor-none">
+              <button key={i} data-hov onClick={() => send(c, "chip")} className="hm-pill text-[11px] px-3 py-[7px] rounded-full border border-white/[.14] bg-transparent text-[#9B9BA1] cursor-none">
                 {c}
               </button>
             ))}

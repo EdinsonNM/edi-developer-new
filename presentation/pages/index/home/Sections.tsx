@@ -4,6 +4,8 @@ import { useState, type RefObject } from "react";
 import type { HomeContent, Lang } from "./content";
 import AskEdiTerminal from "./AskEdiTerminal";
 import { FORMSPREE_URL } from "@/lib/site-config";
+import { contactAnalytics } from "@/lib/analytics";
+import { useI18n } from "@/presentation/utils/use-i18n";
 
 type T = HomeContent["t"];
 const CONTAINER = "max-w-[1280px] mx-auto";
@@ -270,6 +272,7 @@ export function Academy({ t }: { t: T["academy"] }) {
 
 /* ===================== 09 CONTACTO ===================== */
 export function Contact({ t }: { t: T["contact"] }) {
+  const { language } = useI18n();
   const field = "hm-field w-full mt-2 px-3.5 py-[13px] rounded-[10px] border border-white/10 bg-[#0A0A0B]/50 text-[#FAFAF9] text-[15px] outline-none cursor-text";
   const [formData, setFormData] = useState({ name: "", email: "", message: "" });
   const [status, setStatus] = useState<"idle" | "sending" | "success" | "error">("idle");
@@ -277,6 +280,15 @@ export function Contact({ t }: { t: T["contact"] }) {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (status === "sending") return;
+
+    const messageLength = formData.message.trim().length;
+    contactAnalytics.submit({
+      language,
+      formVariant: "home_minimal",
+      messageLength,
+    });
+
+    const startedAt = performance.now();
     setStatus("sending");
     try {
       const res = await fetch(FORMSPREE_URL, {
@@ -285,14 +297,31 @@ export function Contact({ t }: { t: T["contact"] }) {
         body: JSON.stringify(formData),
       });
       if (res.ok) {
+        contactAnalytics.success({
+          language,
+          formVariant: "home_minimal",
+          messageLength,
+          durationMs: Math.round(performance.now() - startedAt),
+        });
         setFormData({ name: "", email: "", message: "" });
         setStatus("success");
         setTimeout(() => setStatus("idle"), 5000);
       } else {
+        contactAnalytics.error({
+          language,
+          formVariant: "home_minimal",
+          errorType: "server",
+          statusCode: res.status,
+        });
         setStatus("error");
         setTimeout(() => setStatus("idle"), 5000);
       }
     } catch {
+      contactAnalytics.error({
+        language,
+        formVariant: "home_minimal",
+        errorType: "network",
+      });
       setStatus("error");
       setTimeout(() => setStatus("idle"), 5000);
     }
