@@ -10,8 +10,7 @@ export const metadata: Metadata = buildBlogMetadata({
     "La extraña sensación de que ya no alcanzan las horas para todas las ideas",
   description:
     "Una reflexión sobre crear con IA no como producto ni objetivo, sino como compañera de exploración: pasar de '¿cómo construyo esto?' a '¿qué quiero que sienta quien lo use?'.",
-  // TODO: reemplazar por la imagen propia del blog cuando esté lista,
-  // ej: image: "/blog/ya-no-alcanzan-las-horas.png"
+  image: "/blog/ya-no-alcanzan-las-horas.png",
 });
 
 export default function YaNoAlcanzanLasHorasBlogPage() {
