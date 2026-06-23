@@ -6,6 +6,8 @@ export interface BlogPost {
   descriptionEn: string;
   date: string;
   category: string;
+  /** Imagen de portada / para compartir (Open Graph). */
+  image?: string;
   /** Cantidad máxima a mostrar en la sección de inicio (los más relevantes). */
   featured?: boolean;
 }
@@ -23,6 +25,7 @@ export const blogPosts: BlogPost[] = [
       "A reflection on creating with AI not as a product or a goal, but as a companion for exploration: moving from 'how do I build this?' to 'what do I want the person using it to feel?'.",
     date: "2026-06",
     category: "Reflexión",
+    image: "/blog/ya-no-alcanzan-las-horas.png",
     featured: true,
   },
   {
@@ -37,6 +40,7 @@ export const blogPosts: BlogPost[] = [
       "Reflection on job hunting in 2026: changing markets, long processes, intermediate English, and the decision to evolve with AI and projects like Gravion.",
     date: "2026-02",
     category: "Reflexión",
+    image: "/blog/mucha-experiencia-cero-respuestas.png",
     featured: true,
   },
   {
@@ -49,6 +53,7 @@ export const blogPosts: BlogPost[] = [
       "Generative UI: how LLMs are changing UX. Research on dynamic widgets, Widget Registry, and opportunities in Peru and Latin America.",
     date: "2025-01",
     category: "Investigación",
+    image: "/blog/interfaces-que-se-geenran-solas.png",
     featured: true,
   },
   {
@@ -61,6 +66,7 @@ export const blogPosts: BlogPost[] = [
       "Move beyond vibe coding and adopt AI-assisted development with intention, context, and professional judgment.",
     date: "2024-12",
     category: "Libro",
+    image: "/cover.png",
     featured: true,
   },
   {
@@ -73,6 +79,7 @@ export const blogPosts: BlogPost[] = [
       "An illustrated story that introduces children to the world of programming in a fun, tender, and approachable way.",
     date: "2024-11",
     category: "Cuento infantil",
+    image: "/cuentos/Zorrito en la fábrica de programadores.webp",
     featured: false,
   },
 ];
