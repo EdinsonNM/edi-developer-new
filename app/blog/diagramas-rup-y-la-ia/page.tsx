@@ -11,6 +11,7 @@ export const metadata: Metadata = buildBlogMetadata({
   title: "¿Y si los diagramas RUP no estaban muertos, sino esperando a la IA?",
   description:
     "Durante años los diagramas RUP y UML quedaron en el olvido por lo costoso de mantenerlos. Una reflexión sobre cómo la IA puede convertirlos en documentación viva: el puente entre la intención humana y la construcción de software con Gravion.",
+  image: "/blog/diagramas-rup-y-la-ia-cover.jpg",
 });
 
 export default function DiagramasRupYLaIaBlogPage() {
